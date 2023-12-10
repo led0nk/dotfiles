@@ -31,8 +31,8 @@ bindkey "^R" history-incremental-pattern-search-backward
 bindkey '^[[Z' autosuggest-accept
 alias eo=emacsclient -c -n $@
 alias en=emacsclient -n $@
-alias ls="ls -la"
-alias ll="exa -abghHlS"
+alias ls="eza -la"
+alias ll="eza -abghHlS"
 alias open=xdg-open
 
 ## case-insensitive (uppercase from lowercase) completion
