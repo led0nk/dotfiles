@@ -1,5 +1,6 @@
 #! /usr/bin/bash
 
+#set repository-path
 export PATH=~/git/repo/
 
 #create directories
@@ -16,3 +17,8 @@ git clone git@github.com:led0nk/images.git $PATH/repo/images
 ln -s $PATH/dotfiles/zsh/.zshrc ~/.zshrc
 ln -s $PATH/dotfiles/zsh/.p10k.zsh ~/.p10k.zsh
 ln -s $PATH/dotfiles/gitconfig/.gitconfig ~/.gitconfig
+
+#install zplug + extensions
+curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+zsh
+zplug install
