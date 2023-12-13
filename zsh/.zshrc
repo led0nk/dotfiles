@@ -34,6 +34,8 @@ alias en=emacsclient -n $@
 alias ls="eza -la"
 alias ll="eza -abghHlS"
 alias open=xdg-open
+alias firefox="flatpak run org.mozilla.firefox"
+alias signal="flatpak run org.signal.Signal"
 
 ## case-insensitive (uppercase from lowercase) completion
 # zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
