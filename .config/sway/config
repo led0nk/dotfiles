@@ -36,7 +36,8 @@ output DP-1 {
 output DP-2 {
    # ...config options...
    mode 1920x1080@60.000Hz
-   pos 3440 420
+   pos -1080 -360
+   #pos 3440 420
    transform 270
    bg /usr/share/backgrounds/default.png fill
    scale 1
