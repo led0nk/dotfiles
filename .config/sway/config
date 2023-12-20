@@ -159,16 +159,16 @@ bindsym XF86MonBrightnessDown exec light -U 5
 #
 # Workspaces:
 #
-    set $workspace1 "1: Main" 
-    set $workspace2 "2: Game" 
-    set $workspace3 "3: Steam"
-    set $workspace4 "4: "
-    set $workspace5 "5: "
-    set $workspace6 "6: Chats"
-    set $workspace7 "7: [7] Free"
-    set $workspace8 "8: [8] Free"
-    set $workspace9 "9: BG" 
-    set $workspace10 "10: Music" 
+    set $workspace1 "01: 01" 
+    set $workspace2 "02: 02" 
+    set $workspace3 "03: 03"
+    set $workspace4 "04: 04"
+    set $workspace5 "05: 05"
+    set $workspace6 "06: 06"
+    set $workspace7 "07: 07"
+    set $workspace8 "08: 08"
+    set $workspace9 "09: 09" 
+    set $workspace10 "10: 10" 
 
     # switch to workspace
     bindsym $mod+1 workspace $workspace1
