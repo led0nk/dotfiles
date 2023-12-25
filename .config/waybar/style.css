@@ -14,8 +14,10 @@ window#waybar {
 }
 #custom-right-arrow-light,
 #custom-left-arrow-light {
+
 	color: #292b2e;
 	background: #1a1a1a;
+	
 }
 
 #workspaces,
@@ -26,8 +28,14 @@ window#waybar {
 #memory,
 #cpu,
 #battery,
+#privacy,
 #disk,
-#tray {
+#network,
+#custom-power,
+#custom-exit,
+#custom-reboot,
+#tray
+ {
 	background: #1a1a1a;
 	padding: 0 10px
 }
@@ -39,14 +47,14 @@ window#waybar {
 #workspaces button.focused {
 	color: #268bd2;
 }
+
 #workspaces button:hover {
-	box-shadow: inherit;
-	text-shadow: inherit;
-}
-#workspaces button:hover {
+	color: #66ff00;
 	background: #1a1a1a;
 	border: #1a1a1a;
 	padding: 0 3px;
+	box-shadow: inherit;
+	text-shadow: inherit;
 }
 
 #pulseaudio {
@@ -72,13 +80,4 @@ window#waybar {
 #battery,
 #disk {
 	padding: 0 10px;
-}
-
-#pulseaudio-slider slider {
-	min-height: 0px;
-	min-width: 0px;
-	opacity: 0;
-	background-image: none;
-	border: none;
-	box-shadow: none;
 }
