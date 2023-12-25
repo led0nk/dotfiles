@@ -32,7 +32,7 @@ output DP-1 {
    #adaptive_sync on pos 1080 420
    adaptive_sync on 
    pos 0 0
-   bg /usr/share/backgrounds/default.png fill
+   bg $HOME/backgrounds/background.png fill
    scale 1
 }
 
@@ -42,7 +42,7 @@ output DP-2 {
    #pos -1080 -360
    pos 3440 0
    transform 270
-   bg /usr/share/backgrounds/default.png fill
+   bg $HOME/backgrounds/background.png fill
    scale 1
 }
 
