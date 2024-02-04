@@ -37,6 +37,7 @@ alias open=xdg-open
 alias firefox="flatpak run org.mozilla.firefox"
 alias signal="flatpak run org.signal.Signal"
 
+
 ## case-insensitive (uppercase from lowercase) completion
 # zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 ## case-insensitive (all) completion
@@ -50,7 +51,9 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:
 
 #zplug "plugins/docker-compose", from:oh-my-zsh
 
-
+export GOPATH=/home/$USER/go
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$HOME/.emacs.d/bin
 export LESS_TERMCAP_mb=$'\e[1;32m'
 export LESS_TERMCAP_md=$'\e[1;32m'
 export LESS_TERMCAP_me=$'\e[0m'

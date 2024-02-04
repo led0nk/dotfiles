@@ -1,11 +1,11 @@
 * {
 	font-size: 20px;
-	font-family: monospace;
+	font-family: Roboto;
 }
 
 window#waybar {
-	background: #292b2e;
-	color: #fdf6e3;
+	background: rgba(40, 42, 54, 1);
+	color: #ffffff;
 }
 
 #custom-right-arrow-dark,
@@ -20,10 +20,8 @@ window#waybar {
 	
 }
 
+#clock
 #workspaces,
-#clock.1,
-#clock.2,
-#clock.3,
 #pulseaudio,
 #memory,
 #cpu,
@@ -36,48 +34,93 @@ window#waybar {
 #custom-reboot,
 #tray
  {
-	background: #1a1a1a;
-	padding: 0 10px
+	margin-right: 5px;
+	margin-left: 5px;
 }
 
 #workspaces button {
-	padding: 0 2px;
+	padding: 0 0.3em;
 	color: #fdf6e3;
 }
 #workspaces button.focused {
 	color: #268bd2;
+	border-bottom: 2px solid #bd93f9;
+}
+
+#workspaces button.active {
+	background: rgba(40, 42, 54, 0.9);
+	border-bottom: 2px solid #bd93f9;
 }
 
 #workspaces button:hover {
-	color: #66ff00;
 	background: #1a1a1a;
-	border: #1a1a1a;
-	padding: 0 3px;
+	border-bottom: 2px solid #eadbfd;
+	padding: 0 0.5em;
 	box-shadow: inherit;
 	text-shadow: inherit;
 }
 
+#network {
+	border-bottom: 2px solid white;
+	font-weight: bold;
+}
+
+#clock {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
 #pulseaudio {
 	color: #268bd2;
+	border-bottom: 2px solid #268bd2;
+	font-weight: bold;
 }
 #memory {
-	color: #2aa198;
+	color: rgb(250, 251, 119);
+	border-bottom: 2px solid rgb(250, 251, 119);		
+	font-weight: bold;
 }
 #cpu {
-	color: #6c71c4;
+	color: rgb(250, 135, 135);
+	border-bottom: 2px solid rgb(250, 135, 135);
+	font-weight: bold;
 }
 #battery {
 	color: #859900;
 }
 #disk {
-	color: #b58900;
+	color: rgb(200, 141, 252);
+	border-bottom: 2px solid rgb(200, 141, 252);
+	font-weight: bold;
+}
+#disk.critical {
+	background-color: rgba(40, 42, 54, 1);
+	color: red;
+	animation-name: blink;
+	animation-duration: 0.5s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
 }
 
-#clock,
+
+#custom-weather,
+#custom-notification {
+	margin-right: 10px;
+	margin-left: 10px;
+	font-size: 16px;
+}
+#network,
 #pulseaudio,
 #memory,
 #cpu,
 #battery,
 #disk {
-	padding: 0 10px;
+	font-size: 16px;
+}
+#keyboard-state {
+    color: #000000;
+    padding: 0 0px;
+    margin: 0 5px;
+		font-size: 16px;
 }

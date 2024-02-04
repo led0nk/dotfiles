@@ -263,6 +263,7 @@ default_border none
 exec eval $(gnome-keyring-daemon --start --components=ssh)
 exec export SSH_AUTH_SOCK
 exec waybar
+exec emacs --daemon
 
 exec_always ~/.config/sway/screen.sh
 
