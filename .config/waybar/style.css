@@ -1,27 +1,24 @@
 * {
-	font-size: 20px;
-	font-family: Roboto;
+  font-size: 20px;
+  font-family: Roboto;
 }
 
 window#waybar {
-	background: rgba(40, 42, 54, 1);
-	color: #ffffff;
+  background: rgba(40, 42, 54, 1);
+  color: #ffffff;
 }
 
 #custom-right-arrow-dark,
 #custom-left-arrow-dark {
-	color: #1a1a1a;
+  color: #1a1a1a;
 }
 #custom-right-arrow-light,
 #custom-left-arrow-light {
-
-	color: #292b2e;
-	background: #1a1a1a;
-	
+  color: #292b2e;
+  background: #1a1a1a;
 }
 
-#clock
-#workspaces,
+#clock,
 #pulseaudio,
 #memory,
 #cpu,
@@ -32,83 +29,77 @@ window#waybar {
 #custom-power,
 #custom-exit,
 #custom-reboot,
-#tray
- {
-	margin-right: 5px;
-	margin-left: 5px;
+#tray {
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 #workspaces button {
-	padding: 0 0.3em;
-	color: #fdf6e3;
+  padding: 0 0.3em;
+  color: #fdf6e3;
 }
 #workspaces button.focused {
-	color: #268bd2;
-	border-bottom: 2px solid #bd93f9;
+  border-bottom: 2px solid #bd93f9;
 }
 
 #workspaces button.active {
-	background: rgba(40, 42, 54, 0.9);
-	border-bottom: 2px solid #bd93f9;
+  background: rgba(40, 42, 54, 0.9);
+  border-bottom: 2px solid #bd93f9;
 }
 
 #workspaces button:hover {
-	background: #1a1a1a;
-	border-bottom: 2px solid #eadbfd;
-	padding: 0 0.5em;
-	box-shadow: inherit;
-	text-shadow: inherit;
+  background: rgba(40, 42, 54, 0.9);
+  border-bottom: 2px solid #eadbfd;
 }
 
 #network {
-	border-bottom: 2px solid white;
-	font-weight: bold;
+  border-bottom: 2px solid white;
+  font-weight: bold;
 }
 
 #clock {
-	padding-left: 10px;
-	padding-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 #pulseaudio {
-	color: #268bd2;
-	border-bottom: 2px solid #268bd2;
-	font-weight: bold;
+  color: #268bd2;
+  border-bottom: 2px solid #268bd2;
+  font-weight: bold;
 }
 #memory {
-	color: rgb(250, 251, 119);
-	border-bottom: 2px solid rgb(250, 251, 119);		
-	font-weight: bold;
+  color: rgb(250, 251, 119);
+  border-bottom: 2px solid rgb(250, 251, 119);
+  font-weight: bold;
 }
 #cpu {
-	color: rgb(250, 135, 135);
-	border-bottom: 2px solid rgb(250, 135, 135);
-	font-weight: bold;
+  color: rgb(250, 135, 135);
+  border-bottom: 2px solid rgb(250, 135, 135);
+  font-weight: bold;
 }
 #battery {
-	color: #859900;
+  color: #859900;
 }
 #disk {
-	color: rgb(200, 141, 252);
-	border-bottom: 2px solid rgb(200, 141, 252);
-	font-weight: bold;
+  color: rgb(200, 141, 252);
+  border-bottom: 2px solid rgb(200, 141, 252);
+  font-weight: bold;
 }
 #disk.critical {
-	background-color: rgba(40, 42, 54, 1);
-	color: red;
-	animation-name: blink;
-	animation-duration: 0.5s;
-	animation-timing-function: linear;
-	animation-iteration-count: infinite;
-	animation-direction: alternate;
+  background-color: rgba(40, 42, 54, 1);
+  color: red;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
-
 
 #custom-weather,
 #custom-notification {
-	margin-right: 10px;
-	margin-left: 10px;
-	font-size: 16px;
+  margin-right: 10px;
+  margin-left: 10px;
+  font-size: 16px;
 }
 #network,
 #pulseaudio,
@@ -116,11 +107,11 @@ window#waybar {
 #cpu,
 #battery,
 #disk {
-	font-size: 16px;
+  font-size: 16px;
 }
 #keyboard-state {
-    color: #000000;
-    padding: 0 0px;
-    margin: 0 5px;
-		font-size: 16px;
+  color: #000000;
+  padding: 0 0px;
+  margin: 0 5px;
+  font-size: 16px;
 }
