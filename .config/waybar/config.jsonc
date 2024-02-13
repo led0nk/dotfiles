@@ -1,239 +1,191 @@
 // config for DP-1
 
-[{
-	"layer": "top",
-	"position": "top",
-	"output": "DP-1",
-	"modules-left": [
-		"hyprland/workspaces",
-		"custom/right-arrow-dark"
-	],
-	"modules-center": [
-		"clock"
-	],
-	"modules-right": [
-    "tray",
-		"custom/weather",
-		"custom/notification",
-		"network",
-		"pulseaudio",
-		"cpu",
-		"memory",
-    //   not used for workstations 
-	//	"custom/left-arrow-light",
-	//	"custom/left-arrow-dark",
-	//	"battery",
-		"disk",
-		"group/group-power"
-	//	"privacy" not working yet
-	],
+[
+  {
+    "layer": "top",
+    "position": "top",
+    "output": "DP-1",
+    "modules-left": ["sway/workspaces", "custom/right-arrow-dark"],
+    "modules-center": ["clock"],
+    "modules-right": [
+      "tray",
+      "custom/weather",
+      "custom/notification",
+      "network",
+      "pulseaudio",
+      "cpu",
+      "memory",
+      //   not used for workstations
+      //	"custom/left-arrow-light",
+      //	"custom/left-arrow-dark",
+      //	"battery",
+      "disk",
+      "group/group-power",
+      "custom/logout",
+    ],
 
+    "custom/weather": {
+      "exec": "curl -s wttr.in/Hürtgenwald?format=1",
+      "interval": 100,
+      "format": " {}",
+      "tooltip": false,
+    },
 
-	"custom/weather": {
-		"exec": "curl -s wttr.in/Hürtgenwald?format=1",
-		"interval": 100,
-		"format": " {}",
-		"tooltip": false
-	},
+    "custom/notification": {
+      "tooltip": false,
+      "format": "{icon}",
+      "format-icons": {
+        "notification": "",
+        "none": "",
+        "dnd-notification": "",
+        "dnd-none": "",
+      },
+      "return-type": "json",
+      "exec-if": "which swaync-client",
+      "exec": "swaync-client -swb",
+      "on-click": "swaync-client -t -sw",
+      "on-click-right": "swaync-client -d -sw",
+      "escape": true,
+    },
 
-	"custom/notification": {
-        "tooltip": false,
-        "format": "{icon}",
-        "format-icons": {
-          "notification": "",
-          "none": "",
-          "dnd-notification": "",
-          "dnd-none": ""
+    "sway/workspaces": {
+      "disable-scroll": true,
+      "format": "{name}",
+    },
+    "clock": {
+      "format": "{:%H:%M}",
+      "format-alt": "{:%A, %B %d, %Y (%R)}  ",
+      "tooltip-format": "\n<small><tt>{calendar}</tt></small>",
+      "calendar": {
+        "mode": "month",
+        "mode-mon-col": 3,
+        "weeks-pos": "right",
+        "on-scroll": 1,
+        "on-click-right": "mode",
+        "format": {
+          "months": "<span color='#ffead3'><b>{}</b></span>",
+          "days": "<span color='#ecc6d9'><b>{}</b></span>",
+          "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+          "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+          "today": "<span color='#ff6699'><b><u>{}</u></b></span>",
         },
-        "return-type": "json",
-        "exec-if": "which swaync-client",
-        "exec": "swaync-client -swb",
-        "on-click": "swaync-client -t -sw",
-        "on-click-right": "swaync-client -d -sw",
-        "escape": true
+      },
+    },
+    "keyboard-state": {
+      "numlock": true,
+      "capslock": true,
+      "format": "{name} {icon}",
+      "format-icons": {
+        "locked": "",
+        "unlocked": "",
+      },
     },
 
-	"hyprland/workspaces": {
-		"disable-scroll": true,
-		"format": "{name}"
-	},
-	"clock": {
-		"format": "{:%H:%M}",
-		"format-alt": "{:%A, %B %d, %Y (%R)}  ",
-    "tooltip-format": "\n<small><tt>{calendar}</tt></small>",
-  	"calendar": {
-                "mode"          : "month",
-                "mode-mon-col"  : 3,
-                "weeks-pos"     : "right",
-                "on-scroll"     : 1,
-                "on-click-right": "mode",
-                "format": {
-                          "months":     "<span color='#ffead3'><b>{}</b></span>",
-                          "days":       "<span color='#ecc6d9'><b>{}</b></span>",
-                          "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
-                          "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
-                          "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
-                         }
-                    }
-
-	},
-	"keyboard-state": {
-        "numlock": true,
-        "capslock": true,
-        "format": "{name} {icon}",
-        "format-icons": {
-            "locked": "",
-            "unlocked": ""
-        }
+    "pulseaudio": {
+      "format": "{icon}  {volume:2}% {format_source}",
+      "format-bluetooth": "{icon}  {volume}%",
+      "format-muted": "  {format_source}",
+      "format-icons": {
+        "headphones": "",
+        "default": ["", ""],
+      },
+      "format-source": " {volume}%",
+      "format-source-muted": "",
+      "scroll-step": 5,
+      "on-click": "pamixer -t",
+      "on-click-right": "pavucontrol",
+    },
+    "memory": {
+      "interval": 5,
+      "format": "  Mem {}% ",
+    },
+    "cpu": {
+      "interval": 5,
+      "format": "  CPU {usage:2}% ",
+    },
+    "battery": {
+      "states": {
+        "good": 95,
+        "warning": 30,
+        "critical": 15,
+      },
+      "format": "{icon} {capacity}%",
+      "format-icons": ["", "", "", "", ""],
+    },
+    "disk": {
+      "interval": 5,
+      "format": "Disk {free}",
+      "path": "/",
+      "states": {
+        "critical": 90,
+      },
+    },
+    "tray": {
+      "icon-size": 24,
+    },
+    "network": {
+      "format": "{ifname} {ipaddr}",
+    },
+    "privacy": {
+      "icon-spacing": 4,
+      "icon-size": 18,
+      "transition-duration": 250,
+      "modules": [
+        {
+          "type": "screenshare",
+          "tooltip": true,
+          "tooltip-icon-size": 24,
+        },
+        {
+          "type": "audio-out",
+          "tooltip": true,
+          "tooltip-icon-size": 24,
+        },
+        {
+          "type": "audio-in",
+          "tooltip": true,
+          "tooltip-icon-size": 24,
+        },
+      ],
     },
 
-	"pulseaudio": {
-		"format": "{icon}  {volume:2}% {format_source}",
-		"format-bluetooth": "{icon}  {volume}%",
-		"format-muted": "  {format_source}",
-		"format-icons": {
-			"headphones": "",
-			"default": [
-				"",
-				""
-			]
-		},
-		"format-source": " {volume}%",
-		"format-source-muted": "",
-		"scroll-step": 5,
-		"on-click": "pamixer -t",
-		"on-click-right": "pavucontrol"
-	},
-	"memory": {
-		"interval": 5,
-		"format": "  Mem {}% "
-	},
-	"cpu": {
-		"interval": 5,
-		"format": "  CPU {usage:2}% "
+    "custom/logout": {
+      "format": " ",
+      "tooltip": false,
+      "on-click": "wlogout",
+    },
+    //symbols are not finished yet
+    //2nd config for DP-2
+  },
+  {
+    "layer": "top",
+    "position": "top",
+    "output": "DP-2",
+    "modules-left": ["sway/workspaces"],
+    "modules-right": ["clock"],
 
-	},
-	"battery": {
-		"states": {
-			"good": 95,
-			"warning": 30,
-			"critical": 15
-		},
-		"format": "{icon} {capacity}%",
-		"format-icons": [
-			"",
-			"",
-			"",
-			"",
-			""
-		]
-	},
-	"disk": {
-		"interval": 5,
-		"format": "Disk {free}",
-		"path": "/",
-		"states": {
-				"critical": 90
-		}
-	},
-	"tray": {
-		"icon-size": 24
-	},
-	"network":{
-		"format": "{ifname} {ipaddr}"
-	},
-	"privacy": {
-		"icon-spacing": 4,
-		"icon-size": 18,
-		"transition-duration": 250,
-		"modules": [
-			{
-				"type": "screenshare",
-				"tooltip": true,
-				"tooltip-icon-size": 24
-			},
-			{
-				"type": "audio-out",
-				"tooltip": true,
-				"tooltip-icon-size": 24
-			},
-			{
-				"type": "audio-in",
-				"tooltip": true,
-				"tooltip-icon-size": 24
-			}
-		]
-	},
-
-//symbols are not finished yet
-	"group/group-power": {
-		"orientation": "inherit",
-		"drawer": {
-			"transition-duration": 500,
-			"children-class": "not-power",
-			"transition-left-to-right": false
-		},
-		"modules": [
-			"custom/power", // First element is the "group leader" and won't ever be hidden
-			"custom/exit",
-			"custom/reboot"
-		]
-	},
-	"custom/exit": {
-		"format": "(Exit)",
-		"tooltip": false,
-		"on-click": "exit"
-	},
-
-	"custom/reboot": {
-		"format": "(Reboot)",
-		"tooltip": false,
-		"on-click": "reboot"
-	},
-	"custom/power": {
-		"format": "",
-		"tooltip": false,
-		"on-click": "shutdown now"
-	}
-
-},
-//2nd config for DP-2
-{
-	"layer": "top",
-	"position": "top",
-	"output": "DP-2",
-	"modules-left": [
-		"hyprland/workspaces"
-	],
-	"modules-right": [
-		"clock"
-	],
-
-
-	"hyprland/workspaces": {
-		"disable-scroll": true,
-		"format": "{name}"
-	},
-	"clock": {
-        "format": "{:%H:%M}",
-        "format-alt": "{:%A, %B %d, %Y (%R)}  ",
-        "tooltip-format": "\n<small><tt>{calendar}</tt></small>",
-        "calendar": {
-                    "mode"          : "month",
-                    "mode-mon-col"  : 3,
-                    "weeks-pos"     : "right",
-                    "on-scroll"     : 1,
-                    "on-click-right": "mode",
-                    "format": {
-                              "months":     "<span color='#ffead3'><b>{}</b></span>",
-                              "days":       "<span color='#ecc6d9'><b>{}</b></span>",
-                              "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
-                              "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
-                              "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
-                              }
-                    }
-    }
-
-
-
-}]
+    "sway/workspaces": {
+      "disable-scroll": true,
+      "format": "{name}",
+    },
+    "clock": {
+      "format": "{:%H:%M}",
+      "format-alt": "{:%A, %B %d, %Y (%R)}  ",
+      "tooltip-format": "\n<small><tt>{calendar}</tt></small>",
+      "calendar": {
+        "mode": "month",
+        "mode-mon-col": 3,
+        "weeks-pos": "right",
+        "on-scroll": 1,
+        "on-click-right": "mode",
+        "format": {
+          "months": "<span color='#ffead3'><b>{}</b></span>",
+          "days": "<span color='#ecc6d9'><b>{}</b></span>",
+          "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+          "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+          "today": "<span color='#ff6699'><b><u>{}</u></b></span>",
+        },
+      },
+    },
+  },
+]
