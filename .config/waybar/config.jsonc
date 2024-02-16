@@ -5,7 +5,11 @@
     "layer": "top",
     "position": "top",
     "output": "DP-1",
-    "modules-left": ["sway/workspaces", "custom/right-arrow-dark"],
+    "modules-left": [
+      "sway/workspaces",
+      "custom/right-arrow-dark",
+      "custom/gnma",
+    ],
     "modules-center": ["clock"],
     "modules-right": [
       "tray",
@@ -46,6 +50,15 @@
       "on-click": "swaync-client -t -sw",
       "on-click-right": "swaync-client -d -sw",
       "escape": true,
+    },
+    "custom/gnma": {
+      "format": " {} ",
+      "interval": 5,
+      "exec": "flatpak run com.chmouel.gnomeNextMeetingApplet dbus get_event",
+      "exec-if": "pgrep -f gnome-next-meeting-applet",
+      "max-length": 50,
+      "min-length": 1,
+      "on-click": "flatpak run org.gnome.Calendar",
     },
 
     "sway/workspaces": {

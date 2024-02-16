@@ -28,6 +28,7 @@ window#waybar {
 #disk,
 #network,
 #custom-logout,
+#custom-gnma,
 #tray {
   margin-right: 5px;
   margin-left: 5px;
@@ -98,6 +99,12 @@ window#waybar {
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-direction: alternate;
+}
+
+#custom-gnma {
+  margin-right: 20px;
+  margin-left: 20px;
+  font-size: 16px;
 }
 
 #custom-weather,
