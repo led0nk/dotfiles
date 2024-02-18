@@ -247,6 +247,7 @@ exec swaymsg "workspace 1; exec $term"
 exec swaymsg "workspace 6; exec flatpak run org.mozilla.firefox" 
 exec swaymsg "workspace 6; exec flatpak run io.github.mimbrero.WhatsAppDesktop" 
 exec swaymsg "workspace 7; exec flatpak run org.signal.Signal" 
+exec flatpak run com.chmouel.gnomeNextMeetingApplet
 
 
 #worskspaces to displays
