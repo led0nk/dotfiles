@@ -14,6 +14,17 @@ set $fileManager xdg-open .
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 #output * bg /usr/share/backgrounds/default.png fill
 
+output "eDP-1" {
+    mode  1920x1080@60.008Hz
+    pos 0 0
+    transform normal
+    scale 1.0
+    scale_filter nearest
+    adaptive_sync off
+    dpms on
+    bg $HOME/Pictures/Wallpaper/background.png fill
+    scale 1
+}
 
 output "DP-1" {
     mode  3440x1440@143.975Hz
@@ -243,6 +254,7 @@ exec export SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
 exec waybar
 exec swaync
 exec keepassxc
+exec nm-applet
 exec swaymsg "workspace 1; exec $term" 
 exec swaymsg "workspace 6; exec flatpak run org.mozilla.firefox" 
 exec swaymsg "workspace 6; exec flatpak run io.github.mimbrero.WhatsAppDesktop" 
