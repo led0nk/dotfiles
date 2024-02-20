@@ -1,0 +1,9 @@
+[Unit]
+Description=boot service for dotfile-updates
+
+[Service]
+Type=simple
+ExecStart=/bin/bash $HOME/git/repo/dotfiles/dotfile-update.sh
+
+[Install]
+WantedBy=multi-user.target

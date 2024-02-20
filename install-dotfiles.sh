@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # set Path variables
-export REPO_PATH=/var/home/$USER/git/repo 
+export REPO_PATH=/var/home/$USER/git/repo
 export DOT_PATH=$REPOPATH/dotfiles
 
 #create directories
@@ -28,7 +28,7 @@ cp -r $DOT_PATH/.config/themes $HOME/.config/rofi/
 cp -r $DOT_PATH/background.png $HOME/Pictures/Wallpaper/background.png
 
 #link golang variable
-echo export PATH=$PATH:/usr/lib/golang/bin > $HOME/.profile
+echo export PATH=$PATH:/usr/lib/golang/bin >$HOME/.profile
 
 #install zplug + extensions + change shell to zsh
 curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
@@ -38,3 +38,22 @@ zplug install
 
 #generate ssh-key-with github alias-mail
 ssh-keygen -t ed25519 -C "10290002+led0nk@users.noreply.github.com"
+
+while getopts 'ynh' OPTION; do
+	case "$OPTION" in
+	y)
+		sudo cp -r $DOT_PATH/etc/systemd/system/dotfile.service /etc/systemd/system/dotfile.service
+		sudo chmod +x /etc/systemd/system/dotfile.service
+		;;
+	h)
+		echo "install-dotfiles.sh [-y] [-h help]"
+		echo "[-y]  -   includes systemd-service for automatic dotfiles-update at startup"
+		echo "[-n]  -   excludes systemd-service for automatic dotfiles-update at startup"
+		;;
+	?)
+		echo "install-dotfiles.sh [-y] [-n] [-h help]"
+		exit 1
+		;;
+	esac
+done
+shift "$(($OPTIND - 1))"
