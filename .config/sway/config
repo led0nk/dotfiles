@@ -254,7 +254,7 @@ exec export SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
 exec waybar
 exec swaync
 exec keepassxc
-exec nm-applet
+#exec nm-applet
 exec swaymsg "workspace 1; exec $term" 
 exec swaymsg "workspace 6; exec flatpak run org.mozilla.firefox" 
 exec swaymsg "workspace 6; exec flatpak run io.github.mimbrero.WhatsAppDesktop" 
