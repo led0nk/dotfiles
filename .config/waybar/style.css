@@ -37,11 +37,12 @@ window#waybar {
 #workspaces button {
   padding: 0 0.3em;
   color: #fdf6e3;
-  border-bottom: 2px solid rgba(40, 42, 54, 1);
+  border: none;
+  border-radius: 0;
 }
 
 #workspaces button.focused {
-  border-bottom: 2px solid #bd93f9;
+  box-shadow: inset 0 -2px #bd93f9;
 }
 
 #workspaces button.active {
@@ -51,7 +52,7 @@ window#waybar {
 
 #workspaces button:hover {
   background: rgba(40, 42, 54, 0.9);
-  border-bottom: 2px solid grey;
+  box-shadow: inset 0 -2px white;
 }
 
 #network {
