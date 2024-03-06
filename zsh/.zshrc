@@ -52,6 +52,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:
 #zplug "plugins/docker-compose", from:oh-my-zsh
 
 export GOPATH=/home/$USER/go
+export GO111MODULE=on
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/.emacs.d/bin
 export LESS_TERMCAP_mb=$'\e[1;32m'
