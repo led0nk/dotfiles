@@ -1,11 +1,36 @@
-vim.cmd("set expandtab")
-vim.cmd("set tabstop=2")
-vim.cmd("set softtabstop=2")
-vim.cmd("set shiftwidth=2")
-vim.cmd("set splitright")
-vim.cmd("set splitbelow")
-vim.cmd("set relativenumber")
+-- Set leaderkey
 vim.g.mapleader = " "
+
+-- Set tabs to 2 spaces
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.expandtab = true
+
+-- Enable auto indenting and set it to spaces
+vim.opt.smartindent = true
+vim.opt.shiftwidth = 2
+
+-- Enable smart indenting
+vim.opt.breakindent = true
+
+-- Better splitting
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
+-- Enable sign column
+vim.opt.signcolumn = "yes"
+
+-- Enable access to system clipboard
+vim.opt.clipboard = "unnamed,unnamedplus"
+
+-- Enable cursor line highlight
+vim.opt.cursorline = true
+
+-- Set scrolling offset
+vim.opt.scrolloff = 10
+
+-- Set a column line
+vim.opt.colorcolumn = "80"
 
 -- Save Files
 vim.keymap.set("n", "<C-s>", ":update<CR>")

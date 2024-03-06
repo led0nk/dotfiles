@@ -13,7 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.wo.relativenumber = true
 vim.wo.number = true
-vim.o.statuscolumn = "%r %s"
+--vim.o.statuscolumn = "%r %s"
 
 require("vim-options")
 require("lazy").setup("plugins")
