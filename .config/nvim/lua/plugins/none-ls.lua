@@ -10,7 +10,6 @@ return {
 				null_ls.builtins.formatting.goimports,
 				null_ls.builtins.formatting.shfmt,
 				null_ls.builtins.diagnostics.golangci_lint,
-				null_ls.builtins.diagnostics.eslint,
 				null_ls.builtins.diagnostics.html,
 			},
 			on_attach = function(client, bufnr)
