@@ -20,7 +20,6 @@ zplug "zsh-users/zsh-autosuggestions"
 zplug load
 
 bindkey -e
-# https://linux.die.net/man/1/zshzle
 bindkey '^P' up-history
 bindkey '^N' down-history
 bindkey '^?' backward-delete-char
@@ -29,6 +28,8 @@ bindkey "^a" beginning-of-line
 bindkey "^e" end-of-line
 bindkey "^R" history-incremental-pattern-search-backward
 bindkey '^[[Z' autosuggest-accept
+
+# aliases
 alias eo=emacsclient -c -n $@
 alias en=emacsclient -n $@
 alias ls="eza -la"
@@ -36,6 +37,7 @@ alias ll="eza -abghHlS"
 alias open=xdg-open
 alias firefox="flatpak run org.mozilla.firefox"
 alias signal="flatpak run org.signal.Signal"
+alias vim="nvim"
 
 
 ## case-insensitive (uppercase from lowercase) completion
