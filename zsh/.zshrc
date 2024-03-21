@@ -29,15 +29,30 @@ bindkey "^e" end-of-line
 bindkey "^R" history-incremental-pattern-search-backward
 bindkey '^[[Z' autosuggest-accept
 
-# aliases
-alias eo=emacsclient -c -n $@
-alias en=emacsclient -n $@
+## ALIASES
+# general
+alias open=xdg-open
 alias ls="eza -la"
 alias ll="eza -abghHlS"
-alias open=xdg-open
+alias vim="nvim"
+
+# applications
+alias eo=emacsclient -c -n $@
+alias en=emacsclient -n $@
 alias firefox="flatpak run org.mozilla.firefox"
 alias signal="flatpak run org.signal.Signal"
-alias vim="nvim"
+
+# navigation
+alias .1="cd .."
+alias .2="cd ../.."
+alias .3="cd ../../.."
+
+# git
+alias gs="git status"
+alias ga="git add"
+alias gcm="git commit -m"
+alias gf="git fetch"
+
 
 
 ## case-insensitive (uppercase from lowercase) completion

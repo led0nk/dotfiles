@@ -1,42 +1,87 @@
 #!/usr/bin/bash
 
-# set Path variables
+# set path variables
 export REPO_PATH=/var/home/$USER/git/repo
 export DOT_PATH=$REPOPATH/dotfiles
+export GITHUB=https://github.com/led0nk/
 
-#create directories
+# set some colors
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+# check the existing symlinks
+check_symlink() {
+	tested_symlink = $1
+
+	if [ -L $tested_symlink ]; then
+		if [ ! -e $tested_symlink ]; then
+			echo "error, symlink for $tested_symlink is broken"
+		else
+			echo "checked $tested_symlink\n"
+		fi
+	else
+		echo "no symlink for $tested_symlink existing"
+	fi
+}
+
+# create symlink & test or abort if test fails
+symlink() {
+	linkto=$1
+	linkfrom=$2
+
+	echo "creating symlink for $linkfrom:\n"
+	ln -s $linkto $linkfrom && check_symlink $linkfrom || abort_func $linkfrom
+}
+
+# function for cloning git repo
+install_git_repo() {
+	repo=$1
+	target=$2
+
+	echo "cloning $repo\ninto $target\n"
+	git clone $GITHUB$repo $target || abort_func $repo
+	echo "\ncloning of $repo done\n"
+}
+
+# function for exiting after error
+abort_func() {
+	errorfunction=$1
+	echo "${RED}Error:${NC} exiting $errorfunction"
+	exit 1
+}
+
+# create directories
 mkdir -p $HOME/.config/{sway, waybar, rofi}
 mkdir -p $HOME/Pictures/Wallpaper/
 
-#clone GitHub repositories
-git clone https://github.com/led0nk/dotfiles.git $DOT_PATH
-git clone https://github.com/led0nk/images.git $REPO_PATH/images
-git clone https://github.com/led0nk/guestbook.git $REPO_PATH/guestbook
+# clone GitHub repositories
+install_git_repo dotfiles.git $DOT_PATH
+install_git_repo images.git $REPO_PATH/images
 
-#create symlinks for dotfiles
+# create symlinks for dotfiles
+symlink $DOT_PATH/zsh/.zshrc $HOME/.zshrc
+symlink $DOT_PATH/zsh/.zshenv $HOME/.zshenv
+symlink $DOT_PATH/zsh/.p10k.zsh $HOME/.p10k.zsh
+symlink $DOT_PATH/gitconfig/.gitconfig $HOME/.gitconfig
+symlink $DOT_PATH/.config/sway/config $HOME/.config/sway/config
+symlink $DOT_PATH/.config/waybar/config.jsonc $HOME/.zshrc
+symlink $DOT_PATH/.config/waybar/style.css $HOME/.config/waybar/style.css
 
-ln -s $DOT_PATH/zsh/.zshrc $HOME/.zshrc
-ln -s $DOT_PATH/zsh/.zshenv $HOME/.zshenv
-ln -s $DOT_PATH/zsh/.p10k.zsh $HOME/.p10k.zsh
-ln -s $DOT_PATH/gitconfig/.gitconfig $HOME/.gitconfig
-ln -s $DOT_PATH/.config/sway/config $HOME/.config/sway/config
-ln -s $DOT_PATH/.config/waybar/config.jsonc $HOME/.zshrc
-ln -s $DOT_PATH/.config/waybar/style.css $HOME/.config/waybar/style.css
+# copy themefiles and background
+cp -r $DOT_PATH/.config/themes $HOME/.config/rofi/ || abort_func "copying rofi themes"
+cp -r $DOT_PATH/background.png $HOME/Pictures/Wallpaper/background.png || abort_func "copying wallpaper"
 
-#copy themefiles and background
-cp -r $DOT_PATH/.config/themes $HOME/.config/rofi/
-cp -r $DOT_PATH/background.png $HOME/Pictures/Wallpaper/background.png
+# link golang variable
+echo export PATH=$PATH:/usr/lib/golang/bin >>$HOME/.profile
 
-#link golang variable
-echo export PATH=$PATH:/usr/lib/golang/bin >$HOME/.profile
-
-#install zplug + extensions + change shell to zsh
+# install zplug + extensions + change shell to zsh
 curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 chsh -s /usr/bin/zsh
 zsh
 zplug install
 
-#generate ssh-key-with github alias-mail
+# generate ssh-key-with github alias-mail
 ssh-keygen -t ed25519 -C "10290002+led0nk@users.noreply.github.com"
 
 while getopts 'ynh' OPTION; do
