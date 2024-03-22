@@ -16,12 +16,12 @@ check_symlink() {
 
 	if [ -L $tested_symlink ]; then
 		if [ ! -e $tested_symlink ]; then
-			echo "error, symlink for $tested_symlink is broken"
+			echo "${RED}error${NC}: symlink for $tested_symlink is broken"
 		else
-			echo "checked $tested_symlink\n"
+			echo "${GREEN}checked ${NC}$tested_symlink\n"
 		fi
 	else
-		echo "no symlink for $tested_symlink existing"
+		echo "${RED}error${NC}: no symlink for $tested_symlink existing"
 	fi
 }
 
