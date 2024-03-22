@@ -57,13 +57,14 @@ alias gf="git fetch"
 
 
 function acp(){
-
   git add .
   git commit -m "$1"
   if [ -z $2 ]; then
     git push
   else
     git push $2
+  fi
+
 }
 
 ## case-insensitive (uppercase from lowercase) completion
