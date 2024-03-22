@@ -67,6 +67,7 @@ symlink $DOT_PATH/gitconfig/.gitconfig $HOME/.gitconfig
 symlink $DOT_PATH/.config/sway/config $HOME/.config/sway/config
 symlink $DOT_PATH/.config/waybar/config.jsonc $HOME/.zshrc
 symlink $DOT_PATH/.config/waybar/style.css $HOME/.config/waybar/style.css
+symlink $DOT_PATH/.config/nvim $HOME/.config/nvim
 
 # copy themefiles and background
 cp -r $DOT_PATH/.config/themes $HOME/.config/rofi/ || abort_func "copying rofi themes"

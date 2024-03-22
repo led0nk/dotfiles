@@ -49,11 +49,18 @@ alias .3="cd ../../.."
 
 # git
 alias gs="git status"
+alias gp="git push"
 alias ga="git add"
+alias gaa="git add ."
 alias gcm="git commit -m"
 alias gf="git fetch"
 
 
+function acp(){
+  git add .
+  git commit -m "$1"
+  git push
+}
 
 ## case-insensitive (uppercase from lowercase) completion
 # zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
