@@ -58,19 +58,19 @@ alias gf="git fetch"
 
 
 function acp(){
-  if [ $1 || $2 || $3 -eq 0 ]; then
-    echo "Usage: acp ['commit message'] [repository] [branch]"
+  commitmsg=$1
+  repository=$2
+  branch=$3
+
+  if [[ -z $commitmsg || -z $repository || -z $branch ]]; then
+    echo "Usage: acp [commit message] [repository] [branch]"
     echo "       automatically adds all files to commit"
     return 1
   fi
 
   git add .
   git commit -m "$1"
-  if [ -z $2 ]; then
-    git push
-  else
-    git push $2 $3
-  fi
+  git push $2 $3
 
 }
 
