@@ -69,8 +69,8 @@ function acp(){
   fi
 
   git add .
-  git commit -m "$1"
-  git push $2 $3
+  git commit -m "$commitmsg"
+  git push $repository $branch
 
 }
 
