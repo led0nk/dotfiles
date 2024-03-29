@@ -177,7 +177,7 @@ bindsym XF86MonBrightnessDown exec light -U 5
 ##
 
     bindsym $mod+Print exec grim -g "$(slurp)" - | swappy -f -
-    bindsym $mod+Shift+p exec grim -o DP-1
+    bindsym $mod+Shift+p exec grim -o DP-1  
 
 #
 # Layout stuff:
@@ -251,7 +251,8 @@ default_border pixel 2
 
 
 exec eval $(gnome-keyring-daemon --start --components=ssh)
-exec export SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+#exec export SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+exec export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 exec waybar
 exec swaync
 exec keepassxc
