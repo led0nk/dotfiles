@@ -56,7 +56,7 @@ return {
 			vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, {})
 			vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float)
 			vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next)
-			vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_previous)
+			vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev)
 		end,
 	},
 }
