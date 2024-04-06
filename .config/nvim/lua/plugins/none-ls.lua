@@ -8,9 +8,12 @@ return {
 				null_ls.builtins.formatting.stylua,
 				--	null_ls.builtins.formatting.prettier,
 				null_ls.builtins.formatting.goimports,
+				--null_ls.builtins.formatting.yamlfmt,
 				--null_ls.builtins.formatting.shfmt,
 				null_ls.builtins.diagnostics.golangci_lint,
 				null_ls.builtins.diagnostics.html,
+				null_ls.builtins.diagnostics.checkmake,
+				null_ls.builtins.diagnostics.yamllint,
 			},
 			on_attach = function(client, bufnr)
 				if client.supports_method("textDocument/formatting") then
