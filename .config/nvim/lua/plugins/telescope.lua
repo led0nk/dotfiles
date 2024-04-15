@@ -34,24 +34,12 @@ return {
 			end, {})
 			vim.keymap.set("n", "<leader>ht", builtin.colorscheme, {})
 			vim.keymap.set("n", "<leader>fr", builtin.lsp_references, {})
+			vim.keymap.set("n", "<leader>fi", builtin.lsp_implementations, {})
 			vim.keymap.set("n", "<leader>gb", function()
 				builtin.git_branches({ layout_config = { preview_width = 0.6 } })
 			end, {})
 			vim.keymap.set("n", "<leader>fd", builtin.diagnostics, {})
 			vim.keymap.set("n", "<leader>fn", ":Telescope notify<CR>", {})
-		end,
-	},
-	{
-		"nvim-telescope/telescope-ui-select.nvim",
-		config = function()
-			require("telescope").setup({
-				extensions = {
-					["ui-select"] = {
-						require("telescope.themes").get_dropdown(),
-					},
-				},
-			})
-			require("telescope").load_extension("ui-select")
 		end,
 	},
 }

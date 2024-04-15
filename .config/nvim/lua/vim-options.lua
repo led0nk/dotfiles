@@ -87,3 +87,12 @@ vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "p", '"_dP')
+
+-- some additional stuff
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "highlight when yanking text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
