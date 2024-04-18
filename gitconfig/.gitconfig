@@ -3,3 +3,6 @@
 # Bitte passen Sie die folgenden Zeilen an und kommentieren Sie diese aus:
 	name = Janik
 	email = 10290002+led0nk@users.noreply.github.com
+
+[core]
+  editor = nvim 
