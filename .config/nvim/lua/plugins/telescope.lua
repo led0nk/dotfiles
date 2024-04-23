@@ -40,6 +40,7 @@ return {
 			end, {})
 			vim.keymap.set("n", "<leader>fd", builtin.diagnostics, {})
 			vim.keymap.set("n", "<leader>fn", ":Telescope notify<CR>", {})
+			vim.keymap.set("n", "<leader>fo", ":ObsidianQuickSwitch<CR>", {})
 		end,
 	},
 }
