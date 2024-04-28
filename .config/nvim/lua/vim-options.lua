@@ -27,6 +27,8 @@ vim.opt.clipboard = "unnamed,unnamedplus"
 
 -- Enable cursor line highlight
 vim.opt.cursorline = true
+vim.opt.termguicolors = true
+vim.opt.guicursor = ""
 
 -- Set scrolling offset
 vim.opt.scrolloff = 10

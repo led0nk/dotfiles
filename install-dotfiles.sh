@@ -2,8 +2,8 @@
 
 # set path variables
 export REPO_PATH=/var/home/$USER/git/repo
-export DOT_PATH=$REPOPATH/dotfiles
-export GITHUB=https://github.com/led0nk/
+export DOT_PATH=$REPO_PATH/dotfiles
+export GITHUB=https://github.com/led0nk
 
 # set some colors
 GREEN='\033[0;32m'
@@ -12,10 +12,10 @@ NC='\033[0m'
 
 # check the existing symlinks
 check_symlink() {
-	tested_symlink = $1
+	tested_symlink="$1"
 
-	if [ -L $tested_symlink ]; then
-		if [ ! -e $tested_symlink ]; then
+	if [ -L "$tested_symlink" ]; then
+		if [ ! -e "$tested_symlink" ]; then
 			echo "${RED}error${NC}: symlink for $tested_symlink is broken"
 		else
 			echo "${GREEN}checked ${NC}$tested_symlink\n"
@@ -31,7 +31,7 @@ symlink() {
 	linkfrom=$2
 
 	echo "creating symlink for $linkfrom:\n"
-	ln -s $linkto $linkfrom && check_symlink $linkfrom || abort_func $linkfrom
+	ln -s "$linkto" "$linkfrom" && check_symlink "$linkfrom" || abort_func "$linkfrom"
 }
 
 # function for cloning git repo
@@ -40,7 +40,7 @@ install_git_repo() {
 	target=$2
 
 	echo "cloning $repo\ninto $target\n"
-	git clone $GITHUB$repo $target || abort_func $repo
+	git clone "$GITHUB/$repo" "$target" || abort_func "$repo"
 	echo "\ncloning of $repo done\n"
 }
 
@@ -52,30 +52,30 @@ abort_func() {
 }
 
 # create directories
-mkdir -p $HOME/.config/{swappy, sway, waybar, rofi}
-mkdir -p $HOME/Pictures/Wallpaper/
+mkdir -p "$HOME"/.config/{swappy,sway,waybar,rofi}
+mkdir -p "$HOME"/Pictures/Wallpaper/
 
 # clone GitHub repositories
-install_git_repo dotfiles.git $DOT_PATH
-install_git_repo images.git $REPO_PATH/images
+install_git_repo dotfiles.git "$DOT_PATH"
+install_git_repo images.git "$REPO_PATH"/images
 
 # create symlinks for dotfiles
-symlink $DOT_PATH/zsh/.zshrc $HOME/.zshrc
-symlink $DOT_PATH/zsh/.zshenv $HOME/.zshenv
-symlink $DOT_PATH/zsh/.p10k.zsh $HOME/.p10k.zsh
-symlink $DOT_PATH/gitconfig/.gitconfig $HOME/.gitconfig
-symlink $DOT_PATH/.config/sway/config $HOME/.config/sway/config
-symlink $DOT_PATH/.config/waybar/config.jsonc $HOME/.zshrc
-symlink $DOT_PATH/.config/waybar/style.css $HOME/.config/waybar/style.css
-symlink $DOT_PATH/.config/nvim $HOME/.config/nvim
-symlink $DOT_PATH/.config/swappy/config $HOME/.config/swappy/config
+symlink "$DOT_PATH"/zsh/.zshrc "$HOME"/.zshrc
+symlink "$DOT_PATH"/zsh/.zshenv "$HOME"/.zshenv
+symlink "$DOT_PATH"/zsh/.p10k.zsh "$HOME"/.p10k.zsh
+symlink "$DOT_PATH"/gitconfig/.gitconfig "$HOME"/.gitconfig
+symlink "$DOT_PATH"/.config/sway/config "$HOME"/.config/sway/config
+symlink "$DOT_PATH"/.config/waybar/config.jsonc "$HOME"/.zshrc
+symlink "$DOT_PATH"/.config/waybar/style.css "$HOME"/.config/waybar/style.css
+symlink "$DOT_PATH"/.config/nvim "$HOME"/.config/nvim
+symlink "$DOT_PATH"/.config/swappy/config "$HOME"/.config/swappy/config
 
 # copy themefiles and background
-cp -r $DOT_PATH/.config/themes $HOME/.config/rofi/ || abort_func "copying rofi themes"
-cp -r $DOT_PATH/background.png $HOME/Pictures/Wallpaper/background.png || abort_func "copying wallpaper"
+cp -r "$DOT_PATH"/.config/themes "$HOME"/.config/rofi/ || abort_func "copying rofi themes"
+cp -r "$DOT_PATH"/background.png "$HOME"/Pictures/Wallpaper/background.png || abort_func "copying wallpaper"
 
 # link golang variable
-echo export PATH=$PATH:/usr/lib/golang/bin >>$HOME/.profile
+echo export PATH="$PATH":/usr/lib/golang/bin >>"$HOME"/.profile
 
 # install zplug + extensions + change shell to zsh
 curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
@@ -89,7 +89,7 @@ ssh-keygen -t ed25519 -C "10290002+led0nk@users.noreply.github.com"
 while getopts 'ynh' OPTION; do
 	case "$OPTION" in
 	y)
-		sudo cp -r $DOT_PATH/etc/systemd/system/dotfile.service /etc/systemd/system/dotfile.service
+		sudo cp -r "$DOT_PATH"/etc/systemd/system/dotfile.service /etc/systemd/system/dotfile.service
 		sudo chmod +x /etc/systemd/system/dotfile.service
 		;;
 	h)

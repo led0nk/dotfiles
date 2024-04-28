@@ -14,17 +14,17 @@ set $fileManager xdg-open .
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 #output * bg /usr/share/backgrounds/default.png fill
 
-output "eDP-1" {
-    mode  1920x1080@60.008Hz
-    pos 0 0
-    transform normal
-    scale 1.0
-    scale_filter nearest
-    adaptive_sync off
-    dpms on
-    bg $HOME/Pictures/Wallpaper/background.png fill
-    scale 1
-}
+##output "eDP-1" {
+#    mode  1920x1080@60.008Hz
+#    pos 0 0
+#    transform normal
+#    scale 1.0
+#    scale_filter nearest
+#    adaptive_sync off
+#    dpms on
+#    bg $HOME/Pictures/Wallpaper/background.png fill
+#    scale 1
+#}
 
 output "DP-1" {
     mode  3440x1440@143.975Hz
