@@ -38,11 +38,13 @@ return {
 				disable_background = false,
 				styles = {
 					italic = false,
-					transparency = false,
+					transparency = true,
 				},
-				--groups = {
-				--	background = "#000000",
-				--},
+				-- before_highlight = function(group, highlight, palette)
+				--   if highlight.fg == palette.gold then
+				--     highlight.fg = "#ACE5AB"
+				--   end
+				-- end,
 				highlight_groups = {
 					CursorLine = { bg = "surface" },
 				},

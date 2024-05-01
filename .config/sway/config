@@ -251,18 +251,22 @@ default_border pixel 2
 
 
 exec eval $(gnome-keyring-daemon --start --components=ssh)
-#exec export SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
 exec export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 exec waybar
-exec swaync
+#exec swaync
+exec dunst
+exec flatpak run com.chmouel.gnomeNextMeetingApplet
 exec keepassxc
-#exec nm-applet
 exec swaymsg "workspace 1; exec $term" 
+exec swaymsg "workspace 1; layout splitv"
+exec swaymsg "workspace 1; exec $term" 
+exec swaymsg "workspace 1; layout splith"
+exec swaymsg "workspace 1; exec $term" 
+exec swaymsg "workspace 7; exec flatpak run org.signal.Signal" 
 exec swaymsg "workspace 6; exec flatpak run org.mozilla.firefox" 
 exec swaymsg "workspace 6; exec flatpak run io.github.mimbrero.WhatsAppDesktop" 
-exec swaymsg "workspace 7; exec flatpak run org.signal.Signal" 
-exec flatpak run com.chmouel.gnomeNextMeetingApplet
 
+for_window [class="whatsapp-desktop-linux"] move to workspace 6
 
 #worskspaces to displays
 workspace 1 output DP-1
