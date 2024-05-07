@@ -3,7 +3,7 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term gnome-terminal --hide-menubar
+set $term gnome-terminal --hide-menubar --working-directory=$HOME/git/repo
 set $menu rofi -show drun -theme ~/.config/rofi/themes/rounded-nord-dark.rasi -show-icons
 set $switcher rofi -show window -theme ~/.config/rofi/themes/rounded-nord-dark.rasi -show-icons
 ##set $menu wofi --show drun --allow-images
@@ -57,9 +57,9 @@ output "DP-2" {
     bindsym $mod+Control+l exec swaylock 
 
 # SoundMixer
-    bindcode 122 exec amixer -q set Master 5%-
-    bindcode 123 exec amixer -q set Master 5%+
-    bindcode 121 exec amixer -q set Master toggle
+    bindcode 122 exec amixer -q set Master 5%- | notify-send -a "volume" "decrease volume" -h int:value:$(pamixer --get-volume)
+    bindcode 123 exec amixer -q set Master 5%+ | notify-send -a "volume" "increase volume" -h int:value:$(pamixer --get-volume)
+    bindcode 121 exec amixer -q set Master toggle | notify-send -a "volume" "mute" -h int:value:$(pamixer --get-volume)
 
 
 # You can get the names of your inputs by running: swaymsg -t get_inputs
@@ -177,8 +177,7 @@ bindsym XF86MonBrightnessDown exec light -U 5
 ##
 
     bindsym $mod+Print exec grim -g "$(slurp)" - | swappy -f -
-    bindsym $mod+Shift+p exec grim -o DP-1  
-
+    bindsym $mod+Shift+p exec grim -o DP-1 | notify-send -a "grim" "Screenshot:" "entire screen"
 #
 # Layout stuff:
 #
@@ -253,20 +252,17 @@ default_border pixel 2
 exec eval $(gnome-keyring-daemon --start --components=ssh)
 exec export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 exec waybar
-#exec swaync
 exec dunst
+#exec mako
 exec flatpak run com.chmouel.gnomeNextMeetingApplet
-exec keepassxc
-exec swaymsg "workspace 1; exec $term" 
-exec swaymsg "workspace 1; layout splitv"
-exec swaymsg "workspace 1; exec $term" 
-exec swaymsg "workspace 1; layout splith"
-exec swaymsg "workspace 1; exec $term" 
+exec sleep 1 && keepassxc
+exec swaymsg "workspace 1; exec $term --command nvim; layout splitv; exec $term; layout splith; exec $term" 
 exec swaymsg "workspace 7; exec flatpak run org.signal.Signal" 
 exec swaymsg "workspace 6; exec flatpak run org.mozilla.firefox" 
 exec swaymsg "workspace 6; exec flatpak run io.github.mimbrero.WhatsAppDesktop" 
 
 for_window [class="whatsapp-desktop-linux"] move to workspace 6
+for_window [class="Signal"] move to workspace 7
 
 #worskspaces to displays
 workspace 1 output DP-1

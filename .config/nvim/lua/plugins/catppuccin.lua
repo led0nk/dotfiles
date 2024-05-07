@@ -1,20 +1,13 @@
---function ColorMyPencils(color)
---	color = color or "rose-pine"
---	vim.cmd.colorscheme(color)
---
---	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
---	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
---end
-
 return {
 	{
 		"folke/tokyonight.nvim",
+		name = "tokyonight",
 		config = function()
 			require("tokyonight").setup({
 				-- your configuration comes here
 				-- or leave it empty to use the default settings
-				style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-				transparent = true, -- Enable this to disable setting the background color
+				style = "night", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+				transparent = false, -- Enable this to disable setting the background color
 				terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
 				styles = {
 					-- Style to be applied to different syntax groups
@@ -26,6 +19,7 @@ return {
 					floats = "dark", -- style for floating windows
 				},
 			})
+			--vim.cmd.colorscheme("tokyonight")
 		end,
 	},
 	{
@@ -35,22 +29,21 @@ return {
 		priority = 1000,
 		config = function()
 			require("rose-pine").setup({
+				variant = "main",
 				disable_background = false,
+
 				styles = {
 					italic = false,
-					transparency = true,
+					transparency = false,
 				},
-				-- before_highlight = function(group, highlight, palette)
-				--   if highlight.fg == palette.gold then
-				--     highlight.fg = "#ACE5AB"
-				--   end
-				-- end,
 				highlight_groups = {
 					CursorLine = { bg = "surface" },
 				},
+				groups = {
+					--background = "#0f1119",
+				},
 			})
 			vim.cmd.colorscheme("rose-pine")
-			--ColorMyPencils()
 		end,
 	},
 }

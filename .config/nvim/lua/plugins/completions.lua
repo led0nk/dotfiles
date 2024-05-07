@@ -8,6 +8,8 @@ return {
       "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
     },
+    version = "v2.*",
+    build = "make install_jsregexp",
   },
   {
     "hrsh7th/nvim-cmp",
