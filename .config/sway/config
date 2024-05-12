@@ -256,13 +256,15 @@ exec dunst
 #exec mako
 exec flatpak run com.chmouel.gnomeNextMeetingApplet
 exec sleep 1 && keepassxc
-exec swaymsg "workspace 1; exec $term --command nvim; layout splitv; exec $term; layout splith; exec $term" 
+exec swaymsg "workspace 1; exec $term ; layout splitv; exec $term; layout splith; exec $term" 
 exec swaymsg "workspace 7; exec flatpak run org.signal.Signal" 
 exec swaymsg "workspace 6; exec flatpak run org.mozilla.firefox" 
 exec swaymsg "workspace 6; exec flatpak run io.github.mimbrero.WhatsAppDesktop" 
 
+# swaymsg -t get_tree
 for_window [class="whatsapp-desktop-linux"] move to workspace 6
 for_window [class="Signal"] move to workspace 7
+for_window [app_id="org.keepassxc.KeePassXC"] move to workspace 8
 
 #worskspaces to displays
 workspace 1 output DP-1

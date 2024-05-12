@@ -56,6 +56,10 @@ alias gaa="git add ."
 alias gcm="git commit -m"
 alias gf="git fetch"
 
+# kubectl
+alias k="kubectl"
+alias kubectl="kubectl --insecure-skip-tls-verify"
+
 
 function acp(){
   commitmsg=$1
