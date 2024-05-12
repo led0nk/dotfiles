@@ -71,6 +71,7 @@ vim.keymap.set("n", "<leader>wq", "<C-w>q")
 -- Navigate Buffers
 vim.keymap.set("n", "<leader>bn", ":bnext<CR>")
 vim.keymap.set("n", "<leader>bp", ":bprevious<CR>")
+vim.keymap.set("n", "<leader>bk", ":bd<CR>")
 
 -- Insert New Line without entering insert Mode
 vim.keymap.set("n", "<leader>o", "o<ESC>")
@@ -93,11 +94,11 @@ vim.keymap.set("v", "p", '"_dP')
 
 -- some additional stuff
 vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "highlight when yanking text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+  desc = "highlight when yanking text",
+  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
 
 vim.keymap.set("n", "<ESC>", ":noh<CR>")

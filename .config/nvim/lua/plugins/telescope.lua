@@ -21,10 +21,14 @@ return {
 			})
 			require("telescope").load_extension("ui-select")
 			require("telescope").load_extension("notify")
+			require("telescope").load_extension("projects")
 			local builtin = require("telescope.builtin")
 			local themes = require("telescope.themes")
 			vim.keymap.set("n", "<leader>ff", function()
 				builtin.find_files(themes.get_dropdown({ hidden = true, previewer = false }))
+			end, {})
+			vim.keymap.set("n", "<leader>gf", function()
+				builtin.git_files(themes.get_dropdown({ hidden = true, previewer = false }))
 			end, {})
 			vim.keymap.set("n", "<leader>fg", function()
 				builtin.live_grep({ layout_config = { preview_width = 0.7 } })
@@ -38,9 +42,13 @@ return {
 			vim.keymap.set("n", "<leader>gb", function()
 				builtin.git_branches({ layout_config = { preview_width = 0.6 } })
 			end, {})
+			vim.keymap.set("n", "<leader>gb", function()
+				builtin.git_commits({ layout_config = { preview_width = 0.6 } })
+			end, {})
 			vim.keymap.set("n", "<leader>fd", builtin.diagnostics, {})
 			vim.keymap.set("n", "<leader>fn", ":Telescope notify<CR>", {})
 			vim.keymap.set("n", "<leader>fo", ":ObsidianQuickSwitch<CR>", {})
+			vim.keymap.set("n", "<leader>fp", ":Telescope projects<CR>", {})
 		end,
 	},
 }
