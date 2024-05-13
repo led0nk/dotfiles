@@ -256,7 +256,7 @@ exec dunst
 #exec mako
 exec flatpak run com.chmouel.gnomeNextMeetingApplet
 exec sleep 1 && keepassxc
-exec swaymsg "workspace 1; exec $term ; layout splitv; exec $term; layout splith; exec $term" 
+exec swaymsg "workspace 1; exec $term ; layout splitv; exec $term" 
 exec swaymsg "workspace 7; exec flatpak run org.signal.Signal" 
 exec swaymsg "workspace 6; exec flatpak run org.mozilla.firefox" 
 exec swaymsg "workspace 6; exec flatpak run io.github.mimbrero.WhatsAppDesktop" 
