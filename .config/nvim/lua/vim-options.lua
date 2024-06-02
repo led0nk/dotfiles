@@ -102,3 +102,9 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 vim.keymap.set("n", "<ESC>", ":noh<CR>")
+
+vim.filetype.add({
+  extension = {
+    templ = "templ",
+  },
+})

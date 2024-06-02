@@ -27,16 +27,22 @@ return {
 			lspconfig.gopls.setup({
 				capabilities = capabilities,
 				cmd = { "gopls" },
-				filetypes = { "go", "gomod", "gowork", "gotmpl" },
+				filetypes = { "go", "gomod", "gowork", "gotmpl", "templ" },
 			})
 			lspconfig.htmx.setup({
+				on_attach = on_attach,
 				capabilities = capabilities,
+				filetypes = { "html", "templ" },
 			})
 			lspconfig.html.setup({
 				capabilities = capabilities,
+				filetypes = { "html", "templ" },
 			})
 			lspconfig.tailwindcss.setup({
+				on_attach = on_attach,
 				capabilities = capabilities,
+				filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+				init_options = { userLanguages = { templ = "html" } },
 			})
 			lspconfig.cssls.setup({
 				capabilities = capabilities,
@@ -51,6 +57,10 @@ return {
 				capabilities = capabilities,
 			})
 			lspconfig.yamlls.setup({
+				capabilities = capabilities,
+			})
+			lspconfig.templ.setup({
+				on_attach = on_attach,
 				capabilities = capabilities,
 			})
 			lspconfig.docker_compose_language_service.setup({

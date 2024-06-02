@@ -8,28 +8,24 @@ return {
     },
     config = function()
       require("telescope").setup({
-        extensions = {
-          ["ui-select"] = {
-            require("telescope.themes").get_dropdown,
-          },
-        },
         pickers = {
           find_files = {
             hidden = true,
           },
         },
       })
-      require("telescope").load_extension("ui-select")
       require("telescope").load_extension("notify")
       require("telescope").load_extension("projects")
       local builtin = require("telescope.builtin")
       local themes = require("telescope.themes")
-      vim.keymap.set("n", "<leader>ff", function()
-        builtin.find_files(themes.get_dropdown({ hidden = true, previewer = false }))
-      end, {})
-      vim.keymap.set("n", "<leader>gf", function()
-        builtin.git_files(themes.get_dropdown({ hidden = true, previewer = false }))
-      end, {})
+      --vim.keymap.set("n", "<leader>ff", function()
+      --  builtin.find_files(themes.get_dropdown({ hidden = true, previewer = false }))
+      --end, {})
+      vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
+      vim.keymap.set("n", "<leader>gf", builtin.git_files, {})
+      -- vim.keymap.set("n", "<leader>gf", function()
+      --   builtin.git_files(themes.get_dropdown({ hidden = true, previewer = false }))
+      -- end, {})
       vim.keymap.set("n", "<leader>fg", function()
         builtin.live_grep({ layout_config = { preview_width = 0.7 } })
       end, {})
