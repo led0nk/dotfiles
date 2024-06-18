@@ -30,6 +30,6 @@ return {
 				end
 			end,
 		})
-		vim.keymap.set("n", "<leader>bf", vim.lsp.buf.format, {})
+		vim.keymap.set("n", "<leader>bf", vim.lsp.buf.format, { desc = "format" })
 	end,
 }

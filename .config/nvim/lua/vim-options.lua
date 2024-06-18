@@ -64,14 +64,14 @@ vim.keymap.set("n", "<C-j>", "<C-w>j")
 vim.keymap.set("n", "<C-k>", "<C-w>k")
 
 -- Window Split
-vim.keymap.set("n", "<leader>wv", ":vsp<CR>")
-vim.keymap.set("n", "<leader>wh", ":sp<CR>")
-vim.keymap.set("n", "<leader>wq", "<C-w>q")
+vim.keymap.set("n", "<leader>wv", ":vsp<CR>", { desc = "vertical split" })
+vim.keymap.set("n", "<leader>wh", ":sp<CR>", { desc = "horizontal split" })
+vim.keymap.set("n", "<leader>wq", "<C-w>q", { desc = "close window" })
 
 -- Navigate Buffers
-vim.keymap.set("n", "<leader>bn", ":bnext<CR>")
-vim.keymap.set("n", "<leader>bp", ":bprevious<CR>")
-vim.keymap.set("n", "<leader>bk", ":bd<CR>")
+vim.keymap.set("n", "<leader>bn", ":bnext<CR>", { desc = "next buffer" })
+vim.keymap.set("n", "<leader>bp", ":bprevious<CR>", { desc = "previous buffer" })
+vim.keymap.set("n", "<leader>bk", ":bd<CR>", { desc = "kill buffer" })
 
 -- Insert New Line without entering insert Mode
 vim.keymap.set("n", "<leader>o", "o<ESC>")
@@ -94,17 +94,17 @@ vim.keymap.set("v", "p", '"_dP')
 
 -- some additional stuff
 vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "highlight when yanking text",
-  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+	desc = "highlight when yanking text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
 })
 
 vim.keymap.set("n", "<ESC>", ":noh<CR>")
 
 vim.filetype.add({
-  extension = {
-    templ = "templ",
-  },
+	extension = {
+		templ = "templ",
+	},
 })

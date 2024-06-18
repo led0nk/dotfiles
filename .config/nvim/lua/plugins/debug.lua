@@ -26,20 +26,20 @@ return {
         },
       }
 
-      vim.keymap.set("n", "<space>db", dap.toggle_breakpoint)
-      vim.keymap.set("n", "<space>drc", dap.run_to_cursor)
+      vim.keymap.set("n", "<space>db", dap.toggle_breakpoint, { desc = "Debug toggle breakpoint" })
+      vim.keymap.set("n", "<space>drc", dap.run_to_cursor, { desc = "Debug run to cursor" })
 
       -- Eval var under cursor
       vim.keymap.set("n", "<space>?", function()
         require("dapui").eval(nil, { enter = true })
-      end)
+      end, { desc = "Debug evaluate" })
 
-      vim.keymap.set("n", "<leader>dc", dap.continue)
-      vim.keymap.set("n", "<leader>di", dap.step_into)
-      vim.keymap.set("n", "<leader>dso", dap.step_over)
-      vim.keymap.set("n", "<leader>do", dap.step_out)
-      vim.keymap.set("n", "<leader>dsb", dap.step_back)
-      vim.keymap.set("n", "<leader>dr", dap.restart)
+      vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "Debug continue" })
+      vim.keymap.set("n", "<leader>di", dap.step_into, { desc = "Debug step into" })
+      vim.keymap.set("n", "<leader>dso", dap.step_over, { desc = "Debug step over" })
+      vim.keymap.set("n", "<leader>do", dap.step_out, { desc = "Debug step out" })
+      vim.keymap.set("n", "<leader>dsb", dap.step_back, { desc = "Debug step back" })
+      vim.keymap.set("n", "<leader>dr", dap.restart, { desc = "Debug restart" })
 
       dap.listeners.before.attach.dapui_config = function()
         ui.open()

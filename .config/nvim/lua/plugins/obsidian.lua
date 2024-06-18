@@ -300,6 +300,6 @@ return {
 				end,
 			},
 		})
-		vim.keymap.set("n", "<leader>od", ":ObsidianToday<CR>")
+		vim.keymap.set("n", "<leader>od", ":ObsidianToday<CR>", { desc = "Obisdian today" })
 	end,
 }

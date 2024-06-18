@@ -28,6 +28,15 @@ return {
 				capabilities = capabilities,
 				cmd = { "gopls" },
 				filetypes = { "go", "gomod", "gowork", "gotmpl", "templ" },
+				settings = {
+					gopls = {
+						completeUnimported = true,
+						usePlaceholders = true,
+						analyses = {
+							unusedparams = true,
+						},
+					},
+				},
 			})
 			lspconfig.htmx.setup({
 				on_attach = on_attach,
@@ -66,13 +75,13 @@ return {
 			lspconfig.docker_compose_language_service.setup({
 				capabilities = capabilities,
 			})
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {})
-			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
-			vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, {})
-			vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float)
-			vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next)
-			vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev)
+			vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "LSP hover" })
+			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "LSP go to declaration" })
+			vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "LSP go to definition" })
+			vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
+			vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Diagnostic" })
+			vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, { desc = "next diagnostic" })
+			vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, { desc = "previous diagnostic" })
 		end,
 	},
 }

@@ -21,7 +21,7 @@ return {
 				},
 			},
 			never_show = {},
-			vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>"),
+			vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", { desc = "NeoTree toggle" }),
 		})
 	end,
 }
