@@ -69,8 +69,8 @@ vim.keymap.set("n", "<leader>wh", ":sp<CR>", { desc = "horizontal split" })
 vim.keymap.set("n", "<leader>wq", "<C-w>q", { desc = "close window" })
 
 -- Navigate Buffers
-vim.keymap.set("n", "<leader>bn", ":bnext<CR>", { desc = "next buffer" })
-vim.keymap.set("n", "<leader>bp", ":bprevious<CR>", { desc = "previous buffer" })
+vim.keymap.set("n", "<TAB>", ":bnext<CR>", { desc = "next buffer" })
+vim.keymap.set("n", "<S-TAB>", ":bprevious<CR>", { desc = "previous buffer" })
 vim.keymap.set("n", "<leader>bk", ":bd<CR>", { desc = "kill buffer" })
 
 -- Insert New Line without entering insert Mode

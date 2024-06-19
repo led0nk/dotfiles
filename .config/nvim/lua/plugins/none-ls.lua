@@ -10,6 +10,8 @@ return {
 					filetypes = { "html", "yaml", "css" },
 				}),
 				null_ls.builtins.formatting.goimports,
+				null_ls.builtins.formatting.gofmt,
+				null_ls.builtins.formatting.golines,
 				--null_ls.builtins.formatting.shfmt,
 				null_ls.builtins.diagnostics.golangci_lint,
 				--null_ls.builtins.diagnostics.htmlhint,
@@ -24,7 +26,7 @@ return {
 						group = augroup,
 						buffer = bufnr,
 						callback = function()
-							vim.lsp.buf.format({ async = false })
+							vim.lsp.buf.format({ bufnr = bufnr, async = false })
 						end,
 					})
 				end
