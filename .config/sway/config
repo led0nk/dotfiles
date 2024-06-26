@@ -14,17 +14,17 @@ set $fileManager xdg-open .
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 #output * bg /usr/share/backgrounds/default.png fill
 
-##output "eDP-1" {
-#    mode  1920x1080@60.008Hz
-#    pos 0 0
-#    transform normal
-#    scale 1.0
-#    scale_filter nearest
-#    adaptive_sync off
-#    dpms on
-#    bg $HOME/Pictures/Wallpaper/background.png fill
-#    scale 1
-#}
+output "eDP-1" {
+    mode  1920x1080@60.008Hz
+    pos 0 0
+    transform normal
+    scale 1.0
+    scale_filter nearest
+    adaptive_sync off
+    dpms on
+    bg $HOME/Pictures/Wallpaper/background.png fill
+    scale 1
+}
 
 output "DP-1" {
     mode  3440x1440@143.975Hz
@@ -54,7 +54,7 @@ output "DP-2" {
 
 
 ### Lock screen
-    bindsym $mod+Control+l exec swaylock 
+    bindsym $mod+Control+l exec swaylock --config ~/.config/swaylock/config
 
 # SoundMixer
     bindcode 122 exec amixer -q set Master 5%- | notify-send -a "volume" "decrease volume" -h int:value:$(pamixer --get-volume)
@@ -203,6 +203,9 @@ bindsym XF86MonBrightnessDown exec light -U 5
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
+
+    # Disable Touchpad / Enable Touchpad
+    bindsym $mod+Shift+t exec swaymsg input type:touchpad events toggle
 #
 # Scratchpad:
 #
