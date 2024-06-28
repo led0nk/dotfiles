@@ -8,6 +8,7 @@ set $menu rofi -show drun -theme ~/.config/rofi/themes/rounded-nord-dark.rasi -s
 set $switcher rofi -show window -theme ~/.config/rofi/themes/rounded-nord-dark.rasi -show-icons
 ##set $menu wofi --show drun --allow-images
 set $fileManager xdg-open .
+set $lock swaylock -f --config ~/.config/swaylock/config
 
 ### Output configuration
 #
@@ -54,7 +55,7 @@ output "DP-2" {
 
 
 ### Lock screen
-    bindsym $mod+Control+l exec swaylock --config ~/.config/swaylock/config
+    bindsym $mod+Control+l exec $lock
 
 # SoundMixer
     bindcode 122 exec amixer -q set Master 5%- | notify-send -a "volume" "decrease volume" -h int:value:$(pamixer --get-volume)
@@ -70,6 +71,8 @@ input * {
     xkb_variant nodeadkeys
     repeat_delay 250
     #repeat_rate 1
+    tap enabled
+    natural_scroll enabled
 }
 
 ###
@@ -218,6 +221,9 @@ bindsym XF86MonBrightnessDown exec light -U 5
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+
+    bindgesture swipe:right workspace prev
+    bindgesture swipe:left workspace next
 #
 # Resizing containers:
 #
@@ -256,13 +262,20 @@ exec eval $(gnome-keyring-daemon --start --components=ssh)
 exec export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 exec waybar
 exec dunst
+exec swayidle -w \
+	timeout 300 $lock \
+	timeout 600 'swaymsg "output * dpms off"' \
+		resume 'swaymsg "output * dpms on"' \
+	before-sleep $lock 
 #exec mako
 exec flatpak run com.chmouel.gnomeNextMeetingApplet
 exec sleep 1 && keepassxc
 exec swaymsg "workspace 1; exec $term ; layout splitv; exec $term" 
-exec swaymsg "workspace 7; exec flatpak run org.signal.Signal" 
-exec swaymsg "workspace 6; exec flatpak run org.mozilla.firefox" 
+exec swaymsg "workspace 6; exec flatpak run org.signal.Signal" 
+exec swaymsg "workspace 2; exec flatpak run org.mozilla.firefox" 
 exec swaymsg "workspace 6; exec flatpak run io.github.mimbrero.WhatsAppDesktop" 
+exec blueman-applet
+exec nm-applet
 
 # swaymsg -t get_tree
 for_window [class="whatsapp-desktop-linux"] move to workspace 6
