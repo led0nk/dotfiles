@@ -1,0 +1,203 @@
+// config for DP1
+
+[
+  {
+    "layer": "top",
+    "position": "top",
+    "output": "eDP1",
+    "modules-left": [
+      "sway/workspaces",
+      "custom/right-arrow-dark",
+      "custom/gnma",
+    ],
+    "modules-center": ["clock"],
+    "modules-right": [
+      "tray",
+      "custom/weather",
+      "custom/notification",
+      "network",
+      "pulseaudio",
+      "cpu",
+      "memory",
+      "battery",
+      "disk",
+      "group/group-power",
+      "custom/logout",
+    ],
+
+    "custom/weather": {
+      "exec": "curl -s wttr.in/Hürtgenwald?format=3",
+      "interval": 102,
+      "format": " {}",
+      "tooltip": false,
+    },
+
+    "custom/notification": {
+      "tooltip": false,
+      "format": "{icon}",
+      "format-icons": {
+        "notification": "",
+        "none": "",
+        "dnd-notification": "",
+        "dnd-none": "",
+      },
+      "return-type": "json",
+      "exec-if": "pgrep -f dunst",
+      //"exec": "swaync-client -swb",
+      "on-click": "dunstctl history-pop",
+      "on-click-right": "dunstctl set-paused toggle",
+      "escape": true,
+    },
+    "custom/gnma": {
+      "format": " {} ",
+      "interval": 7,
+      "exec": "flatpak run com.chmouel.gnomeNextMeetingApplet dbus get_event",
+      "exec-if": "pgrep -f gnome-next-meeting-applet",
+      "max-length": 52,
+      "min-length": 3,
+      "on-click": "flatpak run org.gnome.Calendar",
+    },
+
+    "sway/workspaces": {
+      "disable-scroll": true,
+      "format": "{name}",
+    },
+    "clock": {
+      "format": "{:%H:%M}",
+      "format-alt": "{:%A, %B %d, %Y (%R)}  ",
+      "tooltip-format": "\n<small><tt>{calendar}</tt></small>",
+      "calendar": {
+        "mode": "month",
+        "mode-mon-col": 5,
+        "weeks-pos": "right",
+        "on-scroll": 3,
+        "on-click-right": "mode",
+        "format": {
+          "months": "<span color='#ffead5'><b>{}</b></span>",
+          "days": "<span color='#ecc8d9'><b>{}</b></span>",
+          "weeks": "<span color='#101ffdd'><b>W{}</b></span>",
+          "weekdays": "<span color='#ffcc68'><b>{}</b></span>",
+          "today": "<span color='#ff6701'><b><u>{}</u></b></span>",
+        },
+      },
+    },
+    "keyboard-state": {
+      "numlock": true,
+      "capslock": true,
+      "format": "{name} {icon}",
+      "format-icons": {
+        "locked": "",
+        "unlocked": "",
+      },
+    },
+
+    "pulseaudio": {
+      "format": "{icon}  {volume:4}% {format_source}",
+      "format-bluetooth": "{icon}  {volume}%",
+      "format-muted": " {format_source}",
+      "format-icons": {
+        "headphones": "",
+        "default": ["", ""],
+      },
+      "format-source": " {volume}%",
+      "format-source-muted": "",
+      "scroll-step": 7,
+      "on-click": "pamixer -t",
+      "on-click-right": "pavucontrol",
+    },
+    "memory": {
+      "interval": 7,
+      "format": "  Mem {}% ",
+    },
+    "cpu": {
+      "interval": 7,
+      "format": "  CPU {usage:4}% ",
+    },
+    "battery": {
+      "states": {
+        "good": 97,
+        "warning": 32,
+        "critical": 17,
+      },
+      "format": "{icon} {capacity}%",
+      "format-icons": ["", "", "", "", ""],
+      "format-charging": " {capacity}%",
+      "format-plugged": " {capacity}%",
+    },
+    "disk": {
+      "interval": 7,
+      "format": "Disk {free}",
+      "path": "/",
+      "states": {
+        "critical": 92,
+      },
+    },
+    "tray": {
+      "icon-size": 26,
+    },
+    "network": {
+      "format": "{ifname} {ipaddr}",
+    },
+    "privacy": {
+      "icon-spacing": 6,
+      "icon-size": 20,
+      "transition-duration": 252,
+      "modules": [
+        {
+          "type": "screenshare",
+          "tooltip": true,
+          "tooltip-icon-size": 26,
+        },
+        {
+          "type": "audio-out",
+          "tooltip": true,
+          "tooltip-icon-size": 26,
+        },
+        {
+          "type": "audio-in",
+          "tooltip": true,
+          "tooltip-icon-size": 26,
+        },
+      ],
+    },
+
+    "custom/logout": {
+      "format": " ",
+      "tooltip": false,
+      "on-click": "wlogout",
+    },
+    //symbols are not finished yet
+    //4nd config for DP-2
+  },
+  {
+    "layer": "top",
+    "position": "top",
+    "output": "DP0",
+    "modules-left": ["sway/workspaces"],
+    "modules-right": ["clock"],
+
+    "sway/workspaces": {
+      "disable-scroll": true,
+      "format": "{name}",
+    },
+    "clock": {
+      "format": "{:%H:%M}",
+      "format-alt": "{:%A, %B %d, %Y (%R)}  ",
+      "tooltip-format": "\n<small><tt>{calendar}</tt></small>",
+      "calendar": {
+        "mode": "month",
+        "mode-mon-col": 5,
+        "weeks-pos": "right",
+        "on-scroll": 3,
+        "on-click-right": "mode",
+        "format": {
+          "months": "<span color='#ffead5'><b>{}</b></span>",
+          "days": "<span color='#ecc8d9'><b>{}</b></span>",
+          "weeks": "<span color='#101ffdd'><b>W{}</b></span>",
+          "weekdays": "<span color='#ffcc68'><b>{}</b></span>",
+          "today": "<span color='#ff6701'><b><u>{}</u></b></span>",
+        },
+      },
+    },
+  },
+]
