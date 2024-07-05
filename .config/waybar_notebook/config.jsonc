@@ -4,26 +4,27 @@
   {
     "layer": "top",
     "position": "top",
-    "output": "eDP1",
+    "output": "eDP-1",
     "modules-left": [
       "sway/workspaces",
       "custom/right-arrow-dark",
-      "custom/gnma",
     ],
-    "modules-center": ["clock"],
+    "modules-center": ["sway/window"],
     "modules-right": [
-      "tray",
-      "custom/weather",
       "custom/notification",
-      "network",
       "pulseaudio",
       "cpu",
       "memory",
       "battery",
-      "disk",
+      "tray",
+      "clock",
       "group/group-power",
       "custom/logout",
     ],
+
+    "sway/window": {
+      "max-length": 50,
+    },
 
     "custom/weather": {
       "exec": "curl -s wttr.in/Hürtgenwald?format=3",
@@ -48,15 +49,6 @@
       "on-click-right": "dunstctl set-paused toggle",
       "escape": true,
     },
-    "custom/gnma": {
-      "format": " {} ",
-      "interval": 7,
-      "exec": "flatpak run com.chmouel.gnomeNextMeetingApplet dbus get_event",
-      "exec-if": "pgrep -f gnome-next-meeting-applet",
-      "max-length": 52,
-      "min-length": 3,
-      "on-click": "flatpak run org.gnome.Calendar",
-    },
 
     "sway/workspaces": {
       "disable-scroll": true,
@@ -75,7 +67,7 @@
         "format": {
           "months": "<span color='#ffead5'><b>{}</b></span>",
           "days": "<span color='#ecc8d9'><b>{}</b></span>",
-          "weeks": "<span color='#101ffdd'><b>W{}</b></span>",
+          "weeks": "<span color='#101ffd'><b>W{}</b></span>",
           "weekdays": "<span color='#ffcc68'><b>{}</b></span>",
           "today": "<span color='#ff6701'><b><u>{}</u></b></span>",
         },
@@ -91,27 +83,33 @@
       },
     },
 
-    "pulseaudio": {
-      "format": "{icon}  {volume:4}% {format_source}",
-      "format-bluetooth": "{icon}  {volume}%",
-      "format-muted": " {format_source}",
-      "format-icons": {
-        "headphones": "",
-        "default": ["", ""],
-      },
-      "format-source": " {volume}%",
+       "pulseaudio": {
+      // "scroll-step": 1, // %, can be a float
+      "format": "{volume}% {icon} {format_source}",
+      "format-bluetooth": "{volume}% {icon} {format_source}",
+      "format-bluetooth-muted": " {icon} {format_source}",
+      "format-muted": " {format_source}",
+      "format-source": "{volume}% ",
       "format-source-muted": "",
-      "scroll-step": 7,
-      "on-click": "pamixer -t",
-      "on-click-right": "pavucontrol",
+      "format-icons": {
+          "headphone": "",
+          "hands-free": "",
+          "headset": "",
+          "phone": "",
+          "portable": "",
+          "car": "",
+          "default": ["", "", ""]
+      },
+    "on-click": "pamixer -t",
+    "on-click-right": "pavucontrol",
     },
     "memory": {
       "interval": 7,
-      "format": "  Mem {}% ",
+      "format": " {}%",
     },
     "cpu": {
       "interval": 7,
-      "format": "  CPU {usage:4}% ",
+      "format": "{usage:4}%",
     },
     "battery": {
       "states": {
@@ -126,7 +124,7 @@
     },
     "disk": {
       "interval": 7,
-      "format": "Disk {free}",
+      "format": "{free}",
       "path": "/",
       "states": {
         "critical": 92,
@@ -193,7 +191,7 @@
         "format": {
           "months": "<span color='#ffead5'><b>{}</b></span>",
           "days": "<span color='#ecc8d9'><b>{}</b></span>",
-          "weeks": "<span color='#101ffdd'><b>W{}</b></span>",
+          "weeks": "<span color='#101ffd'><b>W{}</b></span>",
           "weekdays": "<span color='#ffcc68'><b>{}</b></span>",
           "today": "<span color='#ff6701'><b><u>{}</u></b></span>",
         },

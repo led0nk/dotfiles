@@ -10,12 +10,11 @@
       "custom/right-arrow-dark",
       "custom/gnma",
     ],
-    "modules-center": ["clock"],
+    "modules-center": ["sway/window"],
     "modules-right": [
-      "tray",
-      "custom/weather",
+      //"custom/weather",
       "custom/notification",
-      "network",
+      //"network",
       "pulseaudio",
       "cpu",
       "memory",
@@ -24,6 +23,8 @@
       //	"custom/left-arrow-dark",
       //	"battery",
       "disk",
+      "tray",
+      "clock",
       "group/group-power",
       "custom/logout",
     ],
@@ -96,7 +97,7 @@
 
     "pulseaudio": {
       "format": "{icon}  {volume:2}% {format_source}",
-      "format-bluetooth": "{icon}  {volume}%",
+      "format-bluetooth": "{icon}  {volume}% ",
       "format-muted": "  {format_source}",
       "format-icons": {
         "headphones": "",
