@@ -11,7 +11,7 @@
     ],
     "modules-center": ["sway/window"],
     "modules-right": [
-      "custom/notification",
+      "custom/dunst",
       "pulseaudio",
       "cpu",
       "memory",
@@ -58,20 +58,20 @@
       "tooltip": false,
     },
 
-    "custom/notification": {
+    "custom/dunst": {
       "tooltip": false,
-      "format": "{icon}",
+      /*"format": "{icon}",
       "format-icons": {
         "notification": "",
         "none": "",
         "dnd-notification": "",
         "dnd-none": "",
       },
-      "return-type": "json",
-      //"exec-if": "pgrep -f dunst",
-      //"exec": "swaync-client -swb",
+      "return-type": "json",*/
+      "exec": "~/.config/waybar/scripts/dunst.sh",
       "on-click": "dunstctl history-pop",
       "on-click-right": "dunstctl set-paused toggle",
+      "restart-interval": 1,
       "escape": true,
     },
 
