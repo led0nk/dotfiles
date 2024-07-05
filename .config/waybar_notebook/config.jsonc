@@ -7,7 +7,7 @@
     "output": "eDP-1",
     "modules-left": [
       "sway/workspaces",
-      "custom/right-arrow-dark",
+      "sway/scratchpad",
     ],
     "modules-center": ["sway/window"],
     "modules-right": [
@@ -21,6 +21,31 @@
       "group/group-power",
       "custom/logout",
     ],
+    // Modules configuration
+     "sway/workspaces": {
+         "disable-scroll": true,
+         "all-outputs": true,
+         "warp-on-scroll": false,
+         "format": "{name}",
+         "format-icons": {
+             "1": "",
+             "2": "",
+             "3": "",
+             "4": "",
+             "5": "",
+             "8": "",
+             "urgent": "",
+             "focused": "",
+             "default": ""
+         }
+     },
+    "sway/scratchpad": {
+        "format": "{icon} {count}",
+        "show-empty": false,
+        "format-icons": ["", ""],
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
 
     "sway/window": {
       "max-length": 50,
@@ -43,17 +68,13 @@
         "dnd-none": "",
       },
       "return-type": "json",
-      "exec-if": "pgrep -f dunst",
+      //"exec-if": "pgrep -f dunst",
       //"exec": "swaync-client -swb",
       "on-click": "dunstctl history-pop",
       "on-click-right": "dunstctl set-paused toggle",
       "escape": true,
     },
 
-    "sway/workspaces": {
-      "disable-scroll": true,
-      "format": "{name}",
-    },
     "clock": {
       "format": "{:%H:%M}",
       "format-alt": "{:%A, %B %d, %Y (%R)}  ",
