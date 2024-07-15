@@ -60,6 +60,9 @@ alias gf="git fetch"
 alias k="kubectl"
 alias kubectl="kubectl --insecure-skip-tls-verify"
 
+# ssh
+alias pihole="192.168.178.3"
+
 
 function acp(){
   commitmsg=$1

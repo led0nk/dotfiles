@@ -4,7 +4,7 @@ set $down j
 set $up k
 set $right l
 set $term gnome-terminal --hide-menubar --working-directory=$HOME/git/repo
-set $menu rofi -show drun -theme ~/.config/rofi/themes/rounded-nord-dark.rasi -show-icons
+set $menu rofi -show drun -theme ~/.config/rofi/themes/rounded-blue-dark.rasi -show-icons
 set $switcher rofi -show window -theme ~/.config/rofi/themes/rounded-nord-dark.rasi -show-icons
 ##set $menu wofi --show drun --allow-images
 set $fileManager xdg-open .
@@ -268,8 +268,8 @@ exec export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 exec waybar
 exec dunst
 exec swayidle -w \
-	timeout 300 '$lock' \
-	timeout 600 'swaymsg "output * dpms off"' \
+	timeout 600 '$lock' \
+	timeout 1200 'swaymsg "output * dpms off"' \
 		resume 'swaymsg "output * dpms on"' \
 	before-sleep '$lock' 
 #exec mako

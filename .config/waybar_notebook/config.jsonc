@@ -127,16 +127,24 @@
     "memory": {
       "interval": 7,
       "format": " {}%",
+      "states": {
+        "warning": 85,
+        "critical": 95,
+    },
     },
     "cpu": {
       "interval": 7,
       "format": "{usage:4}%",
+      "states": {
+        "warning": 85,
+        "critical": 95,
+    },
     },
     "battery": {
       "states": {
         "good": 97,
-        "warning": 32,
-        "critical": 17,
+        "warning": 20,
+        "critical": 10,
       },
       "format": "{icon} {capacity}%",
       "format-icons": ["", "", "", "", ""],
