@@ -267,11 +267,11 @@ exec eval $(gnome-keyring-daemon --start --components=ssh)
 exec export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 exec waybar
 exec dunst
-exec swayidle -w \
-	timeout 600 '$lock' \
-	timeout 1200 'swaymsg "output * dpms off"' \
-		resume 'swaymsg "output * dpms on"' \
-	before-sleep '$lock' 
+#exec swayidle -w \
+#	timeout 600 '$lock' \
+#	timeout 1200 'swaymsg "output * dpms off"' \
+#		resume 'swaymsg "output * dpms on"' \
+#	before-sleep '$lock' 
 #exec mako
 exec sleep 1 && keepassxc
 exec swaymsg "workspace 1; exec $term ; layout splitv; exec $term" 
@@ -282,11 +282,7 @@ exec blueman-applet
 exec nm-applet
 
 # swaymsg -t get_tree
-<<<<<<< Updated upstream
-for_window [class="whatsapp-desktop-linux"] move to workspace 5 
-=======
 for_window [class="whatsapp-desktop-linux"] move to workspace 5
->>>>>>> Stashed changes
 for_window [class="Signal"] move to workspace 5
 for_window [app_id="org.keepassxc.KeePassXC"] move to workspace 8
 
