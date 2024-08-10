@@ -15,17 +15,17 @@ set $lock swaylock -f --config ~/.config/swaylock/config
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 #output * bg /usr/share/backgrounds/default.png fill
 
-output "eDP-1" {
-    mode  1920x1080@60.008Hz
-    pos 0 0
-    transform normal
-    scale 1.0
-    scale_filter nearest
-    adaptive_sync off
-    dpms on
-    bg $HOME/Pictures/Wallpaper/background.png fill
-    scale 1
-}
+#output "eDP-1" {
+#    mode  1920x1080@60.008Hz
+#    pos 0 0
+#    transform normal
+#    scale 1.0
+#    scale_filter nearest
+#    adaptive_sync off
+#    dpms on
+#    bg $HOME/Pictures/Wallpaper/background.png fill
+#    scale 1
+#}
 
 output "DP-1" {
     mode  3440x1440@143.975Hz
@@ -275,14 +275,18 @@ exec swayidle -w \
 #exec mako
 exec sleep 1 && keepassxc
 exec swaymsg "workspace 1; exec $term ; layout splitv; exec $term" 
-exec swaymsg "workspace 6; exec flatpak run org.signal.Signal" 
+exec swaymsg "workspace 5; exec flatpak run org.signal.Signal" 
 exec swaymsg "workspace 2; exec flatpak run org.mozilla.firefox" 
-exec swaymsg "workspace 6; exec flatpak run io.github.mimbrero.WhatsAppDesktop" 
+exec swaymsg "workspace 5; exec flatpak run io.github.mimbrero.WhatsAppDesktop" 
 exec blueman-applet
 exec nm-applet
 
 # swaymsg -t get_tree
+<<<<<<< Updated upstream
 for_window [class="whatsapp-desktop-linux"] move to workspace 5 
+=======
+for_window [class="whatsapp-desktop-linux"] move to workspace 5
+>>>>>>> Stashed changes
 for_window [class="Signal"] move to workspace 5
 for_window [app_id="org.keepassxc.KeePassXC"] move to workspace 8
 

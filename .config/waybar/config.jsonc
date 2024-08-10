@@ -7,27 +7,45 @@
     "output": "DP-1",
     "modules-left": [
       "sway/workspaces",
-      "custom/right-arrow-dark",
-      "custom/gnma",
+      "sway/scratchpad",
     ],
     "modules-center": ["sway/window"],
     "modules-right": [
-      //"custom/weather",
-      "custom/notification",
-      //"network",
+      "custom/dunst",
       "pulseaudio",
       "cpu",
       "memory",
-      //   not used for workstations
-      //	"custom/left-arrow-light",
-      //	"custom/left-arrow-dark",
-      //	"battery",
       "disk",
       "tray",
       "clock",
       "group/group-power",
       "custom/logout",
     ],
+    // Modules configuration
+     "sway/workspaces": {
+         "disable-scroll": true,
+         "all-outputs": true,
+         "warp-on-scroll": false,
+         "format": "{name}",
+         "format-icons": {
+             "1": "",
+             "2": "",
+             "3": "",
+             "4": "",
+             "5": "",
+             "8": "",
+             "urgent": "",
+             "focused": "",
+             "default": ""
+         }
+     },
+    "sway/scratchpad": {
+        "format": "{icon} {count}",
+        "show-empty": false,
+        "format-icons": ["", ""],
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
 
     "custom/weather": {
       "exec": "curl -s wttr.in/Hürtgenwald?format=1",
@@ -36,20 +54,20 @@
       "tooltip": false,
     },
 
-    "custom/notification": {
+    "custom/dunst": {
       "tooltip": false,
-      "format": "{icon}",
+      /*"format": "{icon}",
       "format-icons": {
         "notification": "",
         "none": "",
         "dnd-notification": "",
         "dnd-none": "",
       },
-      "return-type": "json",
-      "exec-if": "which dunst",
-      //"exec": "swaync-client -swb",
+      "return-type": "json",*/
+      "exec": "~/.config/waybar/scripts/dunst.sh",
       "on-click": "dunstctl history-pop",
       "on-click-right": "dunstctl set-paused toggle",
+      "restart-interval": 1,
       "escape": true,
     },
     "custom/gnma": {
@@ -62,10 +80,6 @@
       "on-click": "flatpak run org.gnome.Calendar",
     },
 
-    "sway/workspaces": {
-      "disable-scroll": true,
-      "format": "{name}",
-    },
     "clock": {
       "format": "{:%H:%M}",
       "format-alt": "{:%A, %B %d, %Y (%R)}  ",
@@ -111,11 +125,11 @@
     },
     "memory": {
       "interval": 5,
-      "format": "  Mem {}% ",
+      "format": " {}% ",
     },
     "cpu": {
       "interval": 5,
-      "format": "  CPU {usage:2}% ",
+      "format": " {usage:2}% ",
     },
     "battery": {
       "states": {
@@ -128,7 +142,7 @@
     },
     "disk": {
       "interval": 5,
-      "format": "Disk {free}",
+      "format": "{free}",
       "path": "/",
       "states": {
         "critical": 90,
