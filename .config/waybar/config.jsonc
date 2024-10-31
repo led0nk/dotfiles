@@ -24,7 +24,7 @@
     // Modules configuration
      "sway/workspaces": {
          "disable-scroll": true,
-         "all-outputs": true,
+         "all-outputs": false,
          "warp-on-scroll": false,
          "format": "{name}",
          "format-icons": {
@@ -33,6 +33,7 @@
              "3": "",
              "4": "",
              "5": "",
+             "7": "",
              "8": "",
              "urgent": "",
              "focused": "",
