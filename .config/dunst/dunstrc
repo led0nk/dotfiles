@@ -377,3 +377,7 @@
   format = "<b>%s</b> \n%b"
   timeout = 2
   history_ignore = true
+
+[skip-rule]
+ desktop_name = "com.spotify.Client"
+ skip_display = true
