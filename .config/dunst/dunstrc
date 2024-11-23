@@ -379,5 +379,5 @@
   history_ignore = true
 
 [skip-rule]
- desktop_name = "com.spotify.Client"
+ desktop_entry = "com.spotify.Client"
  skip_display = true
