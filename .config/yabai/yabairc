@@ -40,4 +40,7 @@ yabai -m space 2 --label second
 yabai -m rule --add app="^Systemeinstellungen$" manage=off
 yabai -m rule --add app="^Rechner$" manage=off
 yabai -m rule --add app="^Karabiner-Elements$" manage=off
-
+yabai -m rule --add app="^Firefox$" space=2
+yabai -m rule --add app="^WhatsApp$" space=5
+yabai -m rule --add app="^Signal$" space=5
+yabai -m rule --add app="^KeePassXC$" space=8
