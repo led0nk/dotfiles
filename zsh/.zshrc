@@ -131,8 +131,11 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:
 #zplug "plugins/docker-compose", from:oh-my-zsh
 
 export GOPATH=/home/$USER/.go
+export COLORTERM=truecolor
+export GOPATH=$GOPATH:/usr/local/go/bin
 export GO111MODULE=on
 export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:/opt/homebrew/bin
 export PATH=$PATH:$HOME/.emacs.d/bin
 export LESS_TERMCAP_mb=$'\e[1;32m'
 export LESS_TERMCAP_md=$'\e[1;32m'

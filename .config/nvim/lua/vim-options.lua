@@ -35,6 +35,7 @@ vim.opt.scrolloff = 10
 -- Set a column line
 vim.opt.colorcolumn = "80"
 
+
 -- Save Files
 vim.keymap.set("n", "<C-s>", ":update<CR>")
 vim.keymap.set("i", "<C-s>", "<ESC>:update<CR>")
@@ -94,17 +95,17 @@ vim.keymap.set("v", "p", '"_dP')
 
 -- some additional stuff
 vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "highlight when yanking text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+  desc = "highlight when yanking text",
+  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
 
 vim.keymap.set("n", "<ESC>", ":noh<CR>")
 
 vim.filetype.add({
-	extension = {
-		templ = "templ",
-	},
+  extension = {
+    templ = "templ",
+  },
 })

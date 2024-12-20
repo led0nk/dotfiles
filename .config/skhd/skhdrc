@@ -1,0 +1,24 @@
+cmd + shift - q : yabai -m window --close
+cmd + shift - r : yabai --restart-service && skhd --restart-service
+
+cmd - h : yabai -m window --focus west
+cmd - l : yabai -m window --focus east
+cmd - j : yabai -m window --focus north
+cmd - k : yabai -m window --focus south
+
+cmd + shift - h : yabai -m window --swap west
+cmd + shift - l : yabai -m window --swap east
+cmd + shift - j : yabai -m window --swap north
+cmd + shift - k : yabai -m window --swap south
+
+cmd - return : /Applications/iTerm.app/Contents/MacOS/iTerm2 --single-instance -d ~
+cmd - e : open -a Finder
+
+cmd + shift - 1 : yabai -m window --space 1;
+cmd + shift - 2 : yabai -m window --space 2; 
+cmd + shift - 3 : yabai -m window --space 3;
+cmd + shift - 4 : yabai -m window --space 4;
+cmd + shift - 5 : yabai -m window --space 5;
+cmd + shift - 6 : yabai -m window --space 6;
+cmd + shift - 7 : yabai -m window --space 7;
+cmd + shift - 8 : yabai -m window --space 8;
