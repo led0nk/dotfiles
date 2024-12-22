@@ -98,8 +98,8 @@ sketchybar --add item battery_label right \
 # ICON # 
 sketchybar --add item disk_space_icon right \
           --set disk_space_icon icon= \
-          --set disk_space_icon padding_left=4 \
-          --set battery_icon icon.font="SF Pro Text:UltraLight:18.0"
+          --set disk_space_icon padding_left=4 
+          #--set disk_space_icon icon.font="SF Pro Display:UltraLight:18.0"
 
 # LABEL #
 sketchybar --add item disk_space_label right \
@@ -107,6 +107,22 @@ sketchybar --add item disk_space_label right \
           --set disk_space_label update_freq=60 \
           --set disk_space_label label.font="SF Pro Text:Semibold:11.0" \
           --set disk_space_label label.padding_left=4
+
+### CPU ###
+
+# ICON #
+sketchybar --add item cpu_icon right \
+          --set cpu_icon icon=   \
+          --set cpu_icon padding_left=4 \
+          --set cpu_icon icon.font="Hack Nerd Font:Regular:14.0"
+
+# LABEL #
+
+sketchybar --add item cpu_label right \
+          --set cpu_label script="~/.config/sketchybar/plugins/cpu.sh" \
+          --set cpu_label update_freq=5 \
+          --set cpu_label label.font="SF Pro Text:Semibold:11.0" \
+          --set cpu_label label.padding_left=4
 
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
