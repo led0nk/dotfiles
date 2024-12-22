@@ -3,7 +3,6 @@ sudo yabai --load-sa
 
 # set the tiling layout to bsp/managed/float (binary space partitioning)
 yabai -m config layout bsp
-yabai -m config window_placement second_child
 yabai -m config external_bar all:32:0
 
 # set gaps between windows
@@ -13,15 +12,20 @@ yabai -m config bottom_padding 4
 yabai -m config left_padding 4
 yabai -m config right_padding 4
 
+yabai -m config window_placement second_child
+yabai -m config window_shadow on
 yabai -m config window_border on
-yabai -m config window_border_placement inset
+yabai -m config window_border_placement outer
 yabai -m config window_border_width 16
 yabai -m config active_window_border_color 0xff775759 
 yabai -m config normal_window_border_color 0xff505050 
 
+yabai -m config active_window_opacity 1.0
+yabai -m config normal_window_opacity 1.0
+
 # focus follow mouse
 yabai -m config focus_follows_mouse autofocus
-yabai -m config mouse_follows_focus on
+yabai -m config mouse_follows_focus off
 
 # automatically balance window sizes
 yabai -m config auto_balance off
@@ -32,9 +36,6 @@ yabai -m config space_animation_duration 0
 yabai -m config mouse_modifier cmd
 yabai -m config mouse_action1 move
 yabai -m config mouse_action2 resize
-
-yabai -m space 1 --label main
-yabai -m space 2 --label second
 
 # float system preferences
 yabai -m rule --add app="^Systemeinstellungen$" manage=off

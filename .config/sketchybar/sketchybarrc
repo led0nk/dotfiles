@@ -81,7 +81,6 @@ sketchybar --add item clock right \
 
 # ICON #
 sketchybar --add item battery_icon right \
-          --set battery_icon icon.position=right \
           --set battery_icon icon.font="SF Pro Text:UltraLight:18.0" \
           --set battery_icon update_freq=120 script="$PLUGIN_DIR/battery_icon.sh" \
           --subscribe battery system_woke power_source_change
@@ -89,8 +88,24 @@ sketchybar --add item battery_icon right \
 # LABEL #
 sketchybar --add item battery_label right \
           --set battery_label label.font="SF Pro Text:Semibold:11.0" \
+          --set battery_label padding_left=4 \
           --set battery_label update_freq=120 script="$PLUGIN_DIR/battery_label.sh" \
           --subscribe battery system_woke power_source_change
+
+### DISK ###
+
+# ICON # 
+sketchybar --add item disk_space_icon right \
+          --set disk_space_icon icon= \
+          --set disk_space_icon padding_left=4 \
+          --set battery_icon icon.font="SF Pro Text:UltraLight:18.0"
+
+# LABEL #
+sketchybar --add item disk_space_label right \
+          --set disk_space_label script="~/.config/sketchybar/plugins/disk_space.sh" \
+          --set disk_space_label update_freq=60 \
+          --set disk_space_label label.font="SF Pro Text:Semibold:11.0" \
+          --set disk_space_label label.padding_left=4
 
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
