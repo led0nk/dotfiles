@@ -13,7 +13,8 @@ for SID in {1..10}; do
   if [ "$SID" -eq "$FOCUSED_SPACE" ]; then
     # Highlight the focused space
     sketchybar --set space.$SID icon.highlight=off \
-               --set space.$SID icon.color=0xffc9545d
+               --set space.$SID icon.color=0xfff9826c
+               #--set space.$SID icon.color=0xffc9545d
   else
     # Reset the highlight for non-focused spaces
     sketchybar --set space.$SID icon.highlight=off \
