@@ -199,4 +199,9 @@ window#waybar {
 #custom-notification{
   font-size: 16px;
   margin: 0px 8px 0px 8px;
+  background-color: rgba(64, 64, 64, 0.5);
+  border: none;
+  border-radius: 14px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
