@@ -8,23 +8,25 @@
     "modules-left": [
       "sway/workspaces",
       "sway/scratchpad",
+      "sway/window",
     ],
-    "modules-center": ["sway/window"],
+    "modules-center": [],
     "modules-right": [
+      "tray",
       "custom/dunst",
       "pulseaudio",
       "cpu",
       "memory",
       "disk",
-      "tray",
       "clock",
       "group/group-power",
       "custom/logout",
     ],
     // Modules configuration
-     "sway/workspaces": {
+    "sway/workspaces": {
          "disable-scroll": true,
          "all-outputs": false,
+         "persist": true,
          "warp-on-scroll": false,
          "format": "{name}",
          "format-icons": {
@@ -46,6 +48,10 @@
         "format-icons": ["", ""],
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
+    },
+    "sway/window": {
+      "format": " {title}"
+
     },
 
     "custom/weather": {
@@ -82,7 +88,7 @@
     },
 
     "clock": {
-      "format": "{:%H:%M}",
+      "format": "{:%a. %d. %b. %H:%M}",
       "format-alt": "{:%A, %B %d, %Y (%R)}  ",
       "tooltip-format": "\n<small><tt>{calendar}</tt></small>",
       "calendar": {
@@ -111,14 +117,14 @@
     },
 
     "pulseaudio": {
-      "format": "{icon}  {volume:2}% {format_source}",
-      "format-bluetooth": "{icon}  {volume}% ",
+      "format": "{volume:2}%  {icon} {format_source}",
+      "format-bluetooth": "{volume}%  {icon}",
       "format-muted": "  {format_source}",
       "format-icons": {
         "headphones": "",
         "default": ["", ""],
       },
-      "format-source": " {volume}%",
+      "format-source": "{volume}%  ",
       "format-source-muted": "",
       "scroll-step": 5,
       "on-click": "pamixer -t",
@@ -126,11 +132,11 @@
     },
     "memory": {
       "interval": 5,
-      "format": " {}% ",
+      "format": "{}%  ",
     },
     "cpu": {
       "interval": 5,
-      "format": " {usage:2}% ",
+      "format": "{usage:2}%  ",
     },
     "battery": {
       "states": {
@@ -143,7 +149,7 @@
     },
     "disk": {
       "interval": 5,
-      "format": "{free}",
+      "format": "{free} ",
       "path": "/",
       "states": {
         "critical": 90,
@@ -177,7 +183,6 @@
         },
       ],
     },
-
     "custom/logout": {
       "format": " ",
       "tooltip": false,
