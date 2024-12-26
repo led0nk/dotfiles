@@ -266,7 +266,7 @@ default_border pixel 2
 exec eval $(gnome-keyring-daemon --start --components=ssh)
 exec export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 exec waybar
-exec dunst
+#exec dunst
 #exec swayidle -w \
 #	timeout 600 '$lock' \
 #	timeout 1200 'swaymsg "output * dpms off"' \

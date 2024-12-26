@@ -196,3 +196,7 @@ window#waybar {
   font-size: 16px;
 }
 
+#custom-notification{
+  font-size: 16px;
+  margin: 0px 8px 0px 8px;
+}
