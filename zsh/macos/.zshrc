@@ -59,6 +59,8 @@ alias gf="git fetch"
 # kubectl
 alias k="kubectl"
 alias kubectl="kubectl --insecure-skip-tls-verify"
+source <(kubectl completion zsh)
+
 
 
 function acp(){
@@ -134,10 +136,9 @@ export GOPATH=$HOME/go
 export COLORTERM=truecolor
 export GOPATH=$GOPATH:/usr/local/go
 export GO111MODULE=on
-export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$HOME/go/bin
 export PATH=$PATH:/opt/homebrew/bin
 export PATH=$PATH:/usr/local/bin
-export PATH=$PATH:$HOME/.emacs.d/bin
 export LESS_TERMCAP_mb=$'\e[1;32m'
 export LESS_TERMCAP_md=$'\e[1;32m'
 export LESS_TERMCAP_me=$'\e[0m'
