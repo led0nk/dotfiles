@@ -129,6 +129,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:
 
 #zplug "plugins/docker-compose", from:oh-my-zsh
 
+
 export GOPATH=/home/$USER/.go
 export COLORTERM=truecolor
 export GOPATH=$GOPATH:/usr/local/go/bin
