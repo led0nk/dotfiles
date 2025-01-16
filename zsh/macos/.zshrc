@@ -61,6 +61,9 @@ alias k="kubectl"
 alias kubectl="kubectl --insecure-skip-tls-verify"
 source <(kubectl completion zsh)
 
+# custom
+alias plc-test-setup="eval \$(~/git/repo/umh/test-setup.sh)"
+
 
 
 function acp(){
