@@ -41,7 +41,12 @@
     }
   },
   "notification-visibility": {
-    "spotify": {
+    "Spotify": {
+      "state": "hidden",
+      "urgency": "All",
+      "app-name": "Spotify"
+    },
+    "spotify-flatpak": {
       "state": "hidden",
       "urgency": "All",
       "app-name": "com.spotify.Client"

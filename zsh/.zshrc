@@ -132,7 +132,6 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:
 
 export GOPATH=/home/$USER/.go
 export COLORTERM=truecolor
-export GOPATH=$GOPATH:/usr/local/go/bin
 export GO111MODULE=on
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:/opt/homebrew/bin

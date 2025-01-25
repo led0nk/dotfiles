@@ -5,6 +5,7 @@ set $up k
 set $right l
 set $term gnome-terminal --hide-menubar --working-directory=$HOME/git/repo
 set $menu rofi -show drun -theme ~/.config/rofi/themes/rounded-blue-dark.rasi -show-icons
+#set $menu ulauncher
 set $switcher rofi -show window -theme ~/.config/rofi/themes/rounded-nord-dark.rasi -show-icons
 ##set $menu wofi --show drun --allow-images
 set $fileManager xdg-open .
@@ -286,6 +287,7 @@ exec nm-applet
 for_window [class="whatsapp-desktop-linux"] move to workspace 5
 for_window [class="Signal"] move to workspace 5
 for_window [app_id="org.keepassxc.KeePassXC"] move to workspace 8
+#for_window [] border none
 
 #worskspaces to displays
 workspace 1 output DP-1
