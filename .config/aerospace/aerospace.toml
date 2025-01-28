@@ -9,7 +9,9 @@ after-login-command = []
 # You can use it to add commands that run after AeroSpace startup.
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = []
+after-startup-command = [
+  'exec-and-forget borders style=round hidpi=true active_color=0xff4c7899 inactive_color=0xff333333 width=7.0'
+]
 
 # Start AeroSpace at login
 start-at-login = true
@@ -37,6 +39,7 @@ default-root-container-orientation = 'auto'
 # See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
 # Fallback value (if you omit the key): on-focused-monitor-changed = []
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focus-changed = ['move-mouse window-lazy-center']
 
 # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
 # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
@@ -56,12 +59,12 @@ preset = 'qwerty'
 #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
 #                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-inner.horizontal = 4 
-inner.vertical =   4
-outer.left =       0
-outer.bottom =     0
-outer.top =        0 
-outer.right =      0
+inner.horizontal = 6 
+inner.vertical =   6 
+outer.left =       4
+outer.bottom =     4
+outer.top =        4 
+outer.right =      4
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -86,22 +89,27 @@ outer.right =      0
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
 # You can uncomment the following lines to open up terminal with alt + enter shortcut (like in i3)
- cmd-enter = '''exec-and-forget osascript -e '
- tell application "iTerm"
-     create window with default profile
-     activate
- end tell'
- '''
+cmd-enter = '''exec-and-forget osascript -e '
+tell application "iTerm"
+    create window with default profile
+    activate
+end tell'
+'''
+
+#cmd-e = 'exec-and-forget /bin/bash open .'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-cmd-period = 'layout tiles horizontal vertical'
-cmd-comma = 'layout accordion horizontal vertical'
+#cmd-s = 'layout v_accordion'
+cmd-s = 'layout h_accordion'
+cmd-e = 'layout tiles horizontal vertical'
+cmd-shift-space = 'layout floating tiling'
+#cmd-comma = 'layout accordion horizontal vertical'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-cmd-h = 'focus left'
-cmd-j = 'focus down'
-cmd-k = 'focus up'
-cmd-l = 'focus right'
+cmd-h = 'focus --boundaries-action wrap-around-the-workspace left'
+cmd-j = 'focus --boundaries-action wrap-around-the-workspace down'
+cmd-k = 'focus --boundaries-action wrap-around-the-workspace up'
+cmd-l = 'focus --boundaries-action wrap-around-the-workspace right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move
 cmd-shift-h = 'move left'
@@ -115,10 +123,6 @@ cmd-alt-v = 'split vertical'
 
 #cmd-f = 'fullscreen'
 
-
-# See: https://nikitabobko.github.io/AeroSpace/commands#resize
-cmd-shift-left = 'resize smart -50'
-cmd-shift-right = 'resize smart +50'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
 cmd-1 = 'workspace 1'
@@ -191,15 +195,17 @@ cmd-shift-0 = 'move-node-to-workspace 10'
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 cmd-tab = 'workspace-back-and-forth'
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
-cmd-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+cmd-shift-right = 'move-workspace-to-monitor --wrap-around next'
+cmd-shift-left = 'move-workspace-to-monitor --wrap-around prev'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
-cmd-shift-semicolon = 'mode service'
+cmd-shift-s = 'mode service'
+cmd-r = 'mode resize'
+
 
 
 cmd-shift-r = 'reload-config'
 
-cmd-r = 'mode resize'
 #cmd-left-click = 'move start'
 #cmd-right-click = 'resize start'
 
@@ -233,7 +239,8 @@ shift-down = ['volume set 0', 'mode main']
 
 # some application to workspace binds
 [[on-window-detected]]
-if.app-id = 'net.whatsapp.Whatsapp'
+#if.app-id = 'net.whatsapp.Whatsapp'
+if.app-name-regex-substring = 'Whatsapp'
 run = 'move-node-to-workspace 5'
 
 [[on-window-detected]]
@@ -255,3 +262,6 @@ run = 'move-node-to-workspace 10'
 [[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
 run = 'move-node-to-workspace 7'
+
+[workspace-to-monitor-force-assignment]
+10 = '^Built-in Retina Display$'
