@@ -10,8 +10,11 @@ after-login-command = []
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
-  'exec-and-forget borders style=round hidpi=true active_color=0xff4c7899 inactive_color=0xff333333 width=7.0'
+  'exec-and-forget borders style=round hidpi=true active_color=0xffe1e3e4 inactive_color=0xff333333 width=7.0'
 ]
+#after-startup-command = [
+#  'exec-and-forget borders style=round hidpi=true active_color=0xff4c7899 inactive_color=0xff333333 width=7.0'
+#]
 
 # Start AeroSpace at login
 start-at-login = true
@@ -96,20 +99,21 @@ tell application "iTerm"
 end tell'
 '''
 
-#cmd-e = 'exec-and-forget /bin/bash open .'
+cmd-shift-enter = 'exec-and-forget open -a /Application/iTerm.app'
+
+#cmd-e = 'exec-and-forget open -a /Applications/Finder.app'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-#cmd-s = 'layout v_accordion'
-cmd-s = 'layout h_accordion'
-cmd-e = 'layout tiles horizontal vertical'
-cmd-shift-space = 'layout floating tiling'
+cmd-alt-s = 'layout h_accordion'
+cmd-alt-e = 'layout tiles horizontal vertical'
+cmd-alt-space = 'layout floating tiling'
 #cmd-comma = 'layout accordion horizontal vertical'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-cmd-h = 'focus --boundaries-action wrap-around-the-workspace left'
-cmd-j = 'focus --boundaries-action wrap-around-the-workspace down'
-cmd-k = 'focus --boundaries-action wrap-around-the-workspace up'
-cmd-l = 'focus --boundaries-action wrap-around-the-workspace right'
+cmd-h = 'focus --boundaries all-monitors-outer-frame left'
+cmd-j = 'focus --boundaries all-monitors-outer-frame down'
+cmd-k = 'focus --boundaries all-monitors-outer-frame up'
+cmd-l = 'focus --boundaries all-monitors-outer-frame right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move
 cmd-shift-h = 'move left'
@@ -262,6 +266,14 @@ run = 'move-node-to-workspace 10'
 [[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
 run = 'move-node-to-workspace 7'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'finder'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'preview'
+run = 'layout floating'
 
 [workspace-to-monitor-force-assignment]
 10 = '^Built-in Retina Display$'
