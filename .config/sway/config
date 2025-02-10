@@ -39,18 +39,18 @@ output "DP-1" {
     bg $HOME/Pictures/Wallpaper/background.png fill
     scale 1
 }
-output "DP-2" {
-    mode  1920x1080@60.0Hz
-    pos 0 0
-    #pos 0 0
-    transform 270
-    scale 1.0
-    scale_filter nearest
-    adaptive_sync off
-    dpms on
-    bg $HOME/Pictures/Wallpaper/background.png fill
-    scale 1
-}
+#output "DP-2" {
+#    mode  1920x1080@60.0Hz
+#    pos 0 0
+#    #pos 0 0
+#    transform 270
+#    scale 1.0
+#    scale_filter nearest
+#    adaptive_sync off
+#    dpms on
+#    bg $HOME/Pictures/Wallpaper/background.png fill
+#    scale 1
+#}
 
 
 
