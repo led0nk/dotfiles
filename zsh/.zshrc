@@ -23,11 +23,15 @@ bindkey -e
 bindkey '^P' up-history
 bindkey '^N' down-history
 bindkey '^?' backward-delete-char
-bindkey '^h' backward-delete-char
+#bindkey '^h' backward-delete-char
 bindkey "^a" beginning-of-line
 bindkey "^e" end-of-line
 bindkey "^R" history-incremental-pattern-search-backward
 bindkey '^[[Z' autosuggest-accept
+bindkey '^h' backward-char
+bindkey '^l' forward-char
+bindkey '^j' backward-word
+bindkey '^k' forward-word
 
 ## ALIASES
 # general
@@ -36,6 +40,13 @@ alias ls="eza -la"
 alias ll="eza -abghHlS"
 alias vim="nvim"
 alias mkdir="mkdir -p"
+
+# fzf
+alias ff='fzf -m --preview "bat --style=numbers --color=always {}"'
+alias inv='nvim $(fzf -m --preview "bat --style=numbers --color=always {}")'
+alias fa='aerospace list-windows --all | fzf --height=40% --bind "enter:execute(bash -c \"aerospace focus --window-id {1}\")+abort"'
+alias fk='export KUBECONFIG=$(find $HOME/.kubeconfig -type f -name "*.yaml" | fzf --height=40% --prompt="Select kubeconfig: " --preview "bat --color=always {}") && echo "Switched KUBECONFIG to $KUBECONFIG"'
+alias fn='export KUBECTL_NAMESPACE=$(kubectl get namespaces --no-headers -o custom-columns=":metadata.name" | fzf --height=40% --prompt="Select namespace: ") && echo "Switched namespace to $KUBECTL_NAMESPACE"'
 
 # applications
 alias eo=emacsclient -c -n $@
@@ -47,6 +58,8 @@ alias signal="flatpak run org.signal.Signal"
 alias .1="cd .."
 alias .2="cd ../.."
 alias .3="cd ../../.."
+alias .4="cd ../../../.."
+alias .5="cd ../../../../.."
 
 # git
 alias gs="git status"
@@ -55,10 +68,14 @@ alias ga="git add"
 alias gaa="git add ."
 alias gcm="git commit -m"
 alias gf="git fetch"
+alias gc="git checkout"
+alias gd="git diff"
 
 # kubectl
 alias k="kubectl"
 alias kubectl="kubectl --insecure-skip-tls-verify"
+source <(kubectl completion zsh)
+source <(flux completion zsh)
 
 
 function acp(){
@@ -147,3 +164,7 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# FZF mappings and options
+[ -f $HOME/.fzf/key-bindings.zsh ] && source $HOME/.fzf/key-bindings.zsh
+[ -f $HOME/.fzf/completion.zsh ] && source $HOME/.fzf/completion.zsh
+
