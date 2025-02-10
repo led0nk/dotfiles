@@ -42,11 +42,15 @@ alias vim="nvim"
 alias mkdir="mkdir -p"
 
 # fzf
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZT_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+
 alias ff='fzf -m --preview "bat --style=numbers --color=always {}"'
 alias inv='nvim $(fzf -m --preview "bat --style=numbers --color=always {}")'
 alias fa='aerospace list-windows --all | fzf --height=40% --bind "enter:execute(bash -c \"aerospace focus --window-id {1}\")+abort"'
 alias fk='export KUBECONFIG=$(find $HOME/.kubeconfig -type f -name "*.yaml" | fzf --height=40% --prompt="Select kubeconfig: " --preview "bat --color=always {}") && echo "Switched KUBECONFIG to $KUBECONFIG"'
-alias fn='export KUBECTL_NAMESPACE=$(kubectl get namespaces --no-headers -o custom-columns=":metadata.name" | fzf --height=40% --prompt="Select namespace: ") && echo "Switched namespace to $KUBECTL_NAMESPACE"'
+alias fn='kubectl config set-context --current --namespace=$(kubectl get namespaces --no-headers -o custom-columns=":metadata.name" | fzf --height=40% --prompt="Select namespace: ") && echo "Switched namespace to $(kubectl config view --minify --output "jsonpath={..namespace}")"'
 
 # applications
 alias eo=emacsclient -c -n $@
