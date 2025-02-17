@@ -151,6 +151,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:
 #zplug "plugins/docker-compose", from:oh-my-zsh
 
 
+export KUBECONFIG=$HOME/.kubeconfig/homelab.yaml
 export GOPATH=/home/$USER/.go
 export COLORTERM=truecolor
 export GO111MODULE=on

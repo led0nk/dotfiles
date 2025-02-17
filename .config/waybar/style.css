@@ -43,6 +43,7 @@ window#waybar {
 #disk,
 #network,
 #custom-logout,
+#custom-media,
 #tray {
   margin-right: 5px;
   margin-left: 5px;

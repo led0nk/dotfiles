@@ -9,6 +9,7 @@ dbus-monitor path='/org/freedesktop/Notifications',interface='org.freedesktop.DB
     if [ "$PAUSED" == 'false' ]; then
       CLASS="enabled"
       TEXT="$ENABLED"
+      COUNT="$(dunstctl count waiting)"
     else
       CLASS="disabled"
       TEXT="$DISABLED"

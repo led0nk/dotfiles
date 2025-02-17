@@ -4,9 +4,10 @@ set $down j
 set $up k
 set $right l
 set $term gnome-terminal --hide-menubar --working-directory=$HOME/git/repo
-set $menu rofi -show drun -theme ~/.config/rofi/themes/rounded-blue-dark.rasi -show-icons
+set $menu rofi -show drun 
 #set $menu ulauncher
-set $switcher rofi -show window -theme ~/.config/rofi/themes/rounded-nord-dark.rasi -show-icons
+set $switcher rofi -show window -theme ~/.config/rofi/themes/rounded-blue-dark.rasi -show-icons -window-command "swaymsg [con_id={window}] focus"
+
 ##set $menu wofi --show drun --allow-images
 set $fileManager xdg-open .
 set $lock swaylock -f --config ~/.config/swaylock/config
@@ -34,7 +35,7 @@ output "DP-1" {
     transform normal
     scale 1.0
     scale_filter nearest
-    adaptive_sync on
+#    adaptive_sync on
     dpms on
     bg $HOME/Pictures/Wallpaper/background.png fill
     scale 1
@@ -85,6 +86,14 @@ input * {
 
 bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+
+###
+### media control
+###
+
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay exec playerctl play-pause --ignore-player=firefox,chrome
+bindsym XF86AudioNext exec playerctl next
 
 ### Key bindings
 #
@@ -184,7 +193,7 @@ bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 ##
 
     bindsym $mod+Print exec grim -g "$(slurp)" - | swappy -f -
-    bindsym $mod+Shift+p exec grim -o DP-1 | notify-send -a "grim" "Screenshot:" "entire screen"
+    bindsym $mod+Shift+Print exec grim -o DP-1 | notify-send -a "grim" "Screenshot:" "entire screen"
 #
 # Layout stuff:
 #
@@ -267,8 +276,8 @@ default_border pixel 2
 exec eval $(gnome-keyring-daemon --start --components=ssh)
 exec export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 exec waybar
-exec swaync
-#exec dunst
+# exec swaync
+exec dunst
 #exec swayidle -w \
 #	timeout 600 '$lock' \
 #	timeout 1200 'swaymsg "output * dpms off"' \
@@ -282,11 +291,15 @@ exec swaymsg "workspace 2; exec flatpak run org.mozilla.firefox"
 exec swaymsg "workspace 5; exec flatpak run io.github.mimbrero.WhatsAppDesktop" 
 exec blueman-applet
 exec nm-applet
+exec nextcloud
+exec wl-paste -t text --watch clipman store
 
 # swaymsg -t get_tree
 for_window [class="whatsapp-desktop-linux"] move to workspace 5
 for_window [class="Signal"] move to workspace 5
 for_window [app_id="org.keepassxc.KeePassXC"] move to workspace 8
+for_window [app_id="org.kde.kalk"] floating enable
+
 #for_window [] border none
 
 #worskspaces to displays

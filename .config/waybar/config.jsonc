@@ -13,7 +13,7 @@
     "modules-center": [],
     "modules-right": [
       "tray",
-      "custom/notification",
+      "custom/dunst",
       "pulseaudio",
       "cpu",
       "memory",
@@ -59,6 +59,33 @@
       "interval": 100,
       "format": " {}",
       "tooltip": false,
+    },
+    "custom/media": {
+        "format": "{icon} {text}",
+        "escape": true,
+        "return-type": "json",
+        "max-length": 40,
+        "on-click": "playerctl play-pause",
+        "on-click-right": "playerctl stop",
+        "smooth-scrolling-threshold": 5,
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous",
+        "exec": "$HOME/.config/waybar/scripts/mediaplayer.py 2> /dev/null &",
+    },
+
+    "custom/spotify": {
+        "format": "{icon} {name}",
+        "escape": true,
+        "return-type": "json",
+        "max-length": 40,
+        "interval": 30, 
+        "on-click": "playerctl -p spotify play-pause",
+        "on-click-right": "killall spotify",
+        "smooth-scrolling-threshold": 10, 
+        "on-scroll-up" : "playerctl -p spotify next",
+        "on-scroll-down" : "playerctl -p spotify previous",
+        "exec": "~/.config/waybar/scripts/mediaplayer.py 2> /dev/null",       
+        "exec-if": "pgrep spotify"
     },
 
     "custom/dunst": {
