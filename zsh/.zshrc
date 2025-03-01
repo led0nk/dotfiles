@@ -175,3 +175,6 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 [ -f $HOME/.fzf/completion.zsh ] && source $HOME/.fzf/completion.zsh
 
 eval "$(fzf --zsh)"
+
+# To customize prompt, run `p10k configure` or edit ~/git/repo/dotfiles/zsh/.p10k.zsh.
+[[ ! -f ~/git/repo/dotfiles/zsh/.p10k.zsh ]] || source ~/git/repo/dotfiles/zsh/.p10k.zsh
