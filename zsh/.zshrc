@@ -152,6 +152,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:
 
 
 export KUBECONFIG=$HOME/.kubeconfig/homelab.yaml
+export KUBE_EDITOR="nvim"
 export GOPATH=/home/$USER/.go
 export COLORTERM=truecolor
 export GO111MODULE=on

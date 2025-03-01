@@ -61,6 +61,7 @@ return {
         },
       })
       require("telescope").load_extension("notify")
+      require("telescope").load_extension("remote-sshfs")
       require("telescope").load_extension("projects")
       local builtin = require("telescope.builtin")
       local themes = require("telescope.themes")
