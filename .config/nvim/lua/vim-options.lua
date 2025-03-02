@@ -76,6 +76,8 @@ vim.keymap.set("n", "<leader>bk", ":bd<CR>", { desc = "kill buffer" })
 -- Open Terminal in Vsplit
 vim.keymap.set("n", "<leader>tv", ":vsp | terminal<CR>i", { desc = "Open terminal in vertical split" })
 vim.keymap.set("n", "<leader>th", ":sp | terminal<CR>i", { desc = "Open terminal in horizontal split" })
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true, silent = true })
+vim.keymap.set("t", "jk", "<C-\\><C-n>", { noremap = true, silent = true })
 
 -- Insert New Line without entering insert Mode
 vim.keymap.set("n", "<leader>o", "o<ESC>")
