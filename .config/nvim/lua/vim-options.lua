@@ -73,6 +73,10 @@ vim.keymap.set("n", "<TAB>", ":bnext<CR>", { desc = "next buffer" })
 vim.keymap.set("n", "<S-TAB>", ":bprevious<CR>", { desc = "previous buffer" })
 vim.keymap.set("n", "<leader>bk", ":bd<CR>", { desc = "kill buffer" })
 
+-- Open Terminal in Vsplit
+vim.keymap.set("n", "<leader>tv", ":vsp | terminal<CR>i", { desc = "Open terminal in vertical split" })
+vim.keymap.set("n", "<leader>th", ":sp | terminal<CR>i", { desc = "Open terminal in horizontal split" })
+
 -- Insert New Line without entering insert Mode
 vim.keymap.set("n", "<leader>o", "o<ESC>")
 

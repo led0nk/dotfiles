@@ -77,7 +77,7 @@ return {
         },
       })
 
-      vim.cmd.colorscheme("catppuccin")
+      --vim.cmd.colorscheme("catppuccin")
     end,
   },
   {
@@ -104,40 +104,64 @@ return {
       --vim.cmd.colorscheme("rose-pine")
     end,
   },
+  --{
+  --	"morhetz/gruvbox",
+  --	config = function()
+  --		-- Background and contrast
+  --		--vim.o.background = "dark"
+  --		--vim.g.gruvbox_contrast_dark = "soft"
+
+  --		-- Transparency
+  --		vim.g.gruvbox_transparent_bg = 1
+
+  --		-- Enable bold and italic
+  --		vim.g.gruvbox_bold = 1
+  --		vim.g.gruvbox_italic = 1
+
+  --		-- Set colors
+  --		--vim.cmd.colorscheme("gruvbox")
+  --	end,
+  --},
   {
-    "navarasu/onedark.nvim",
-    lazy = false,
-    name = "onedark",
+    "ellisonleao/gruvbox.nvim",
     priority = 1000,
+    opts = ...,
     config = function()
-      require("onedark").setup({
-        style = "darker",                                                                -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
-        transparent = false,                                                             -- Show/hide background
-        term_colors = true,                                                              -- Change terminal color as per the selected theme style
-        ending_tildes = false,                                                           -- Show the end-of-buffer tildes. By default they are hidden
-        cmp_itemkind_reverse = false,                                                    -- reverse item kind highlights in cmp menu
-        toggle_style_key = nil,
-        toggle_style_list = { "dark", "darker", "cool", "deep", "warm", "warmer", "light" }, -- List of styles to toggle between
-        code_style = {
-          comments = "italic",
-          keywords = "none",
-          functions = "none",
-          strings = "none",
-          variables = "none",
+      -- Default options:
+      require("gruvbox").setup({
+        terminal_colors = true, -- add neovim terminal colors
+        undercurl = true,
+        underline = true,
+        bold = true,
+        italic = {
+          strings = false,
+          emphasis = true,
+          comments = true,
+          operators = false,
+          folds = true,
         },
-        lualine = {
-          transparent = false, -- lualine center bar transparency
+        strikethrough = true,
+        invert_selection = false,
+        invert_signs = false,
+        invert_tabline = false,
+        invert_intend_guides = false,
+        inverse = true, -- invert background for search, diffs, statuslines and errors
+        contrast = "", -- can be "hard", "soft" or empty string
+        palette_overrides = {
+          blue = "#ebdbb2",
         },
-        colors = {},      -- Override default colors
-        highlights = {},  -- Override highlight groups
-        diagnostics = {
-          darker = true,  -- darker colors for diagnostic
-          undercurl = true, -- use undercurl instead of underline for diagnostics
-          background = true, -- use background color for virtual text
+        overrides = {
+          ["@property"] = { fg = "#ebdbb2" },
+          ["@parameter"] = { fg = "#ebdbb2" },
+          ["@variable.member"] = { fg = "#ebdbb2" },
+          ["@variable.parameter"] = { fg = "#ebdbb2" },
+          TelescopeSelection = { bg = "#3c3836", fg = "#ebdbb2", bold = true }, -- Fix selection highlight
+          SignColumn = { bg = "#262627" },
         },
+        dim_inactive = false,
+        transparent_mode = false,
       })
-      --require("onedark").load()
-      --vim.cmd.colorscheme("onedark")
+      vim.cmd("colorscheme gruvbox")
     end,
   },
 }
