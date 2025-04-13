@@ -5,6 +5,13 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+setopt inc_append_history
+setopt share_history
+
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=~/.zsh_history
+
 # zsh plugins
 ZPLUG_HOME=${HOME}/.zplug
 source $ZPLUG_HOME/init.zsh
@@ -80,6 +87,8 @@ alias k="kubectl"
 alias kubectl="kubectl --insecure-skip-tls-verify"
 source <(kubectl completion zsh)
 source <(flux completion zsh)
+source <(talhelper completion zsh)
+source <(talosctl completion zsh)
 
 
 function acp(){
@@ -151,6 +160,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:
 #zplug "plugins/docker-compose", from:oh-my-zsh
 
 
+export TALOSCONFIG=$HOME/git/repo/hmlb/infra/clusterconfig/talosconfig
 export KUBECONFIG=$HOME/.kubeconfig/homelab.yaml
 export KUBE_EDITOR="nvim"
 export GOPATH=/home/$USER/.go
