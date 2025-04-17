@@ -30,7 +30,7 @@ vim.opt.cursorline = true
 vim.opt.termguicolors = true
 
 -- Set scrolling offset
-vim.opt.scrolloff = 20
+vim.opt.scrolloff = 10
 
 -- Set a column line
 vim.opt.colorcolumn = "80"
@@ -69,9 +69,9 @@ vim.keymap.set("n", "<leader>wh", ":sp<CR>", { desc = "horizontal split" })
 vim.keymap.set("n", "<leader>wq", "<C-w>q", { desc = "close window" })
 
 -- Navigate Buffers
-vim.keymap.set("n", "<TAB>", ":bnext<CR>", { desc = "next buffer" })
-vim.keymap.set("n", "<S-TAB>", ":bprevious<CR>", { desc = "previous buffer" })
-vim.keymap.set("n", "<leader>bk", ":bd<CR>", { desc = "kill buffer" })
+vim.keymap.set("n", "<A-l>", ":bnext<CR>", { desc = "next buffer" })
+vim.keymap.set("n", "<A-h>", ":bprevious<CR>", { desc = "previous buffer" })
+vim.keymap.set("n", "<leader>bk", ":bp<bar>sp<bar>bn<bar>bd<CR>", { desc = "kill buffer" })
 
 -- Open Terminal in Vsplit
 vim.keymap.set("n", "<leader>tv", ":vsp | terminal<CR>i", { desc = "Open terminal in vertical split" })
@@ -81,6 +81,13 @@ vim.keymap.set("t", "jk", "<C-\\><C-n>", { noremap = true, silent = true })
 
 -- Insert New Line without entering insert Mode
 vim.keymap.set("n", "<leader>o", "o<ESC>")
+
+-- Diagnostic keymap
+vim.keymap.set("n", "<leader>fd", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+
+vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "LSP References" })
+vim.keymap.set("n", "<C-n>", ":cnext<CR>zz", { desc = "next quickfix" })
+vim.keymap.set("n", "<C-p>", ":cprev<CR>zz", { desc = "previous quickfix" })
 
 -- INSERT MODE
 
@@ -99,6 +106,7 @@ vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "p", '"_dP')
 
 -- some additional stuff
+vim.keymap.set("n", "<C-f>", "<cmd>silent !zsh <CR>")
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "highlight when yanking text",
 	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),

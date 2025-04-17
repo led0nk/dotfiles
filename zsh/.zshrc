@@ -39,6 +39,7 @@ bindkey '^h' backward-char
 bindkey '^l' forward-char
 bindkey '^j' backward-word
 bindkey '^k' forward-word
+bindkey '^g' fzf_proj
 
 ## ALIASES
 # general
@@ -90,6 +91,26 @@ source <(flux completion zsh)
 source <(talhelper completion zsh)
 source <(talosctl completion zsh)
 
+####### functions
+
+
+
+_fzf_proj_widget() {
+  local project
+
+  project=$(
+    find "$HOME/git/repo" -maxdepth 2 -type d -name .git -prune -print \
+    | xargs -n1 dirname \
+    | fzf --height=40% --prompt="Select project: "
+  )
+
+  if [[ -n $project ]]; then
+    printf -v LBUFFER 'cd %q' "$project"
+    zle accept-line
+  fi
+}
+
+zle -N fzf_proj _fzf_proj_widget
 
 function acp(){
   commitmsg=$1

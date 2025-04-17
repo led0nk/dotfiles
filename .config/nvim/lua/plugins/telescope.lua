@@ -1,7 +1,7 @@
 return {
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.6",
+		tag = "0.1.8",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-ui-select.nvim",
@@ -47,7 +47,7 @@ return {
 						preview_cutoff = 120,
 					},
 					file_sorter = require("telescope.sorters").get_fuzzy_file,
-					file_ignore_patterns = { "node_modules", ".git/" },
+					file_ignore_patterns = { "node_modules", "^%.git/", "vendor" },
 					generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
 					path_display = { "truncate" },
 					winblend = 0,
@@ -62,18 +62,19 @@ return {
 			})
 			require("telescope").load_extension("notify")
 			require("telescope").load_extension("remote-sshfs")
-			require("telescope").load_extension("projects")
 			local builtin = require("telescope.builtin")
 			local themes = require("telescope.themes")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find Files" })
 			vim.keymap.set("n", "<leader>gf", builtin.git_files, { desc = "Git Files" })
 			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live Grep" })
+			vim.keymap.set("n", "<leader>fw", function()
+				builtin.grep_string({ search = vim.fn.input("Grep > ") })
+			end, { desc = "Live Grep" })
 			vim.keymap.set("n", "<leader>fb", function()
 				builtin.buffers(themes.get_ivy())
 			end, { desc = "Find Buffers" })
 			vim.keymap.set("n", "<leader>ht", builtin.colorscheme, { desc = "Telescope Colorscheme" })
-			--vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "LSP References" })
-			vim.keymap.set("n", "<leader>fr", vim.lsp.buf.references, { desc = "LSP References" })
+			-- vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "LSP References" })
 			vim.keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, { desc = "LSP Document Symbols" })
 			vim.keymap.set(
 				"n",
@@ -89,10 +90,9 @@ return {
 			vim.keymap.set("n", "<leader>gc", function()
 				builtin.git_commits({ layout_config = { preview_width = 0.6 } })
 			end, { desc = "Git commits" })
-			vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Telescope diagnostics" })
+			--			vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Telescope diagnostics" })
 			vim.keymap.set("n", "<leader>fn", ":Telescope notify<CR>", { desc = "Telescope notify" })
 			vim.keymap.set("n", "<leader>fo", ":ObsidianQuickSwitch<CR>", { desc = "Telescope Obsidian" })
-			vim.keymap.set("n", "<leader>fp", ":Telescope projects<CR>", { desc = "Telescope projects" })
 		end,
 	},
 }

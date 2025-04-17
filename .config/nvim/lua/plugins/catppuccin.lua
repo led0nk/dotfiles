@@ -1,28 +1,5 @@
 return {
 	{
-		"folke/tokyonight.nvim",
-		name = "tokyonight",
-		config = function()
-			require("tokyonight").setup({
-				-- your configuration comes here
-				-- or leave it empty to use the default settings
-				style = "night", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-				transparent = false, -- Enable this to disable setting the background color
-				terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
-				styles = {
-					-- Style to be applied to different syntax groups
-					-- Value is any valid attr-list value for `:help nvim_set_hl`
-					comments = { italic = false },
-					keywords = { italic = false },
-					-- Background styles. Can be "dark", "transparent" or "normal"
-					sidebars = "dark", -- style for sidebars, see below
-					floats = "dark", -- style for floating windows
-				},
-			})
-			--vim.cmd.colorscheme("tokyonight")
-		end,
-	},
-	{
 		"catppuccin/nvim",
 		name = "catppuccin",
 		priority = 1000,
@@ -87,41 +64,109 @@ return {
 		priority = 1000,
 		config = function()
 			require("rose-pine").setup({
-				variant = "main",
-				disable_background = false,
+				variant = "auto", -- auto, main, moon, or dawn
+				dark_variant = "main", -- main, moon, or dawn
+				dim_inactive_windows = false,
+				extend_background_behind_borders = true,
+
+				enable = {
+					terminal = true,
+					legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
+					migrations = true, -- Handle deprecated options automatically
+				},
 
 				styles = {
+					bold = true,
 					italic = false,
 					transparency = false,
 				},
-				highlight_groups = {
-					CursorLine = { bg = "surface" },
-				},
+
 				groups = {
-					--background = "#0f1119",
+					border = "muted",
+					link = "iris",
+					panel = "surface",
+
+					error = "love",
+					hint = "iris",
+					info = "foam",
+					note = "pine",
+					todo = "rose",
+					warn = "gold",
+
+					git_add = "foam",
+					git_change = "rose",
+					git_delete = "love",
+					git_dirty = "rose",
+					git_ignore = "muted",
+					git_merge = "iris",
+					git_rename = "pine",
+					git_stage = "iris",
+					git_text = "rose",
+					git_untracked = "subtle",
+
+					h1 = "iris",
+					h2 = "foam",
+					h3 = "rose",
+					h4 = "gold",
+					h5 = "pine",
+					h6 = "foam",
 				},
+
+				palette = {
+					-- Override the builtin palette per variant
+					-- moon = {
+					--     base = '#18191a',
+					--     overlay = '#363738',
+					-- },
+				},
+
+				-- NOTE: Highlight groups are extended (merged) by default. Disable this
+				-- per group via `inherit = false`
+				highlight_groups = {
+					-- Comment = { fg = "foam" },
+					-- StatusLine = { fg = "love", bg = "love", blend = 15 },
+					-- VertSplit = { fg = "muted", bg = "muted" },
+					-- Visual = { fg = "base", bg = "text", inherit = false },
+				},
+
+				before_highlight = function(group, highlight, palette)
+					-- Disable all undercurls
+					-- if highlight.undercurl then
+					--     highlight.undercurl = false
+					-- end
+					--
+					-- Change palette colour
+					-- if highlight.fg == palette.pine then
+					--     highlight.fg = palette.foam
+					-- end
+				end,
 			})
-			--vim.cmd.colorscheme("rose-pine")
+
+			--vim.cmd("colorscheme rose-pine")
+			-- vim.cmd("colorscheme rose-pine-main")
+			-- vim.cmd("colorscheme rose-pine-moon")
+			-- vim.cmd("colorscheme rose-pine-dawn")
 		end,
 	},
-	--{
-	--	"morhetz/gruvbox",
-	--	config = function()
-	--		-- Background and contrast
-	--		--vim.o.background = "dark"
-	--		--vim.g.gruvbox_contrast_dark = "soft"
-
-	--		-- Transparency
-	--		vim.g.gruvbox_transparent_bg = 1
-
-	--		-- Enable bold and italic
-	--		vim.g.gruvbox_bold = 1
-	--		vim.g.gruvbox_italic = 1
-
-	--		-- Set colors
-	--		--vim.cmd.colorscheme("gruvbox")
-	--	end,
-	--},
+	{
+		"datsfilipe/vesper.nvim",
+		name = "vesper",
+		config = function()
+			require("vesper").setup({
+				transparent = true, -- Boolean: Sets the background to transparent
+				italics = {
+					comments = false, -- Boolean: Italicizes comments
+					keywords = false, -- Boolean: Italicizes keywords
+					functions = false, -- Boolean: Italicizes functions
+					strings = false, -- Boolean: Italicizes strings
+					variables = false, -- Boolean: Italicizes variables
+				},
+				overrides = {}, -- A dictionary of group names, can be a function returning a dictionary or a table.
+				palette_overrides = {},
+			})
+			--vim.cmd.colorscheme("vesper")
+		end,
+	},
 	{
 		"ellisonleao/gruvbox.nvim",
 		priority = 1000,
