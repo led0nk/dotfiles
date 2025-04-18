@@ -11,7 +11,7 @@ return {
             package_installed = "󰄳 ",
             package_uninstalled = " 󰚌",
           },
-        }
+        },
       })
     end,
   },
@@ -86,6 +86,8 @@ return {
       vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "LSP hover" })
       vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "LSP go to declaration" })
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "LSP go to definition" })
+      vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "LSP References" })
+      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP References" })
       vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
       vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Diagnostic" })
       vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, { desc = "next diagnostic" })

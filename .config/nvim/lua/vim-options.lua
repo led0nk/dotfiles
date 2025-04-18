@@ -85,7 +85,6 @@ vim.keymap.set("n", "<leader>o", "o<ESC>")
 -- Diagnostic keymap
 vim.keymap.set("n", "<leader>fd", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
-vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "LSP References" })
 vim.keymap.set("n", "<C-n>", ":cnext<CR>zz", { desc = "next quickfix" })
 vim.keymap.set("n", "<C-p>", ":cprev<CR>zz", { desc = "previous quickfix" })
 
@@ -108,17 +107,17 @@ vim.keymap.set("v", "p", '"_dP')
 -- some additional stuff
 vim.keymap.set("n", "<C-f>", "<cmd>silent !zsh <CR>")
 vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "highlight when yanking text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+  desc = "highlight when yanking text",
+  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
 
 vim.keymap.set("n", "<ESC>", ":noh<CR>")
 
 vim.filetype.add({
-	extension = {
-		templ = "templ",
-	},
+  extension = {
+    templ = "templ",
+  },
 })
