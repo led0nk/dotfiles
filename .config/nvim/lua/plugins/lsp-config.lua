@@ -44,6 +44,9 @@ return {
               unusedparams = true,
             },
           },
+          init_options = {
+            usePlaceholders = true,
+          },
         },
       })
       lspconfig.htmx.setup({

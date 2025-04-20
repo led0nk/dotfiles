@@ -209,4 +209,14 @@ return {
 			vim.cmd("colorscheme gruvbox")
 		end,
 	},
+	{
+		"slugbyte/lackluster.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			--vim.cmd.colorscheme("lackluster")
+			-- vim.cmd.colorscheme("lackluster-hack") -- my favorite
+			-- vim.cmd.colorscheme("lackluster-mint")
+		end,
+	},
 }

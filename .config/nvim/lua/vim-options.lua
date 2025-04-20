@@ -1,5 +1,6 @@
 -- Set leaderkey
 vim.g.mapleader = " "
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 vim.opt.conceallevel = 1
 
@@ -22,11 +23,15 @@ vim.opt.splitbelow = true
 -- Enable sign column
 vim.opt.signcolumn = "yes"
 
+-- Search
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
+
 -- Enable access to system clipboard
 vim.opt.clipboard = "unnamed,unnamedplus"
 
 -- Enable cursor line highlight
-vim.opt.cursorline = true
+vim.opt.cursorline = false
 vim.opt.termguicolors = true
 
 -- Set scrolling offset
@@ -105,19 +110,22 @@ vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "p", '"_dP')
 
 -- some additional stuff
-vim.keymap.set("n", "<C-f>", "<cmd>silent !zsh <CR>")
 vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "highlight when yanking text",
-  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+	desc = "highlight when yanking text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
 })
 
 vim.keymap.set("n", "<ESC>", ":noh<CR>")
 
 vim.filetype.add({
-  extension = {
-    templ = "templ",
-  },
+	extension = {
+		templ = "templ",
+	},
 })
+
+vim.g.netrw_browse_split = 0
+vim.g.netrw_winsize = 25
+vim.g.netrw_banner = 0
