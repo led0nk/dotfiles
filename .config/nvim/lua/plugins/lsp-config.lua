@@ -44,13 +44,10 @@ return {
               unusedparams = true,
             },
           },
-          init_options = {
-            usePlaceholders = true,
-          },
         },
       })
       lspconfig.htmx.setup({
-        on_attach = on_attach,
+        on_attach = attach,
         capabilities = capabilities,
         filetypes = { "html", "templ" },
       })
@@ -59,7 +56,7 @@ return {
         filetypes = { "html", "templ" },
       })
       lspconfig.tailwindcss.setup({
-        on_attach = on_attach,
+        on_attach = attach,
         capabilities = capabilities,
         filetypes = { "templ", "astro", "javascript", "typescript", "react" },
         init_options = { userLanguages = { templ = "html" } },
@@ -80,7 +77,7 @@ return {
         capabilities = capabilities,
       })
       lspconfig.templ.setup({
-        on_attach = on_attach,
+        on_attach = attach,
         capabilities = capabilities,
       })
       lspconfig.docker_compose_language_service.setup({
@@ -95,6 +92,7 @@ return {
       vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Diagnostic" })
       vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, { desc = "next diagnostic" })
       vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, { desc = "previous diagnostic" })
+      vim.keymap.set("n", "<C-h>", vim.lsp.buf.signature_help, { desc = "signature help" })
     end,
   },
 }
