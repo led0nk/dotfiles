@@ -82,6 +82,7 @@ alias gcm="git commit -m"
 alias gf="git fetch"
 alias gc="git checkout"
 alias gd="git diff"
+alias git commit="git commit -s"
 
 # kubectl
 alias k="kubectl"
@@ -181,6 +182,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:
 #zplug "plugins/docker-compose", from:oh-my-zsh
 
 
+export GTK_THEME=Adwaita-dark
 export TALOSCONFIG=$HOME/git/repo/hmlb/infra/clusterconfig/talosconfig
 export KUBECONFIG=$HOME/.kubeconfig/homelab.yaml
 export KUBE_EDITOR="nvim"

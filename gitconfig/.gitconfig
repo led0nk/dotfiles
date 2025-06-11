@@ -1,8 +1,16 @@
 # Das ist Gits benutzerspezifische Konfigurationsdatei.
 [user]
 # Bitte passen Sie die folgenden Zeilen an und kommentieren Sie diese aus:
-	name = Janik
-	email = 10290002+led0nk@users.noreply.github.com
+	name = Janik K.
+	email = janik@kndlive.de
+	signingkey = key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF1uFVdeFc/PwI+CbTvYtT359AQgu5w6N2yVvLbJbkCO
 
 [core]
   editor = nvim 
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
+[gpg "ssh"]
+	defaultKeyCommand = ssh-add -L
+	allowedSignersFile = /var/home/jk/.ssh/allowed_signers
