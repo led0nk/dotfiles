@@ -9,12 +9,14 @@ after-login-command = []
 # You can use it to add commands that run after AeroSpace startup.
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = [
-  'exec-and-forget borders style=round hidpi=true active_color=0xffe1e3e4 inactive_color=0xff333333 width=7.0'
-]
 #after-startup-command = [
-#  'exec-and-forget borders style=round hidpi=true active_color=0xff4c7899 inactive_color=0xff333333 width=7.0'
+#  'exec-and-forget borders style=round hidpi=true active_color=0xffe1e3e4 width=4.0'
 #]
+
+after-startup-command = [
+  'exec-and-forget borders style=round hidpi=false width=8.0 active_color=0xff4c7899 inactive_color=0xff333333'
+]
+
 
 # Start AeroSpace at login
 start-at-login = true
@@ -62,12 +64,12 @@ preset = 'qwerty'
 #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
 #                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-inner.horizontal = 6 
-inner.vertical =   6 
-outer.left =       4
-outer.bottom =     4
-outer.top =        4 
-outer.right =      4
+inner.horizontal = 16 
+inner.vertical =   16 
+outer.left =       14
+outer.bottom =     14
+outer.top =        14 
+outer.right =      14
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -92,21 +94,31 @@ outer.right =      4
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
 # You can uncomment the following lines to open up terminal with alt + enter shortcut (like in i3)
-cmd-enter = '''exec-and-forget osascript -e '
-tell application "iTerm"
-    create window with default profile
-    activate
-end tell'
-'''
+#cmd-enter = '''exec-and-forget osascript -e '
+#tell application "Ghostty"
+#    activate
+#end tell
+#tell application "System Events"
+#    keystroke "n" using {command down}
+#end tell'
+#'''
+#cmd-enter = '''exec-and-forget osascript -e '
+#tell application "iTerm"
+#    create window with default profile
+#    activate
+#end tell'
+#'''
 
-cmd-shift-enter = 'exec-and-forget open -a /Application/iTerm.app'
+cmd-enter = 'exec-and-forget open -n -a WezTerm'
+
+cmd-shift-enter = 'exec-and-forget open -n -a WezTerm'
 
 #cmd-e = 'exec-and-forget open -a /Applications/Finder.app'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 cmd-alt-s = 'layout h_accordion'
 cmd-alt-e = 'layout tiles horizontal vertical'
-cmd-alt-space = 'layout floating tiling'
+alt-shift-space = 'layout floating tiling'
 #cmd-comma = 'layout accordion horizontal vertical'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
@@ -125,7 +137,9 @@ cmd-shift-l = 'move right'
 cmd-alt-h = 'split horizontal'
 cmd-alt-v = 'split vertical'
 
-#cmd-f = 'fullscreen'
+cmd-shift-f = 'fullscreen'
+cmd-shift-q = 'close'
+
 
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
@@ -220,6 +234,8 @@ k = 'resize height -50'
 l = 'resize width +50'
 enter = 'mode main'
 esc = 'mode main'
+cmd-h = []
+cmd-alt-h = []
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -236,6 +252,8 @@ cmd-shift-h = ['join-with left', 'mode main']
 cmd-shift-j = ['join-with down', 'mode main']
 cmd-shift-k = ['join-with up', 'mode main']
 cmd-shift-l = ['join-with right', 'mode main']
+cmd-h = []
+cmd-alt-h = []
 
 down = 'volume down'
 up = 'volume up'

@@ -3,6 +3,7 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 vim.opt.conceallevel = 1
+---
 
 -- Set tabs to 2 spaces
 vim.opt.tabstop = 2

@@ -32,6 +32,7 @@ bindkey '^h' backward-char
 bindkey '^l' forward-char
 bindkey '^j' backward-word
 bindkey '^k' forward-word
+bindkey '^g' fzf_proj
 
 ## ALIASES
 # general
@@ -79,16 +80,25 @@ alias gd="git diff"
 alias k="kubectl"
 alias kubectl="kubectl --insecure-skip-tls-verify"
 source <(kubectl completion zsh)
-source <(flux completion zsh)
-
-# custom
-alias plc-test-setup="eval \$(~/git/repo/umh/test-setup.sh)"
-
-#def ff [] {
-#  aerospace list-windows --all | fzf --bind 'enter:execute(bash -c "aerospace focus --window-id{1}")+abort'
-#}
+# source <(flux completion zsh)
 
 
+_fzf_proj_widget() {
+  local project
+
+  project=$(
+    find "$HOME/git/repo" -maxdepth 2 -type d -name .git -prune -print \
+    | xargs -n1 dirname \
+    | fzf --height=40% --prompt="Select project: "
+  )
+
+  if [[ -n $project ]]; then
+    printf -v LBUFFER 'cd %q' "$project"
+    zle accept-line
+  fi
+}
+
+zle -N fzf_proj _fzf_proj_widget
 
 function acp(){
   commitmsg=$1
@@ -166,6 +176,7 @@ export GO111MODULE=on
 export PATH=$PATH:$HOME/go/bin
 export PATH=$PATH:/opt/homebrew/bin
 export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:/.nvm/versions/node/v22.16.0/bin
 export LESS_TERMCAP_mb=$'\e[1;32m'
 export LESS_TERMCAP_md=$'\e[1;32m'
 export LESS_TERMCAP_me=$'\e[0m'
@@ -174,6 +185,9 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 export KUBECONFIG=$HOME/.kubeconfig/jupiter.yaml
+export SSH_AUTH_SOCK="$(launchctl getenv SSH_AUTH_SOCK)"
+export HISTSIZE=200000
+export SAVEHIST=200000
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
