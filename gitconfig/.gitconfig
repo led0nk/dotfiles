@@ -14,3 +14,8 @@
 [gpg "ssh"]
 	defaultKeyCommand = ssh-add -L
 	allowedSignersFile = /var/home/jk/.ssh/allowed_signers
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

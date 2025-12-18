@@ -63,7 +63,7 @@ alias fn='kubectl config set-context --current --namespace=$(kubectl get namespa
 # applications
 alias eo=emacsclient -c -n $@
 alias en=emacsclient -n $@
-alias firefox="flatpak run org.mozilla.firefox"
+# alias firefox="flatpak run org.mozilla.firefox"
 alias signal="flatpak run org.signal.Signal"
 
 # navigation
@@ -193,6 +193,7 @@ export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:/opt/homebrew/bin
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:$HOME/.emacs.d/bin
+export PATH=$PATH:$HOME/.local/bin
 export LESS_TERMCAP_mb=$'\e[1;32m'
 export LESS_TERMCAP_md=$'\e[1;32m'
 export LESS_TERMCAP_me=$'\e[0m'
@@ -211,3 +212,7 @@ eval "$(fzf --zsh)"
 
 # To customize prompt, run `p10k configure` or edit ~/git/repo/dotfiles/zsh/.p10k.zsh.
 [[ ! -f ~/git/repo/dotfiles/zsh/.p10k.zsh ]] || source ~/git/repo/dotfiles/zsh/.p10k.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
