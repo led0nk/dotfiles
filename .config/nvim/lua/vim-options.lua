@@ -82,8 +82,15 @@ vim.keymap.set("n", "<leader>bk", ":bp<bar>sp<bar>bn<bar>bd<CR>", { desc = "kill
 -- Open Terminal in Vsplit
 vim.keymap.set("n", "<leader>tv", ":vsp | terminal<CR>i", { desc = "Open terminal in vertical split" })
 vim.keymap.set("n", "<leader>th", ":sp | terminal<CR>i", { desc = "Open terminal in horizontal split" })
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true, silent = true })
-vim.keymap.set("t", "jk", "<C-\\><C-n>", { noremap = true, silent = true })
+vim.api.nvim_create_autocmd("TermOpen", {
+	callback = function(event)
+		if vim.bo[event.buf].filetype == "lazygit" then
+			return
+		end
+		vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { buffer = event.buf, noremap = true, silent = true })
+		vim.keymap.set("t", "jk", "<C-\\><C-n>", { buffer = event.buf, noremap = true, silent = true })
+	end,
+})
 
 -- Insert New Line without entering insert Mode
 vim.keymap.set("n", "<leader>o", "o<ESC>")
