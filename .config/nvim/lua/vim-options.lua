@@ -2,8 +2,14 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
-vim.opt.conceallevel = 1
----
+vim.opt.conceallevel = 0
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "markdown",
+	callback = function()
+		vim.opt_local.conceallevel = 2
+	end,
+})
 
 -- Set tabs to 2 spaces
 vim.opt.tabstop = 2
@@ -37,6 +43,9 @@ vim.opt.termguicolors = true
 
 -- Set scrolling offset
 vim.opt.scrolloff = 10
+
+-- Auto-reload files changed outside nvim
+vim.opt.autoread = true
 
 -- Set a column line
 vim.opt.colorcolumn = "80"
@@ -75,8 +84,8 @@ vim.keymap.set("n", "<leader>wh", ":sp<CR>", { desc = "horizontal split" })
 vim.keymap.set("n", "<leader>wq", "<C-w>q", { desc = "close window" })
 
 -- Navigate Buffers
-vim.keymap.set("n", "<A-l>", ":bnext<CR>", { desc = "next buffer" })
-vim.keymap.set("n", "<A-h>", ":bprevious<CR>", { desc = "previous buffer" })
+vim.keymap.set("n", "<leader>bn", ":bnext<CR>", { desc = "next buffer" })
+vim.keymap.set("n", "<leader>bp", ":bprevious<CR>", { desc = "previous buffer" })
 vim.keymap.set("n", "<leader>bk", ":bp<bar>sp<bar>bn<bar>bd<CR>", { desc = "kill buffer" })
 
 -- Open Terminal in Vsplit

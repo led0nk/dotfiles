@@ -54,8 +54,8 @@ alias fk='export KUBECONFIG=$(find $HOME/.kubeconfig -type f -name "*.yaml" | fz
 alias fn='kubectl config set-context --current --namespace=$(kubectl get namespaces --no-headers -o custom-columns=":metadata.name" | fzf --height=40% --prompt="Select namespace: ") && echo "Switched namespace to $(kubectl config view --minify --output "jsonpath={..namespace}")"'
 
 # applications
-alias eo=emacsclient -c -n $@
-alias en=emacsclient -n $@
+alias eo="emacsclient -t"
+alias en="emacsclient -t -n"
 alias firefox="flatpak run org.mozilla.firefox"
 alias signal="flatpak run org.signal.Signal"
 
@@ -80,6 +80,9 @@ alias gd="git diff"
 alias k="kubectl"
 alias kubectl="kubectl --insecure-skip-tls-verify"
 source <(kubectl completion zsh)
+export PATH="/opt/homebrew/bin:$PATH"
+source <(flyctl completion zsh)
+eval "$(mise activate zsh)"
 # source <(flux completion zsh)
 
 
@@ -99,6 +102,13 @@ _fzf_proj_widget() {
 }
 
 zle -N fzf_proj _fzf_proj_widget
+
+_lazygit_widget() {
+  lazygit
+  zle reset-prompt
+}
+zle -N lazygit_widget _lazygit_widget
+bindkey ' lg' lazygit_widget
 
 function acp(){
   commitmsg=$1
@@ -174,9 +184,9 @@ export COLORTERM=truecolor
 export GOPATH=$GOPATH:/usr/local/go
 export GO111MODULE=on
 export PATH=$PATH:$HOME/go/bin
-export PATH=$PATH:/opt/homebrew/bin
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/.nvm/versions/node/v22.16.0/bin
+export PATH=$PATH:$HOME/.config/emacs/bin
 export LESS_TERMCAP_mb=$'\e[1;32m'
 export LESS_TERMCAP_md=$'\e[1;32m'
 export LESS_TERMCAP_me=$'\e[0m'
@@ -185,9 +195,15 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 export KUBECONFIG=$HOME/.kubeconfig/jupiter.yaml
-export SSH_AUTH_SOCK="$(launchctl getenv SSH_AUTH_SOCK)"
+# SSH_AUTH_SOCK set in .zshenv (with tmux-compatible fallback)
+export HISTFILE=~/.zsh_history
 export HISTSIZE=200000
 export SAVEHIST=200000
+setopt SHARE_HISTORY          # share history across all sessions in real-time
+setopt HIST_IGNORE_ALL_DUPS   # remove older duplicate when new entry is added
+setopt HIST_IGNORE_SPACE      # don't record commands starting with a space
+setopt HIST_REDUCE_BLANKS     # remove unnecessary blanks
+setopt HIST_VERIFY            # show substituted command before running it
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -199,3 +215,6 @@ export NVM_DIR="$HOME/.nvm"
 setopt extended_glob
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Added by CodeRabbit CLI installer
+export PATH="/Users/jk/.local/bin:$PATH"

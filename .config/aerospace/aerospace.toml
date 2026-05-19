@@ -109,9 +109,9 @@ outer.right =      14
 #end tell'
 #'''
 
-cmd-enter = 'exec-and-forget open -n -a WezTerm'
+cmd-enter = 'exec-and-forget open -n -a Ghostty'
 
-cmd-shift-enter = 'exec-and-forget open -n -a WezTerm'
+cmd-shift-enter = 'exec-and-forget open -n -a Ghostty'
 
 #cmd-e = 'exec-and-forget open -a /Applications/Finder.app'
 
@@ -284,6 +284,10 @@ run = 'move-node-to-workspace 10'
 [[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
 run = 'move-node-to-workspace 7'
+
+[[on-window-detected]]
+if.app-id = 'com.granola.app'
+run = 'layout floating'
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'finder'

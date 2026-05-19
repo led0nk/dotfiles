@@ -1,3 +1,16 @@
-export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/keyring/ssh"
+if [[ "$(uname)" == "Darwin" ]]; then
+  _bw_sock="$HOME/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
+  if [[ -S "$_bw_sock" ]]; then
+    export SSH_AUTH_SOCK="$_bw_sock"
+  else
+    _sock="$(launchctl getenv SSH_AUTH_SOCK 2>/dev/null)"
+    [[ -z "$_sock" ]] && _sock="$(find /private/tmp -name Listeners -path '*/com.apple.launchd.*' 2>/dev/null | head -1)"
+    export SSH_AUTH_SOCK="$_sock"
+    unset _sock
+  fi
+  unset _bw_sock
+else
+  export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/keyring/ssh"
+fi
 export PATH=$PATH:/usr/lib/golang/bin
 export CGO_ENABLED=0 
