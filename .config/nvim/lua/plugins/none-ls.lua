@@ -22,7 +22,7 @@ return {
 				null_ls.builtins.diagnostics.hadolint,
 			},
 			on_attach = function(client, bufnr)
-				if client.supports_method("textDocument/formatting") then
+				if client:supports_method("textDocument/formatting") then
 					vim.api.nvim_clear_autocmds({
 						group = augroup,
 						buffer = bufnr,
