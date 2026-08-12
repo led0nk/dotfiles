@@ -103,5 +103,10 @@ configuration {
       directories-first: true;
       sorting-method:    "name";
   }
+  recursivebrowser {
+      directory:    "~";
+      command:      "xdg-open";
+      filter-regex: "(.*/\\.git/.*|.*/node_modules/.*|.*/\\.cache/.*|.*/\\.venv/.*)";
+  }
 }
 @theme "rounded-blue-dark"

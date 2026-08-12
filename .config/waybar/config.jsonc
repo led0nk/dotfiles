@@ -4,7 +4,9 @@
   {
     "layer": "top",
     "position": "top",
-    "output": "DP-1",
+    // Every output except the one bar 1 handles, so the bar also shows up on a
+    // laptop panel and on whatever a dock adds.
+    "output": ["!DP-2", "*"],
     "modules-left": [
       "sway/workspaces",
       "sway/scratchpad",
@@ -13,13 +15,17 @@
     "modules-center": [],
     "modules-right": [
       "tray",
-      "custom/dunst",
+      "custom/notification",
+      "mpris",
+      "backlight",
       "pulseaudio",
+      "bluetooth",
+      "network",
+      "battery",
       "cpu",
       "memory",
       "disk",
       "clock",
-      "group/group-power",
       "custom/logout",
     ],
     // Modules configuration
@@ -173,6 +179,29 @@
       },
       "format": "{icon} {capacity}%",
       "format-icons": ["", "", "", "", ""],
+      "format-charging": "  {capacity}%",
+      "format-plugged": "  {capacity}%",
+      "tooltip-format": "{timeTo} ({power}W)",
+    },
+    "backlight": {
+      "format": "  {percent}%",
+      "on-scroll-up": "brightnessctl set 5%+",
+      "on-scroll-down": "brightnessctl set 5%-",
+    },
+    "bluetooth": {
+      "format": "  {status}",
+      "format-connected": "  {device_alias}",
+      "format-disabled": "",
+      "format-off": "",
+      "tooltip-format": "{controller_alias}\n{num_connections} connected",
+      "on-click": "blueman-manager",
+    },
+    "mpris": {
+      "format": "  {dynamic}",
+      "format-paused": "  {dynamic}",
+      "dynamic-len": 40,
+      "on-click": "playerctl play-pause",
+      "on-click-right": "playerctl next",
     },
     "disk": {
       "interval": 5,
@@ -186,7 +215,13 @@
       "icon-size": 24,
     },
     "network": {
-      "format": "{ifname} {ipaddr}",
+      "format-wifi": "  {essid} {signalStrength}%",
+      "format-ethernet": "  {ifname}",
+      "format-linked": "  {ifname} (no IP)",
+      "format-disconnected": "  offline",
+      "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+      "tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ipaddr}/{cidr}\n{frequency} MHz",
+      "on-click": "$term -e nmtui",
     },
     "privacy": {
       "icon-spacing": 4,

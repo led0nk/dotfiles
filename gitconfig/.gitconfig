@@ -6,11 +6,14 @@
 	signingkey = key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF1uFVdeFc/PwI+CbTvYtT359AQgu5w6N2yVvLbJbkCO
 
 [core]
-  editor = nvim 
+  editor = nvim
+	excludesFile = ~/.gitignore_global
 [gpg]
 	format = ssh
 [commit]
 	gpgsign = true
+[format]
+	signOff = true
 [gpg "ssh"]
 	defaultKeyCommand = ssh-add -L
-	allowedSignersFile = /var/home/jk/.ssh/allowed_signers
+	allowedSignersFile = ~/.ssh/allowed_signers

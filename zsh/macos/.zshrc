@@ -127,6 +127,12 @@ function acp(){
 
 }
 
+
+if command -v zoxide &> /dev/null; then
+eval "$(zoxide init zsh)"
+  alias cd='z'
+fi
+
 # function for extraction of any compressed files
 function extract {
  if [ $# -eq 0 ]; then
@@ -195,6 +201,9 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 export KUBECONFIG=$HOME/.kubeconfig/jupiter.yaml
+export _ZO_DOCTOR=0
+
+
 # SSH_AUTH_SOCK set in .zshenv (with tmux-compatible fallback)
 export HISTFILE=~/.zsh_history
 export HISTSIZE=200000

@@ -10,12 +10,13 @@ set $switcher rofi -show window -theme ~/.config/rofi/themes/rounded-blue-dark.r
 
 ##set $menu wofi --show drun --allow-images
 set $fileManager xdg-open .
-set $lock swaylock -f --config ~/.config/swaylock/config
+set $lock ~/.config/sway/scripts/lock.sh
 
 ### Output configuration
 #
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-#output * bg /usr/share/backgrounds/default.png fill
+# Wallpaper for every output, so a machine without a matching output block below
+# still gets a background. Falls back to a solid color if the file is missing.
+output * bg $HOME/Pictures/Wallpaper/background.png fill #1a1a1a
 
 #output "eDP-1" {
 #    mode  1920x1080@60.008Hz
@@ -189,11 +190,33 @@ bindsym XF86AudioNext exec playerctl next
     bindsym $mod+Shift+0 move container to workspace $workspace10
 
 ##
-## Screenshots via grim and slurp
+## Screenshots via grimshot (wraps grim, slurp, swaymsg)
 ##
 
-    bindsym $mod+Print exec grim -g "$(slurp)" - | swappy -f -
-    bindsym $mod+Shift+Print exec grim -o DP-1 | notify-send -a "grim" "Screenshot:" "entire screen"
+    bindsym $mod+Print exec grimshot save area - | swappy -f -
+    bindsym $mod+Shift+Print exec grimshot --notify save output
+    bindsym $mod+Control+Print exec grimshot --notify save window
+    bindsym $mod+Mod1+Print exec grimshot copy area
+
+##
+## Clipboard history (stored by the wl-paste watcher further down)
+##
+
+    bindsym $mod+c exec clipman pick -t rofi --notify
+
+##
+## Screen recording, same binding starts and stops it
+##
+
+    bindsym $mod+Shift+p exec ~/.config/sway/scripts/record.sh
+
+##
+## Rofi: window switcher and recursive file search
+##
+
+    # Activating a toplevel makes sway focus it, which switches workspace too.
+    bindsym Mod1+Tab exec rofi -show window
+    bindsym $mod+Shift+f exec rofi -show recursivebrowser
 #
 # Layout stuff:
 #
@@ -273,11 +296,11 @@ default_border pixel 2
 
 
 
-exec eval $(gnome-keyring-daemon --start --components=ssh)
-exec export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 exec waybar
-# exec swaync
-exec dunst
+exec swaync
+# exec dunst
+# No polkit agent in a sway session otherwise, so GUI privilege prompts never appear.
+exec lxpolkit
 #exec swayidle -w \
 #	timeout 600 '$lock' \
 #	timeout 1200 'swaymsg "output * dpms off"' \
@@ -285,6 +308,8 @@ exec dunst
 #	before-sleep '$lock' 
 #exec mako
 exec sleep 1 && keepassxc
+# Its SSH agent socket backs git commit signing, so it has to be running.
+exec bitwarden
 exec swaymsg "workspace 1; exec $term ; layout splitv; exec $term" 
 exec swaymsg "workspace 5; exec flatpak run org.signal.Signal" 
 exec swaymsg "workspace 2; exec flatpak run org.mozilla.firefox" 
@@ -302,16 +327,7 @@ for_window [app_id="org.kde.kalk"] floating enable
 
 #for_window [] border none
 
-#worskspaces to displays
-workspace 1 output DP-1
-workspace 2 output DP-1
-workspace 3 output DP-1
-workspace 4 output DP-1
-workspace 5 output DP-1
-workspace 6 output DP-1
-workspace 7 output DP-1
-workspace 8 output DP-1
-workspace 9 output DP-1
-workspace 10 output DP-1
+# Workspace-to-output placement is machine specific, so it lives in the kanshi
+# profile for each machine instead of being pinned to one output name here.
 
 include /etc/sway/config.d/*

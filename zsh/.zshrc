@@ -61,8 +61,6 @@ alias fk='export KUBECONFIG=$(find $HOME/.kubeconfig -type f -name "*.yaml" | fz
 alias fn='kubectl config set-context --current --namespace=$(kubectl get namespaces --no-headers -o custom-columns=":metadata.name" | fzf --height=40% --prompt="Select namespace: ") && echo "Switched namespace to $(kubectl config view --minify --output "jsonpath={..namespace}")"'
 
 # applications
-alias eo=emacsclient -c -n $@
-alias en=emacsclient -n $@
 alias firefox="flatpak run org.mozilla.firefox"
 alias signal="flatpak run org.signal.Signal"
 
