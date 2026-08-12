@@ -17,4 +17,6 @@ else
   unset _bw_sock
 fi
 export PATH=$PATH:/usr/lib/golang/bin
+# Not added by Fedora's zsh startup files; claude and other per-user tools land here.
+export PATH=$HOME/.local/bin:$PATH
 export CGO_ENABLED=0 

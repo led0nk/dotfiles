@@ -57,7 +57,7 @@ abort_func() {
 }
 
 # create directories
-mkdir -p "$HOME"/.config/{swappy,sway,waybar,rofi,dunst,mako,swaync,swaylock,tmux,environment.d}
+mkdir -p "$HOME"/.config/{swappy,sway,waybar,rofi,dunst,mako,swaync,swaylock,tmux,kanshi,environment.d}
 mkdir -p "$HOME"/Pictures/{Wallpaper,Screenshots}
 mkdir -p "$HOME"/.ssh
 chmod 700 "$HOME"/.ssh
@@ -91,6 +91,7 @@ symlink "$DOT_PATH"/.config/swaync/style.css "$HOME"/.config/swaync/style.css
 symlink "$DOT_PATH"/.config/swaylock/config "$HOME"/.config/swaylock/config
 symlink "$DOT_PATH"/.config/tmux/tmux.conf "$HOME"/.config/tmux/tmux.conf
 symlink "$DOT_PATH"/.config/rofi/config.rasi "$HOME"/.config/rofi/config.rasi
+symlink "$DOT_PATH"/.config/kanshi/config "$HOME"/.config/kanshi/config
 symlink "$DOT_PATH"/.config/environment.d/10-ssh-auth-sock.conf "$HOME"/.config/environment.d/10-ssh-auth-sock.conf
 symlink "$DOT_PATH"/.config/environment.d/20-xdg-screenshots.conf "$HOME"/.config/environment.d/20-xdg-screenshots.conf
 
