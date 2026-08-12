@@ -6,7 +6,7 @@ return {
 		lazy = false,
 		config = function()
 			require("catppuccin").setup({
-				flavour = "frappe", -- latte, frappe, macchiato, mocha
+				flavour = "mocha", -- latte, frappe, macchiato, mocha
 				background = { -- :h background
 					light = "latte",
 					dark = "mocha",
@@ -142,7 +142,7 @@ return {
 				end,
 			})
 
-			--vim.cmd("colorscheme rose-pine")
+			-- vim.cmd("colorscheme rose-pine")
 			-- vim.cmd("colorscheme rose-pine-main")
 			-- vim.cmd("colorscheme rose-pine-moon")
 			-- vim.cmd("colorscheme rose-pine-dawn")

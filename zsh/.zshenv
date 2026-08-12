@@ -10,7 +10,11 @@ if [[ "$(uname)" == "Darwin" ]]; then
   fi
   unset _bw_sock
 else
-  export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/keyring/ssh"
+  _bw_sock="$HOME/.bitwarden-ssh-agent.sock"
+  if [[ -S "$_bw_sock" ]]; then
+    export SSH_AUTH_SOCK="$_bw_sock"
+  fi
+  unset _bw_sock
 fi
 export PATH=$PATH:/usr/lib/golang/bin
 export CGO_ENABLED=0 

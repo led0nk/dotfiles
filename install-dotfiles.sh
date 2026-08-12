@@ -16,12 +16,12 @@ check_symlink() {
 
 	if [ -L "$tested_symlink" ]; then
 		if [ ! -e "$tested_symlink" ]; then
-			echo "${RED}error${NC}: symlink for $tested_symlink is broken"
+			printf "${RED}error${NC}: symlink for %s is broken\n" "$tested_symlink"
 		else
-			echo "${GREEN}checked ${NC}$tested_symlink\n"
+			printf "${GREEN}checked ${NC}%s\n" "$tested_symlink"
 		fi
 	else
-		echo "${RED}error${NC}: no symlink for $tested_symlink existing"
+		printf "${RED}error${NC}: no symlink for %s existing\n" "$tested_symlink"
 	fi
 }
 
@@ -30,14 +30,19 @@ symlink() {
 	linkto=$1
 	linkfrom=$2
 
-	echo "creating symlink for $linkfrom:\n"
-	ln -s "$linkto" "$linkfrom" && check_symlink "$linkfrom" || abort_func "$linkfrom"
+	printf "creating symlink for %s:\n" "$linkfrom"
+	ln -sfn "$linkto" "$linkfrom" && check_symlink "$linkfrom" || abort_func "$linkfrom"
 }
 
 # function for cloning git repo
 install_git_repo() {
 	repo=$1
 	target=$2
+
+	if [ -d "$target/.git" ]; then
+		echo "$target already cloned, skipping"
+		return
+	fi
 
 	echo "cloning $repo\ninto $target\n"
 	git clone "$GITHUB/$repo" "$target" || abort_func "$repo"
@@ -52,8 +57,10 @@ abort_func() {
 }
 
 # create directories
-mkdir -p "$HOME"/.config/{swappy,sway,waybar,rofi}
-mkdir -p "$HOME"/Pictures/Wallpaper/
+mkdir -p "$HOME"/.config/{swappy,sway,waybar,rofi,dunst,mako,swaync,swaylock,tmux,environment.d}
+mkdir -p "$HOME"/Pictures/{Wallpaper,Screenshots}
+mkdir -p "$HOME"/.ssh
+chmod 700 "$HOME"/.ssh
 
 # clone GitHub repositories
 install_git_repo dotfiles.git "$DOT_PATH"
@@ -64,43 +71,42 @@ symlink "$DOT_PATH"/zsh/.zshrc "$HOME"/.zshrc
 symlink "$DOT_PATH"/zsh/.zshenv "$HOME"/.zshenv
 symlink "$DOT_PATH"/zsh/.p10k.zsh "$HOME"/.p10k.zsh
 symlink "$DOT_PATH"/gitconfig/.gitconfig "$HOME"/.gitconfig
+symlink "$DOT_PATH"/gitconfig/.gitignore_global "$HOME"/.gitignore_global
+symlink "$DOT_PATH"/gitconfig/allowed_signers "$HOME"/.ssh/allowed_signers
 symlink "$DOT_PATH"/.config/sway/config "$HOME"/.config/sway/config
-symlink "$DOT_PATH"/.config/waybar/config.jsonc "$HOME"/.zshrc
+symlink "$DOT_PATH"/.config/sway/scripts "$HOME"/.config/sway/scripts
+symlink "$DOT_PATH"/.config/waybar/config.jsonc "$HOME"/.config/waybar/config.jsonc
 symlink "$DOT_PATH"/.config/waybar/style.css "$HOME"/.config/waybar/style.css
+symlink "$DOT_PATH"/.config/waybar/scripts "$HOME"/.config/waybar/scripts
 symlink "$DOT_PATH"/.config/nvim "$HOME"/.config/nvim
 symlink "$DOT_PATH"/.config/swappy/config "$HOME"/.config/swappy/config
+symlink "$DOT_PATH"/.config/dunst/dunstrc "$HOME"/.config/dunst/dunstrc
+symlink "$DOT_PATH"/.config/dunst/normal.png "$HOME"/.config/dunst/normal.png
+symlink "$DOT_PATH"/.config/dunst/critical.png "$HOME"/.config/dunst/critical.png
+symlink "$DOT_PATH"/.config/mako/config "$HOME"/.config/mako/config
+symlink "$DOT_PATH"/.config/mako/normal.png "$HOME"/.config/mako/normal.png
+symlink "$DOT_PATH"/.config/mako/critical.png "$HOME"/.config/mako/critical.png
+symlink "$DOT_PATH"/.config/swaync/config.json "$HOME"/.config/swaync/config.json
+symlink "$DOT_PATH"/.config/swaync/style.css "$HOME"/.config/swaync/style.css
+symlink "$DOT_PATH"/.config/swaylock/config "$HOME"/.config/swaylock/config
+symlink "$DOT_PATH"/.config/tmux/tmux.conf "$HOME"/.config/tmux/tmux.conf
+symlink "$DOT_PATH"/.config/rofi/config.rasi "$HOME"/.config/rofi/config.rasi
+symlink "$DOT_PATH"/.config/environment.d/10-ssh-auth-sock.conf "$HOME"/.config/environment.d/10-ssh-auth-sock.conf
+symlink "$DOT_PATH"/.config/environment.d/20-xdg-screenshots.conf "$HOME"/.config/environment.d/20-xdg-screenshots.conf
 
 # copy themefiles and background
-cp -r "$DOT_PATH"/.config/themes "$HOME"/.config/rofi/ || abort_func "copying rofi themes"
-cp -r "$DOT_PATH"/background.png "$HOME"/Pictures/Wallpaper/background.png || abort_func "copying wallpaper"
+mkdir -p "$HOME"/.config/rofi/themes
+cp -r "$DOT_PATH"/.config/rofi/themes/. "$HOME"/.config/rofi/themes/ || abort_func "copying rofi themes"
+cp "$DOT_PATH"/background.png "$HOME"/Pictures/Wallpaper/background.png || abort_func "copying wallpaper"
 
-# link golang variable
-echo export PATH="$PATH":/usr/lib/golang/bin >>"$HOME"/.profile
 
 # install zplug + extensions + change shell to zsh
 curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 chsh -s /usr/bin/zsh
-zsh
-zplug install
+zsh -ic "zplug install"
 
 # generate ssh-key-with github alias-mail
-ssh-keygen -t ed25519 -C "10290002+led0nk@users.noreply.github.com"
+if [ ! -f "$HOME"/.ssh/id_ed25519 ]; then
+	ssh-keygen -t ed25519 -C "10290002+led0nk@users.noreply.github.com"
+fi
 
-while getopts 'ynh' OPTION; do
-	case "$OPTION" in
-	y)
-		sudo cp -r "$DOT_PATH"/etc/systemd/system/dotfile.service /etc/systemd/system/dotfile.service
-		sudo chmod +x /etc/systemd/system/dotfile.service
-		;;
-	h)
-		echo "install-dotfiles.sh [-y] [-h help]"
-		echo "[-y]  -   includes systemd-service for automatic dotfiles-update at startup"
-		echo "[-n]  -   excludes systemd-service for automatic dotfiles-update at startup"
-		;;
-	?)
-		echo "install-dotfiles.sh [-y] [-n] [-h help]"
-		exit 1
-		;;
-	esac
-done
-shift "$(($OPTIND - 1))"
