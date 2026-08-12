@@ -38,7 +38,6 @@ output "DP-1" {
     scale_filter nearest
 #    adaptive_sync on
     dpms on
-    bg $HOME/Pictures/Wallpaper/background.png fill
     scale 1
 }
 #output "DP-2" {

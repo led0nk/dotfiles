@@ -22,6 +22,7 @@
       "bluetooth",
       "network",
       "battery",
+      "power-profiles-daemon",
       "cpu",
       "memory",
       "disk",
@@ -182,6 +183,15 @@
       "format-charging": "  {capacity}%",
       "format-plugged": "  {capacity}%",
       "tooltip-format": "{timeTo} ({power}W)",
+    },
+    "power-profiles-daemon": {
+      "format": "{icon}",
+      "format-icons": {
+        "default": "",
+        "performance": "",
+        "balanced": "",
+        "power-saver": "",
+      },
     },
     "backlight": {
       "format": "  {percent}%",

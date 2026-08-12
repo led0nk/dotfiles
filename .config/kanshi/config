@@ -1,0 +1,18 @@
+# Profiles activate automatically when their exact set of outputs is connected.
+# Get names and description strings with: swaymsg -t get_outputs
+#
+# Match by description rather than by name (DP-1, HDMI-A-1) wherever a monitor
+# can move between ports or docks, since the port name changes but the
+# description does not.
+
+profile laptop {
+	output eDP-1 enable scale 1
+}
+
+# Fill in from `swaymsg -t get_outputs` once the dock and monitor are attached:
+#
+# profile docked {
+#	output eDP-1 disable
+#	output "Make Model Serial" enable mode 3440x1440 position 0,0
+#	exec swaymsg workspace 1, move workspace to output "Make Model Serial"
+# }
