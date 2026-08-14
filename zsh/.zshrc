@@ -14,7 +14,7 @@ HISTFILE=~/.zsh_history
 
 # zsh plugins
 ZPLUG_HOME=${HOME}/.zplug
-source $ZPLUG_HOME/init.zsh
+[ -f $ZPLUG_HOME/init.zsh ] && source $ZPLUG_HOME/init.zsh
 #zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 zplug romkatv/powerlevel10k, as:theme, depth:1
 #zplug "plugins/colored-man-pages", from:oh-my-zsh
@@ -80,15 +80,14 @@ alias gcm="git commit -m"
 alias gf="git fetch"
 alias gc="git checkout"
 alias gd="git diff"
-alias git commit="git commit -s"
 
 # kubectl
 alias k="kubectl"
 alias kubectl="kubectl --insecure-skip-tls-verify"
-source <(kubectl completion zsh)
-source <(flux completion zsh)
-source <(talhelper completion zsh)
-source <(talosctl completion zsh)
+for _c in kubectl flux talhelper talosctl; do
+  (( $+commands[$_c] )) && source <($_c completion zsh)
+done
+unset _c
 
 ####### functions
 
@@ -184,13 +183,12 @@ export GTK_THEME=Adwaita-dark
 export TALOSCONFIG=$HOME/git/repo/hmlb/infra/clusterconfig/talosconfig
 export KUBECONFIG=$HOME/.kubeconfig/homelab.yaml
 export KUBE_EDITOR="nvim"
-export GOPATH=/home/$USER/.go
+export GOPATH=$HOME/.go
 export COLORTERM=truecolor
 export GO111MODULE=on
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:/opt/homebrew/bin
 export PATH=$PATH:/usr/local/bin
-export PATH=$PATH:$HOME/.emacs.d/bin
 export LESS_TERMCAP_mb=$'\e[1;32m'
 export LESS_TERMCAP_md=$'\e[1;32m'
 export LESS_TERMCAP_me=$'\e[0m'
@@ -207,5 +205,3 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 eval "$(fzf --zsh)"
 
-# To customize prompt, run `p10k configure` or edit ~/git/repo/dotfiles/zsh/.p10k.zsh.
-[[ ! -f ~/git/repo/dotfiles/zsh/.p10k.zsh ]] || source ~/git/repo/dotfiles/zsh/.p10k.zsh

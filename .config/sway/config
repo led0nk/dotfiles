@@ -68,16 +68,25 @@ output "DP-1" {
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
-input * {
-    xkb_layout de,de
+# Split by device type so touchpad-only options are not broadcast to every
+# device, and so the touchpad keeps acceleration while the mouse does not.
+input type:keyboard {
+    xkb_layout de
     xkb_variant nodeadkeys
     repeat_delay 250
     #repeat_rate 1
-    tap enabled
-    dwt enabled
-    #natural_scroll enabled
+}
+
+input type:pointer {
     accel_profile "flat" # disable mouse acceleration (enabled by default; to set it manually, use "adaptive" instead of "flat")
     pointer_accel 0.5 # set mouse sensitivity (between -1 and 1)
+}
+
+input type:touchpad {
+    tap enabled
+    dwt enabled # ignore the touchpad while typing
+    #natural_scroll enabled
+    accel_profile "adaptive" # flat feels wrong on a touchpad
 }
 
 ###
@@ -210,11 +219,9 @@ bindsym XF86AudioNext exec playerctl next
     bindsym $mod+Shift+p exec ~/.config/sway/scripts/record.sh
 
 ##
-## Rofi: window switcher and recursive file search
+## Rofi: recursive file search ($switcher on alt+tab handles windows)
 ##
 
-    # Activating a toplevel makes sway focus it, which switches workspace too.
-    bindsym Mod1+Tab exec rofi -show window
     bindsym $mod+Shift+f exec rofi -show recursivebrowser
 #
 # Layout stuff:
@@ -306,9 +313,11 @@ exec lxpolkit
 #		resume 'swaymsg "output * dpms on"' \
 #	before-sleep '$lock' 
 #exec mako
-exec sleep 1 && keepassxc
-# Its SSH agent socket backs git commit signing, so it has to be running.
-exec bitwarden
+# Superseded by bitwarden below.
+#exec sleep 1 && keepassxc
+# Its SSH agent socket backs git commit signing, so it has to be running. The
+# wait keeps its tray icon from racing waybar's status notifier host.
+exec /usr/libexec/sway-systemd/wait-sni-ready && bitwarden
 exec swaymsg "workspace 1; exec $term ; layout splitv; exec $term" 
 exec swaymsg "workspace 5; exec flatpak run org.signal.Signal" 
 exec swaymsg "workspace 2; exec flatpak run org.mozilla.firefox" 
@@ -322,6 +331,10 @@ exec wl-paste -t text --watch clipman store
 for_window [class="whatsapp-desktop-linux"] move to workspace 5
 for_window [class="Signal"] move to workspace 5
 for_window [app_id="org.keepassxc.KeePassXC"] move to workspace 8
+# Electron: app_id when run under Wayland, class under XWayland. Confirm the
+# real value with: swaymsg -t get_tree | grep -i bitwarden
+for_window [app_id="bitwarden"] move to workspace 8
+for_window [class="Bitwarden"] move to workspace 8
 for_window [app_id="org.kde.kalk"] floating enable
 
 #for_window [] border none
