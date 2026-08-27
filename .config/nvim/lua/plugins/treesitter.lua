@@ -10,7 +10,8 @@ return {
 			require("nvim-treesitter").install({
 				"bash", "css", "dockerfile", "git_rebase", "gitcommit",
 				"gitignore", "go", "gomod", "gosum", "html", "javascript",
-				"json", "lua", "make", "markdown", "markdown_inline",
+				"json", "jsonc", "lua", "make", "markdown", "markdown_inline",
+				"diff", "regex", "query", "vimdoc",
 				"svelte", "templ", "toml", "tsx", "typescript", "yaml",
 			})
 

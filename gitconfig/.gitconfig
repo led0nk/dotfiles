@@ -12,8 +12,6 @@
 	format = ssh
 [commit]
 	gpgsign = true
-[format]
-	signOff = true
 [gpg "ssh"]
 	defaultKeyCommand = ssh-add -L
 	allowedSignersFile = ~/.ssh/allowed_signers
