@@ -60,6 +60,9 @@ alias fa='aerospace list-windows --all | fzf --height=40% --bind "enter:execute(
 alias fk='export KUBECONFIG=$(find $HOME/.kubeconfig -type f -name "*.yaml" | fzf --height=40% --prompt="Select kubeconfig: " --preview "bat --color=always {}") && echo "Switched KUBECONFIG to $KUBECONFIG"'
 alias fn='kubectl config set-context --current --namespace=$(kubectl get namespaces --no-headers -o custom-columns=":metadata.name" | fzf --height=40% --prompt="Select namespace: ") && echo "Switched namespace to $(kubectl config view --minify --output "jsonpath={..namespace}")"'
 
+# docker: pick image(s) with TAB, remove them
+alias drmi='docker images --format "{{.ID}}\t{{.Repository}}:{{.Tag}}\t{{.Size}}" | fzf -m --height=40% --prompt="Remove image: " --header="TAB to mark, ENTER to remove" --preview "docker image inspect {1} | head -40" | cut -f1 | xargs -r docker rmi'
+
 # applications
 alias firefox="flatpak run org.mozilla.firefox"
 alias signal="flatpak run org.signal.Signal"
