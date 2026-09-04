@@ -5,12 +5,23 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-setopt inc_append_history
-setopt share_history
+# One file for every machine. Platform-specific bits are guarded below.
+if [[ "$(uname)" == "Darwin" ]]; then
+  IS_MAC=1
+else
+  IS_MAC=0
+fi
 
-HISTSIZE=10000
-SAVEHIST=10000
-HISTFILE=~/.zsh_history
+# history
+export HISTFILE=~/.zsh_history
+export HISTSIZE=200000
+export SAVEHIST=200000
+setopt SHARE_HISTORY          # share history across all sessions in real-time
+setopt HIST_IGNORE_ALL_DUPS   # remove older duplicate when new entry is added
+setopt HIST_IGNORE_SPACE      # don't record commands starting with a space
+setopt HIST_REDUCE_BLANKS     # remove unnecessary blanks
+setopt HIST_VERIFY            # show substituted command before running it
+setopt extended_glob
 
 # zsh plugins
 ZPLUG_HOME=${HOME}/.zplug
@@ -43,29 +54,41 @@ bindkey '^g' fzf_proj
 
 ## ALIASES
 # general
-alias open=xdg-open
 alias ls="eza -la"
 alias ll="eza -abghHlS"
 alias vim="nvim"
 alias mkdir="mkdir -p"
+(( IS_MAC )) || alias open=xdg-open   # macOS has its own `open`
 
 # fzf
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 export FZT_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+export FZF_DEFAULT_OPTS="--layout=reverse"
+# alt-c: show what is in a directory before cd-ing into it
+export FZF_ALT_C_OPTS="--preview 'eza -la --color=always {}'"
 
 alias ff='fzf -m --preview "bat --style=numbers --color=always {}"'
 alias inv='nvim $(fzf -m --preview "bat --style=numbers --color=always {}")'
-alias fa='aerospace list-windows --all | fzf --height=40% --bind "enter:execute(bash -c \"aerospace focus --window-id {1}\")+abort"'
 alias fk='export KUBECONFIG=$(find $HOME/.kubeconfig -type f -name "*.yaml" | fzf --height=40% --prompt="Select kubeconfig: " --preview "bat --color=always {}") && echo "Switched KUBECONFIG to $KUBECONFIG"'
 alias fn='kubectl config set-context --current --namespace=$(kubectl get namespaces --no-headers -o custom-columns=":metadata.name" | fzf --height=40% --prompt="Select namespace: ") && echo "Switched namespace to $(kubectl config view --minify --output "jsonpath={..namespace}")"'
-
 # docker: pick image(s) with TAB, remove them
-alias drmi='docker images --format "{{.ID}}\t{{.Repository}}:{{.Tag}}\t{{.Size}}" | fzf -m --height=40% --prompt="Remove image: " --header="TAB to mark, ENTER to remove" --preview "docker image inspect {1} | head -40" | cut -f1 | xargs -r docker rmi'
+alias fdrmi='docker images --format "{{.Repository}}\t{{.Tag}}\t{{.ID}}\t{{.CreatedSince}}\t{{.Size}}" | column -t -s $'\''\t'\'' | fzf -m --height=40% --prompt="Remove image: " --header="TAB to mark, ENTER to remove" | awk '\''{print $3}'\'' | xargs -r docker rmi'
+# same for podman (Linux/ThinkPad)
+alias fprmi='podman images --format "{{.Repository}}\t{{.Tag}}\t{{.ID}}\t{{.CreatedSince}}\t{{.Size}}" | column -t -s $'\''\t'\'' | fzf -m --height=40% --prompt="Remove image: " --header="TAB to mark, ENTER to remove" | awk '\''{print $3}'\'' | xargs -r podman rmi'
+(( IS_MAC )) && alias fa='aerospace list-windows --all | fzf --height=40% --bind "enter:execute(bash -c \"aerospace focus --window-id {1}\")+abort"'
 
 # applications
-alias firefox="flatpak run org.mozilla.firefox"
-alias signal="flatpak run org.signal.Signal"
+if (( IS_MAC )); then
+  alias eo="emacsclient -t"
+  alias en="emacsclient -t -n"
+else
+  alias firefox="flatpak run org.mozilla.firefox"
+  alias signal="flatpak run org.signal.Signal"
+fi
+# Start Claude with the Obsidian brain loaded. The SessionStart hook injects the
+# operating rules and MAP.md only when the session starts inside the vault.
+alias brain='cd ~/Nextcloud/Notes && claude'
 
 # navigation
 alias .1="cd .."
@@ -87,31 +110,79 @@ alias gd="git diff"
 # kubectl
 alias k="kubectl"
 alias kubectl="kubectl --insecure-skip-tls-verify"
-for _c in kubectl flux talhelper talosctl; do
+
+# completions, only for what is actually installed on this machine
+for _c in kubectl flux talhelper talosctl flyctl; do
   (( $+commands[$_c] )) && source <($_c completion zsh)
 done
 unset _c
 
+command -v mise >/dev/null && eval "$(mise activate zsh)"
+
+if command -v zoxide >/dev/null; then
+  eval "$(zoxide init zsh)"
+  alias cd='z'
+fi
+
 ####### functions
 
-
-
 _fzf_proj_widget() {
-  local project
-
-  project=$(
-    find "$HOME/git/repo" -maxdepth 2 -type d -name .git -prune -print \
-    | xargs -n1 dirname \
-    | fzf --height=40% --prompt="Select project: "
+  # declare up front: `local` inside the loop below re-declares an already-set
+  # name each iteration, which makes zsh print "b=<value>" into the list
+  local base="$HOME/git/repo" name gitpath root b
+  # no -type d: for a worktree the .git is a file, and those are repos too
+  name=$(
+    find "$base" -maxdepth 2 -name .git -prune -print \
+    | while read -r gitpath; do
+        root=${gitpath%/.git}
+        b=$(git -C "$root" branch --show-current 2>/dev/null)
+        [[ -n $b ]] || b=$(git -C "$root" rev-parse --short HEAD 2>/dev/null)
+        printf '%s\t%s\n' "${root:t}" "${b:--}"
+      done | sort \
+    | column -t -s $'\t' \
+    | fzf --height=40% --prompt="Select project: " \
+    | awk '{print $1}'
   )
 
-  if [[ -n $project ]]; then
-    printf -v LBUFFER 'cd %q' "$project"
+  if [[ -n $name ]]; then
+    printf -v LBUFFER 'cd %q' "$base/$name"
     zle accept-line
   fi
 }
 
 zle -N fzf_proj _fzf_proj_widget
+
+# pick process(es) and signal them; default TERM, e.g. `fkill 9` for KILL
+fkill() {
+  local sig=${1:-15} pids
+  pids=$(
+    ps -ef | sed 1d \
+    | fzf -m --height=40% --nth=8.. --prompt="Signal $sig to: " --header="TAB to mark" \
+    | awk '{print $2}'
+  )
+  [[ -n $pids ]] && print -r -- "$pids" | xargs -r kill -"$sig"
+}
+
+fbr() {
+  git rev-parse --git-dir >/dev/null 2>&1 || { echo "not a git repository"; return 1; }
+  local branch fmt
+  # git --format does not expand \t, so build the format with a real tab
+  fmt=$'%(refname:short)\t%(committerdate:relative)\t%(contents:subject)'
+  branch=$(
+    git branch -a --sort=-committerdate --format="$fmt" \
+    | column -t -s $'\t' \
+    | fzf --height=40% --nth=1 --prompt="Checkout branch: " --header="newest first" \
+    | awk '{print $1}'
+  )
+  [[ -n $branch ]] && git checkout "${branch#origin/}"
+}
+
+_lazygit_widget() {
+  lazygit
+  zle reset-prompt
+}
+zle -N lazygit_widget _lazygit_widget
+bindkey ' lg' lazygit_widget
 
 function acp(){
   commitmsg=$1
@@ -178,20 +249,28 @@ function extract {
 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
+####### environment
 
-#zplug "plugins/docker-compose", from:oh-my-zsh
-
-
-export GTK_THEME=Adwaita-dark
-export TALOSCONFIG=$HOME/git/repo/hmlb/infra/clusterconfig/talosconfig
-export KUBECONFIG=$HOME/.kubeconfig/homelab.yaml
-export KUBE_EDITOR="nvim"
-export GOPATH=$HOME/.go
 export COLORTERM=truecolor
 export GO111MODULE=on
+export KUBE_EDITOR="nvim"
+export _ZO_DOCTOR=0
+
+if (( IS_MAC )); then
+  export GOPATH=$HOME/go
+  export KUBECONFIG=$HOME/.kubeconfig/jupiter.yaml
+  export PATH="/opt/homebrew/bin:$PATH"
+  export PATH=$PATH:$HOME/.config/emacs/bin
+else
+  export GOPATH=$HOME/.go
+  export KUBECONFIG=$HOME/.kubeconfig/homelab.yaml
+  export TALOSCONFIG=$HOME/git/repo/hmlb/infra/clusterconfig/talosconfig
+  export GTK_THEME=Adwaita-dark
+fi
+
 export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:/opt/homebrew/bin
 export PATH=$PATH:/usr/local/bin
+
 export LESS_TERMCAP_mb=$'\e[1;32m'
 export LESS_TERMCAP_md=$'\e[1;32m'
 export LESS_TERMCAP_me=$'\e[0m'
@@ -202,9 +281,14 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-# FZF mappings and options
-[ -f $HOME/.fzf/key-bindings.zsh ] && source $HOME/.fzf/key-bindings.zsh
-[ -f $HOME/.fzf/completion.zsh ] && source $HOME/.fzf/completion.zsh
 
-eval "$(fzf --zsh)"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                  # loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
+# SSH_AUTH_SOCK and ~/.local/bin come from .zshenv
+if [ -f ~/.fzf.zsh ]; then
+  source ~/.fzf.zsh
+elif command -v fzf >/dev/null; then
+  eval "$(fzf --zsh)"
+fi
