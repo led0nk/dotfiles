@@ -339,7 +339,18 @@ for_window [app_id="org.kde.kalk"] floating enable
 
 #for_window [] border none
 
-# Workspace-to-output placement is machine specific, so it lives in the kanshi
-# profile for each machine instead of being pinned to one output name here.
+# Workspace placement. sway takes a list and uses the first output that exists,
+# so docked the externals win, undocked everything lands on the laptop panel.
+# Workspace 10 is kept on the laptop screen so an open lid always shows something.
+workspace 1 output DP-1 DP-2 HDMI-A-1 eDP-1
+workspace 2 output DP-1 DP-2 HDMI-A-1 eDP-1
+workspace 3 output DP-1 DP-2 HDMI-A-1 eDP-1
+workspace 4 output DP-1 DP-2 HDMI-A-1 eDP-1
+workspace 5 output DP-1 DP-2 HDMI-A-1 eDP-1
+workspace 6 output DP-1 DP-2 HDMI-A-1 eDP-1
+workspace 7 output DP-1 DP-2 HDMI-A-1 eDP-1
+workspace 8 output DP-1 DP-2 HDMI-A-1 eDP-1
+workspace 9 output DP-1 DP-2 HDMI-A-1 eDP-1
+workspace 10 output eDP-1 DP-1
 
 include /etc/sway/config.d/*

@@ -301,5 +301,9 @@ return {
 			},
 		})
 		vim.keymap.set("n", "<leader>od", ":ObsidianToday<CR>", { desc = "Obisdian today" })
+		vim.keymap.set("n", "<leader>ob", function()
+			vim.cmd("edit " .. vim.fn.expand("~") .. "/Nextcloud/Notes/00 - inbox/brain-dump.md")
+			vim.cmd("normal! G")
+		end, { desc = "Obsidian brain dump" })
 	end,
 }
