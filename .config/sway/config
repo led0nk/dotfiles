@@ -309,16 +309,16 @@ exec lxpolkit
 #exec mako
 # Superseded by bitwarden below.
 #exec sleep 1 && keepassxc
-# Its SSH agent socket backs git commit signing, so it has to be running. The
-# wait keeps its tray icon from racing waybar's status notifier host.
-exec /usr/libexec/sway-systemd/wait-sni-ready && flatpak run com.bitwarden.desktop
+exec /usr/libexec/sway-systemd/wait-sni-ready && ( \
+    blueman-applet & \
+    nm-applet & \
+    nextcloud & \
+    flatpak run com.bitwarden.desktop & )
+
 exec swaymsg "workspace 1; exec $term ; layout splitv; exec $term" 
 exec swaymsg "workspace 5; exec flatpak run org.signal.Signal" 
 exec swaymsg "workspace 2; exec flatpak run org.mozilla.firefox" 
 exec swaymsg "workspace 5; exec flatpak run io.github.mimbrero.WhatsAppDesktop" 
-exec blueman-applet
-exec nm-applet
-exec nextcloud
 exec wl-paste -t text --watch clipman store
 
 # swaymsg -t get_tree
