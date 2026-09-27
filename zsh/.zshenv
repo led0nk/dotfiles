@@ -10,7 +10,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
   fi
   unset _bw_sock
 else
-  _bw_sock="$HOME/.bitwarden-ssh-agent.sock"
+  _bw_sock="$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"
   if [[ -S "$_bw_sock" ]]; then
     export SSH_AUTH_SOCK="$_bw_sock"
   fi

@@ -119,6 +119,13 @@ unset _c
 
 command -v mise >/dev/null && eval "$(mise activate zsh)"
 
+# navi cheatsheets; its widget binds ^g by default, which is fzf_proj here
+if command -v navi >/dev/null; then
+  eval "$(navi widget zsh)"
+  bindkey '^f' _navi_widget
+  bindkey '^g' fzf_proj
+fi
+
 if command -v zoxide >/dev/null; then
   eval "$(zoxide init zsh)"
   alias cd='z'
