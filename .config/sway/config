@@ -14,8 +14,7 @@ set $lock ~/.config/sway/scripts/lock.sh
 
 ### Output configuration
 #
-# Wallpaper for every output, so a machine without a matching output block below
-# still gets a background. Falls back to a solid color if the file is missing.
+# Fallback colour so a missing wallpaper file is not a config error.
 output * bg $HOME/Pictures/Wallpaper/background.png fill #1a1a1a
 
 #output "eDP-1" {
@@ -299,7 +298,7 @@ default_border pixel 2
 exec waybar
 exec swaync
 # exec dunst
-# No polkit agent in a sway session otherwise, so GUI privilege prompts never appear.
+# Without this, GUI privilege prompts never appear.
 exec lxpolkit
 #exec swayidle -w \
 #	timeout 600 '$lock' \
@@ -307,8 +306,9 @@ exec lxpolkit
 #		resume 'swaymsg "output * dpms on"' \
 #	before-sleep '$lock' 
 #exec mako
-# Superseded by bitwarden below.
 #exec sleep 1 && keepassxc
+# Tray icons are lost if an app registers before waybar. Parens, not braces:
+# sway reads { as a config block.
 exec /usr/libexec/sway-systemd/wait-sni-ready && ( \
     blueman-applet & \
     nm-applet & \
@@ -325,8 +325,7 @@ exec wl-paste -t text --watch clipman store
 for_window [class="whatsapp-desktop-linux"] move to workspace 5
 for_window [class="Signal"] move to workspace 5
 for_window [app_id="org.keepassxc.KeePassXC"] move to workspace 8
-# Electron: app_id when run under Wayland, class under XWayland. Confirm the
-# real value with: swaymsg -t get_tree | grep -i bitwarden
+# Electron reports app_id on Wayland, class on XWayland.
 for_window [app_id="bitwarden"] move to workspace 8
 for_window [app_id="com.bitwarden.desktop"] move to workspace 8
 for_window [class="Bitwarden"] move to workspace 8
@@ -334,9 +333,8 @@ for_window [app_id="org.kde.kalk"] floating enable
 
 #for_window [] border none
 
-# Workspace placement. sway takes a list and uses the first output that exists,
-# so docked the externals win, undocked everything lands on the laptop panel.
-# Workspace 10 is kept on the laptop screen so an open lid always shows something.
+# First existing output wins, so docked the external takes 1-9 and the laptop
+# keeps 10.
 workspace 1 output DP-1 DP-2 HDMI-A-1 eDP-1
 workspace 2 output DP-1 DP-2 HDMI-A-1 eDP-1
 workspace 3 output DP-1 DP-2 HDMI-A-1 eDP-1

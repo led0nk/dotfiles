@@ -89,6 +89,11 @@ fi
 # Start Claude with the Obsidian brain loaded. The SessionStart hook injects the
 # operating rules and MAP.md only when the session starts inside the vault.
 alias brain='cd ~/Nextcloud/Notes && claude'
+alias opus48='brain --model claude-opus-4-8'
+alias opus46='brain --model claude-opus-4-6'
+alias sonnet48='brain --model claude-sonnet-4-8'
+alias sonnet46='brain --model claude-sonnet-4-6'
+alias haiku45='brain --model claude-haiku-4-5-20251001'
 
 # navigation
 alias .1="cd .."
@@ -110,6 +115,7 @@ alias gd="git diff"
 # kubectl
 alias k="kubectl"
 alias kubectl="kubectl --insecure-skip-tls-verify"
+
 
 # completions, only for what is actually installed on this machine
 for _c in kubectl flux talhelper talosctl flyctl; do
