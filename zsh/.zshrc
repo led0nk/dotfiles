@@ -91,7 +91,6 @@ fi
 alias brain='cd ~/Nextcloud/Notes && claude'
 alias opus48='brain --model claude-opus-4-8'
 alias opus46='brain --model claude-opus-4-6'
-alias sonnet48='brain --model claude-sonnet-4-8'
 alias sonnet46='brain --model claude-sonnet-4-6'
 alias haiku45='brain --model claude-haiku-4-5-20251001'
 
