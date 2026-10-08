@@ -88,7 +88,9 @@ else
 fi
 # Start Claude with the Obsidian brain loaded. The SessionStart hook injects the
 # operating rules and MAP.md only when the session starts inside the vault.
-alias brain='cd ~/Nextcloud/Notes && claude'
+brain() {
+  cd ~/Nextcloud/Notes && ollama launch claude -- "$@"
+}
 alias opus48='brain --model claude-opus-4-8'
 alias opus46='brain --model claude-opus-4-6'
 alias sonnet46='brain --model claude-sonnet-4-6'

@@ -24,3 +24,5 @@ __pycache__/
 *.py[cod]
 .ccls-cache/
 tags
+
+**/.claude/settings.local.json
