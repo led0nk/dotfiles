@@ -53,9 +53,11 @@
     }
   },
   "widgets": [
-    "menubar",
+    "buttons-grid",
     "inhibitors",
     "title",
+    "backlight",
+    "volume",
     "dnd",
     "mpris",
     "notifications"
@@ -82,44 +84,33 @@
       "image-size": 96,
       "image-radius": 12
     },
-    "menubar": {
-      "menu#power": {
-        "label": "  Power Menu",
-        "position": "left",
-        "actions": [
-          {
-            "label": " Lock",
-            "command": "swaylock"
-          },
-          {
-            "label": "󰗽 Logout",
-            "command": "swaymsg exit"
-          },
-          {
-            "label": " Suspend",
-            "command": "systemctl suspend"
-          },
-          {
-            "label": " Reboot",
-            "command": "systemctl reboot"
-          },
-          {
-            "label": " Shutdown",
-            "command": "systemctl poweroff"
-          }
-        ]
-      }
-    },
     "buttons-grid": {
       "actions": [
         {
-          "label": "直",
-          "type": "toggle",
-          "active": true,
-          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == true ]] && nmcli radio wifi on || nmcli radio wifi off'",
-          "update_command": "sh -c '[[ $(nmcli radio wifi) == \"enabled\" ]] && echo true || echo false'"
+          "label": "󰄀",
+          "command": "swaync-client -cp -sw; ~/.config/sway/scripts/capture.sh"
+        },
+        {
+          "label": "󰂯",
+          "command": "blueman-manager"
+        },
+        {
+          "label": "󰖩",
+          "command": "nm-connection-editor"
+        },
+        {
+          "label": "",
+          "command": "wlogout"
         }
       ]
+    },
+    "backlight": {
+      "label": "󰃟",
+      "device": "amdgpu_bl1",
+      "min-value": 0
+    },
+    "volume": {
+      "label": "󰕾"
     }
   }
 }
