@@ -148,7 +148,6 @@ bindsym XF86AudioNext exec playerctl next
     bindsym $mod+Shift+$up move up
     bindsym $mod+Shift+$right move right
     # Ditto, with arrow keys
-    bindsym $mod+Shift+Left move left
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     # Arrows move the workspace to the neighbor monitor (vim moves stay on hjl)
@@ -310,8 +309,6 @@ exec swayidle -w \
 # Tray icons are lost if an app registers before waybar. Parens, not braces:
 # sway reads { as a config block.
 exec kanshi
-# Workspace rebalance on dock hotplug (kanshi does transforms/positions).
-exec ~/.config/sway/scripts/dock-watch.sh
 
 exec /usr/libexec/sway-systemd/wait-sni-ready && ( \
     blueman-applet & \
@@ -343,9 +340,8 @@ for_window [app_id="org.kde.kalk"] floating enable
 # Unfixed also means undocking leaves everything on the laptop panel.
 
 ### Outputs when docked
-# Dell 34" main, right of the portrait AOC.
-output DP-4 pos 1440 0
-# AOC portrait, left of the Dell, vertically centered (2560 tall vs 1440).
-output DP-3 transform 270 pos 0 -560
+# Layout (mode/position/transform) is kanshi's job now - see
+# ~/.config/kanshi/config. Sway config output lines would fight kanshi on
+# reload, and connector names (DP-x) shuffle between dock reconnects.
 
 include /etc/sway/config.d/*
