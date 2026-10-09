@@ -50,6 +50,7 @@ output * bg $HOME/Pictures/Wallpaper/background.png fill #1a1a1a
 
 
 ### Lock screen
+    bindsym $mod+l focus right
     bindsym $mod+Control+l exec $lock
 
 # SoundMixer
@@ -135,7 +136,6 @@ bindsym XF86AudioNext exec playerctl next
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
-    bindsym $mod+$right focus right
     # Or use $mod+[up|down|left|right]
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
@@ -151,7 +151,9 @@ bindsym XF86AudioNext exec playerctl next
     bindsym $mod+Shift+Left move left
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
+    # Arrows move the workspace to the neighbor monitor (vim moves stay on hjl)
+    bindsym $mod+Shift+Right move workspace to output right
+    bindsym $mod+Shift+Left move workspace to output left
 #
 # Workspaces:
 #
@@ -300,22 +302,24 @@ exec swaync
 # exec dunst
 # Without this, GUI privilege prompts never appear.
 exec lxpolkit
-#exec swayidle -w \
-#	timeout 600 '$lock' \
-#	timeout 1200 'swaymsg "output * dpms off"' \
-#		resume 'swaymsg "output * dpms on"' \
-#	before-sleep '$lock' 
+exec swayidle -w \
+	timeout 900 '$lock' \
+	before-sleep '$lock'
 #exec mako
 #exec sleep 1 && keepassxc
 # Tray icons are lost if an app registers before waybar. Parens, not braces:
 # sway reads { as a config block.
+exec kanshi
+# Workspace rebalance on dock hotplug (kanshi does transforms/positions).
+exec ~/.config/sway/scripts/dock-watch.sh
+
 exec /usr/libexec/sway-systemd/wait-sni-ready && ( \
     blueman-applet & \
     nm-applet & \
     nextcloud & \
     flatpak run com.bitwarden.desktop & )
 
-exec swaymsg "workspace 1; exec $term ; layout splitv; exec $term" 
+exec swaymsg "workspace 1; exec $term"
 exec swaymsg "workspace 5; exec flatpak run org.signal.Signal" 
 exec swaymsg "workspace 2; exec flatpak run org.mozilla.firefox" 
 exec swaymsg "workspace 5; exec flatpak run io.github.mimbrero.WhatsAppDesktop" 
@@ -334,17 +338,14 @@ for_window [app_id="org.kde.kalk"] floating enable
 
 #for_window [] border none
 
-# First existing output wins, so docked the external takes 1-9 and the laptop
-# keeps 10.
-workspace 1 output DP-1 DP-2 HDMI-A-1 eDP-1
-workspace 2 output DP-1 DP-2 HDMI-A-1 eDP-1
-workspace 3 output DP-1 DP-2 HDMI-A-1 eDP-1
-workspace 4 output DP-1 DP-2 HDMI-A-1 eDP-1
-workspace 5 output DP-1 DP-2 HDMI-A-1 eDP-1
-workspace 6 output DP-1 DP-2 HDMI-A-1 eDP-1
-workspace 7 output DP-1 DP-2 HDMI-A-1 eDP-1
-workspace 8 output DP-1 DP-2 HDMI-A-1 eDP-1
-workspace 9 output DP-1 DP-2 HDMI-A-1 eDP-1
-workspace 10 output eDP-1 DP-1
+# No fixed workspace->output assignments: mod+N switches to workspace N on
+# the focused monitor, or to the existing workspace N wherever it lives.
+# Unfixed also means undocking leaves everything on the laptop panel.
+
+### Outputs when docked
+# Dell 34" main, right of the portrait AOC.
+output DP-4 pos 1440 0
+# AOC portrait, left of the Dell, vertically centered (2560 tall vs 1440).
+output DP-3 transform 270 pos 0 -560
 
 include /etc/sway/config.d/*

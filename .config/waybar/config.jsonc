@@ -7,12 +7,12 @@
     "modules-left": [
       "sway/workspaces",
       "sway/scratchpad",
-      "sway/window",
     ],
-    "modules-center": [],
+    "modules-center": [
+      "clock",
+    ],
     "modules-right": [
       "tray",
-      "custom/notification",
       "mpris",
       "backlight",
       "pulseaudio",
@@ -20,7 +20,7 @@
       "custom/battery",
       "cpu",
       "memory",
-      "clock",
+      "custom/notification",
       "custom/logout",
     ],
     // Modules configuration
@@ -49,10 +49,6 @@
         "format-icons": ["", ""],
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
-    },
-    "sway/window": {
-      "format": " {title}"
-
     },
 
     "custom/weather": {
@@ -116,7 +112,7 @@
     },
 
     "clock": {
-      "format": "{:%a. %d. %b. %H:%M}",
+      "format": "{:%a %Od %b %H:%M}",
       "format-alt": "{:%A, %B %d, %Y (%R)}  ",
       "tooltip-format": "\n<small><tt>{calendar}</tt></small>",
       "calendar": {
@@ -230,13 +226,15 @@
     },
     "network": {
       "format-icons": ["󰤟", "󰤢", "󰤥", "󰤨"],
-      "format-wifi": "<span font='Symbols Nerd Font' size='10500'>{icon}</span> {signalStrength}%",
-      "format-ethernet": "  {ifname}",
-      "format-linked": "  {ifname} (no IP)",
-      "format-disconnected": "  offline",
+      "format-wifi": "<span font='Symbols Nerd Font' size='10500'>{icon}</span> {essid}",
+      "max-length": 14,
+      "format-ethernet": "󰈀  {ifname}",
+      "format-linked": "󰈀  {ifname} (no IP)",
+      "format-disconnected": "󰤭  offline",
       "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
       "tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ipaddr}/{cidr}\n{frequency} MHz",
-      "on-click": "nm-connection-editor",
+      "on-click": "~/.config/sway/scripts/rofi-wifi-menu.sh",
+      "on-click-right": "nm-connection-editor",
     },
     "privacy": {
       "icon-spacing": 4,
@@ -280,11 +278,11 @@
     "on-click-right": "swaync-client -d -sw",
     "escape": true
   },
-    "custom/logout": {
-      "format": " ",
-      "tooltip": false,
-      "on-click": "wlogout",
-    },
+    // "custom/logout": {
+    //   "format": " ",
+    //   "tooltip": false,
+    //   "on-click": "wlogout",
+    // },
     //symbols are not finished yet
   }
 ]
