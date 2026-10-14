@@ -67,8 +67,9 @@ output * bg $HOME/Pictures/Wallpaper/background.png fill #1a1a1a
 input type:keyboard {
     xkb_layout de
     xkb_variant nodeadkeys
-    repeat_delay 250
-    #repeat_rate 1
+    repeat_delay 180
+    #repeat_rate 25 (default); held keys repeat faster now
+    repeat_rate 55
 }
 
 input type:pointer {
@@ -303,7 +304,8 @@ exec swaync
 exec lxpolkit
 exec swayidle -w \
 	timeout 900 '$lock' \
-	before-sleep '$lock'
+	before-sleep '$lock' \
+	after-resume '~/.config/sway/scripts/fix-resume.sh'
 #exec mako
 #exec sleep 1 && keepassxc
 # Tray icons are lost if an app registers before waybar. Parens, not braces:

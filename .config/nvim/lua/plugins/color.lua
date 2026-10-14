@@ -54,7 +54,7 @@ return {
 				},
 			})
 
-			vim.cmd.colorscheme("catppuccin")
+			-- vim.cmd.colorscheme("catppuccin") -- switched to rose-pine while testing
 		end,
 	},
 	{
@@ -142,7 +142,7 @@ return {
 				end,
 			})
 
-			-- vim.cmd("colorscheme rose-pine")
+			-- vim.cmd("colorscheme rose-pine") -- deactivated after try-out; variants: rose-pine, rose-pine-moon, rose-pine-dawn
 			-- vim.cmd("colorscheme rose-pine-main")
 			-- vim.cmd("colorscheme rose-pine-moon")
 			-- vim.cmd("colorscheme rose-pine-dawn")
@@ -153,7 +153,7 @@ return {
 		name = "vesper",
 		config = function()
 			require("vesper").setup({
-				transparent = true, -- Boolean: Sets the background to transparent
+				transparent = false, -- preview look has the bg bands (telescope rows etc.); true hides them
 				italics = {
 					comments = false, -- Boolean: Italicizes comments
 					keywords = false, -- Boolean: Italicizes keywords
@@ -161,10 +161,15 @@ return {
 					strings = false, -- Boolean: Italicizes strings
 					variables = false, -- Boolean: Italicizes variables
 				},
-				overrides = {}, -- A dictionary of group names, can be a function returning a dictionary or a table.
+				overrides = {
+					-- vesper's default MatchParen is invisible on #101010
+					MatchParen = { bg = "#343434", fg = "#FFC799", bold = true },
+					-- upstream Selection has no bg, so the picked row has no band
+					TelescopeSelection = { fg = "#FFFFFF", bg = "#343434", bold = true },
+				}, -- A dictionary of group names, can be a function returning a dictionary or a table.
 				palette_overrides = {},
 			})
-			--vim.cmd.colorscheme("vesper")
+			vim.cmd.colorscheme("vesper") -- active
 		end,
 	},
 	{

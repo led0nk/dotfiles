@@ -10,7 +10,7 @@ return {
 			require("nvim-treesitter").install({
 				"bash", "css", "dockerfile", "git_rebase", "gitcommit",
 				"gitignore", "go", "gomod", "gosum", "html", "javascript",
-				"json", "jsonc", "lua", "make", "markdown", "markdown_inline",
+				"json", "lua", "make", "markdown", "markdown_inline",
 				"diff", "regex", "query", "vimdoc",
 				"svelte", "templ", "toml", "tsx", "typescript", "yaml",
 			})
@@ -22,6 +22,8 @@ return {
 			})
 
 			vim.treesitter.language.register("templ", "templ")
+			-- jsonc has no parser on treesitter main; files with comments still highlight as json
+			vim.treesitter.language.register("json", "jsonc")
 		end,
 	},
 	{

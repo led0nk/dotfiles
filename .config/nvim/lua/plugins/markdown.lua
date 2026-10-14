@@ -1,7 +1,11 @@
 return {
   "iamcco/markdown-preview.nvim",
   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-  build = "cd app && npm install",
+  -- Prebuilt frontend installer: 'cd app && npm install' rewrites app/yarn.lock,
+  -- which makes lazy refuse every subsequent update (local changes).
+  build = function()
+    vim.fn["mkdp#util#install"]()
+  end,
   lazy = true,
   keys = {
     { "<leader>md", "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown Preview" },

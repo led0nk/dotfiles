@@ -72,11 +72,8 @@ vim.keymap.set("n", "H", "^")
 -- Select all
 vim.keymap.set("n", "<C-a>", "gg<S-v>G")
 
---Window Navigation
-vim.keymap.set("n", "<C-h>", "<C-w>h")
-vim.keymap.set("n", "<C-l>", "<C-w>l")
-vim.keymap.set("n", "<C-j>", "<C-w>j")
-vim.keymap.set("n", "<C-k>", "<C-w>k")
+--Window Navigation is vim-tmux-navigator (C-h/j/k/l across nvim splits and
+--tmux panes; the plugin defines the mappings)
 
 -- Window Split
 vim.keymap.set("n", "<leader>wv", ":vsp<CR>", { desc = "vertical split" })

@@ -46,10 +46,11 @@ bindkey "^a" beginning-of-line
 bindkey "^e" end-of-line
 bindkey "^R" history-incremental-pattern-search-backward
 bindkey '^[[Z' autosuggest-accept
-bindkey '^h' backward-char
-bindkey '^l' forward-char
-bindkey '^j' backward-word
-bindkey '^k' forward-word
+bindkey '^[h' backward-char
+bindkey '^[l' forward-char
+bindkey '^[j' backward-word
+bindkey '^[k' forward-word
+bindkey '^[w' backward-kill-word
 bindkey '^g' fzf_proj
 
 ## ALIASES
@@ -64,7 +65,11 @@ alias mkdir="mkdir -p"
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 export FZT_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
-export FZF_DEFAULT_OPTS="--layout=reverse"
+# vesper palette: selected row gets a bg+ band, matches/labels in theme accents
+export FZF_DEFAULT_OPTS="--layout=reverse
+	--color=bg:#101010,bg+:#232323,fg:#CCCCCC,fg+:#FFFFFF,hl:#FFC799,hl+:#FFC799
+	--color=info:#65737E,prompt:#65737E,pointer:#FF8080,marker:#99FFE4,spinner:#6BB2A0
+	--color=header:#505050,border:#343434,preview-border:#343434"
 # alt-c: show what is in a directory before cd-ing into it
 export FZF_ALT_C_OPTS="--preview 'eza -la --color=always {}'"
 
