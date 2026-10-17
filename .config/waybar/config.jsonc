@@ -6,6 +6,7 @@
     "position": "top",
     "modules-left": [
       "sway/workspaces",
+      "hyprland/workspaces",
       "sway/scratchpad",
     ],
     "modules-center": [
@@ -24,6 +25,13 @@
       "custom/logout",
     ],
     // Modules configuration
+    // Hyprland twin of the sway block above; ignores the sway-only icons
+    "hyprland/workspaces": {
+         "all-outputs": true,
+         "persistent": true,
+         "format": "{name}",
+         "on-click": "activate",
+    },
     "sway/workspaces": {
          "disable-scroll": true,
          "all-outputs": true,

@@ -63,7 +63,11 @@ window#waybar {
 }
 
 #workspaces button.active {
+  /* hyprland/workspaces marks the current workspace with .active instead of
+     .focused (sway never emits .active), so give it the sway highlight */
   background: rgba(40, 42, 54, 0.9);
+  box-shadow: inset 0 2px #f9826c;
+  color: #f9826c;
 }
 
 #workspaces button:hover {

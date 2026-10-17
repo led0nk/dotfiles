@@ -11,7 +11,7 @@ return {
 					light = "latte",
 					dark = "mocha",
 				},
-				transparent_background = false, -- disables setting the background color.
+				transparent_background = true, -- disables setting the background color.
 				show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
 				term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
 				dim_inactive = {
@@ -54,7 +54,7 @@ return {
 				},
 			})
 
-			-- vim.cmd.colorscheme("catppuccin") -- switched to rose-pine while testing
+			vim.cmd.colorscheme("catppuccin")
 		end,
 	},
 	{
@@ -153,7 +153,7 @@ return {
 		name = "vesper",
 		config = function()
 			require("vesper").setup({
-				transparent = false, -- preview look has the bg bands (telescope rows etc.); true hides them
+				transparent = true, -- Boolean: Sets the background to transparent
 				italics = {
 					comments = false, -- Boolean: Italicizes comments
 					keywords = false, -- Boolean: Italicizes keywords
@@ -161,15 +161,10 @@ return {
 					strings = false, -- Boolean: Italicizes strings
 					variables = false, -- Boolean: Italicizes variables
 				},
-				overrides = {
-					-- vesper's default MatchParen is invisible on #101010
-					MatchParen = { bg = "#343434", fg = "#FFC799", bold = true },
-					-- upstream Selection has no bg, so the picked row has no band
-					TelescopeSelection = { fg = "#FFFFFF", bg = "#343434", bold = true },
-				}, -- A dictionary of group names, can be a function returning a dictionary or a table.
+				overrides = {}, -- A dictionary of group names, can be a function returning a dictionary or a table.
 				palette_overrides = {},
 			})
-			vim.cmd.colorscheme("vesper") -- active
+			--vim.cmd.colorscheme("vesper")
 		end,
 	},
 	{

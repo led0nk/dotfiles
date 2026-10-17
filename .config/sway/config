@@ -3,7 +3,7 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term gnome-terminal --hide-menubar --working-directory=$HOME/git/repo
+set $term ghostty --working-directory=$HOME/git/repo
 set $menu rofi -show drun 
 #set $menu ulauncher
 set $switcher rofi -show window -theme ~/.config/rofi/themes/rounded-blue-dark.rasi -show-icons -window-command "swaymsg [con_id={window}] focus"
@@ -297,7 +297,8 @@ default_border pixel 2
 
 
 
-exec waybar
+# waybar started as a systemd user unit (Restart=on-failure survives
+# crashes); same unit serves Hyprland
 exec swaync
 # exec dunst
 # Without this, GUI privilege prompts never appear.
@@ -321,7 +322,8 @@ exec /usr/libexec/sway-systemd/wait-sni-ready && ( \
 exec swaymsg "workspace 1; exec $term"
 exec swaymsg "workspace 5; exec flatpak run org.signal.Signal" 
 exec swaymsg "workspace 2; exec flatpak run org.mozilla.firefox" 
-exec swaymsg "workspace 5; exec flatpak run io.github.mimbrero.WhatsAppDesktop" 
+exec swaymsg "workspace 5; exec flatpak run io.github.mimbrero.WhatsAppDesktop"
+exec swaymsg "workspace 9; exec flatpak run ch.protonmail.protonmail-bridge"
 exec wl-paste -t text --watch clipman store
 
 # swaymsg -t get_tree
@@ -334,6 +336,16 @@ for_window [app_id="bitwarden"] move to workspace 8
 for_window [app_id="com.bitwarden.desktop"] move to workspace 8
 for_window [class="Bitwarden"] move to workspace 8
 for_window [app_id="org.kde.kalk"] floating enable
+# The Bridge keeps a small no-icon window (real app_id differs from the
+# flatpak id); the two variants cover app_id churn across versions.
+for_window [app_id="ch.proton.bridge-gui"] move to workspace 9
+for_window [app_id="ch.protonmail.protonmail-bridge"] move to workspace 9
+
+# Helpers float by default: tile layout does nothing for them
+for_window [app_id="org.gnome.Nautilus"] floating enable
+for_window [app_id="org.pulseaudio.pavucontrol"] floating enable
+for_window [app_id="wdisplays"] floating enable
+for_window [app_id="blueman-manager"] floating enable
 
 #for_window [] border none
 
@@ -345,5 +357,9 @@ for_window [app_id="org.kde.kalk"] floating enable
 # Layout (mode/position/transform) is kanshi's job now - see
 # ~/.config/kanshi/config. Sway config output lines would fight kanshi on
 # reload, and connector names (DP-x) shuffle between dock reconnects.
+
+# SwayFX extras (fx.conf is absent on plain sway - include ignores missing
+# files), then the image-wide includes.
+include ~/.config/sway/fx.*
 
 include /etc/sway/config.d/*

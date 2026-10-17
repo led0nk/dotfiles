@@ -65,11 +65,9 @@ alias mkdir="mkdir -p"
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 export FZT_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
-# vesper palette: selected row gets a bg+ band, matches/labels in theme accents
 export FZF_DEFAULT_OPTS="--layout=reverse
-	--color=bg:#101010,bg+:#232323,fg:#CCCCCC,fg+:#FFFFFF,hl:#FFC799,hl+:#FFC799
-	--color=info:#65737E,prompt:#65737E,pointer:#FF8080,marker:#99FFE4,spinner:#6BB2A0
-	--color=header:#505050,border:#343434,preview-border:#343434"
+	--color=bg:-1,bg+:#313244,fg:#cdd6f4,fg+:#cdd6f4,hl:#f38ba8,hl+:#f38ba8
+	--color=info:#6c7086,prompt:#cba6f7,pointer:#f5e0dc,marker:#a6e3a1,spinner:#f5e0dc,header:#6c7086"
 # alt-c: show what is in a directory before cd-ing into it
 export FZF_ALT_C_OPTS="--preview 'eza -la --color=always {}'"
 

@@ -1,0 +1,12 @@
+[Unit]
+Description=waybar status bar
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Restart=on-failure
+RestartSec=2
+ExecStart=/usr/bin/waybar
+
+[Install]
+WantedBy=graphical-session.target
