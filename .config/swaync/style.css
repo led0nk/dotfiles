@@ -16,7 +16,7 @@
 }
 
 .notification-row:focus, .notification-row:hover {
-  background: @noti-bg-focus;
+  background: transparent;
 }
 
 .notification-row .notification-background {
@@ -412,6 +412,19 @@
   /* Change player side buttons insensitive */
 }
 
+.widget-buttons-grid > flowbox > flowboxchild {
+  box-shadow: none;
+  outline: none;
+}
+
+/* libadwaita paints its own hover/active rect + inset ring around flowboxchild,
+   extending past the button border — flatten it, hover lives on the button */
+.widget-buttons-grid > flowbox > flowboxchild:hover,
+.widget-buttons-grid > flowbox > flowboxchild:active {
+  background-color: transparent;
+  box-shadow: none;
+}
+
 /* Buttons widget */
 .widget-buttons-grid {
   padding: 8px;
@@ -420,9 +433,22 @@
   background-color: @noti-bg;
 }
 
+/* full-width row split into equal panels (GTK3: no % min-width, use fixed) */
+.widget-buttons-grid {
+  padding: 8px 4px;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild {
+  min-width: 110px;
+  padding: 1px 1px;
+}
+
 .widget-buttons-grid > flowbox > flowboxchild > button {
   background: @noti-bg;
   border-radius: 12px;
+  min-width: 108px;
+  padding: 10px 0;
+  font-size: 16px;
 }
 
 .widget-buttons-grid > flowbox > flowboxchild > button.toggle:checked {
@@ -432,7 +458,7 @@
 /* Menubar widget */
 .widget-menubar > box > .menu-button-bar > button {
   margin: 8px;
-  padding: 4px 8px;
+  padding: 8px 18px;
   border: 1px solid @noti-border-color;
   border-radius: 12px;
   background: @noti-bg;
@@ -452,8 +478,8 @@
 
 .widget-menubar button,
 .widget-buttons-grid > flowbox > flowboxchild > button {
-  margin: 2px 8px;
-  padding: 4px 0px;
+  margin: 2px 2px;
+  padding: 10px 0;
   border: 1px solid @noti-border-color;
   border-radius: 12px;
   background: @noti-bg;
@@ -507,6 +533,13 @@
   padding: 4px 8px 8px 8px;
   margin: 0px 8px 8px 8px;
   border-radius: 12px;
+}
+
+/* Backlight + volume slider labels use the nerd font */
+.widget-backlight > label, .widget-backlight label,
+.widget-volume > label, .widget-volume label {
+  font-family: "Symbols Nerd Font";
+  font-size: 16px;
 }
 
 /* Backlight widget */

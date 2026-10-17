@@ -2,8 +2,14 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
-vim.opt.conceallevel = 1
----
+vim.opt.conceallevel = 0
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "markdown",
+	callback = function()
+		vim.opt_local.conceallevel = 2
+	end,
+})
 
 -- Set tabs to 2 spaces
 vim.opt.tabstop = 2
@@ -38,6 +44,9 @@ vim.opt.termguicolors = true
 -- Set scrolling offset
 vim.opt.scrolloff = 10
 
+-- Auto-reload files changed outside nvim
+vim.opt.autoread = true
+
 -- Set a column line
 vim.opt.colorcolumn = "80"
 
@@ -63,11 +72,8 @@ vim.keymap.set("n", "H", "^")
 -- Select all
 vim.keymap.set("n", "<C-a>", "gg<S-v>G")
 
---Window Navigation
-vim.keymap.set("n", "<C-h>", "<C-w>h")
-vim.keymap.set("n", "<C-l>", "<C-w>l")
-vim.keymap.set("n", "<C-j>", "<C-w>j")
-vim.keymap.set("n", "<C-k>", "<C-w>k")
+--Window Navigation is vim-tmux-navigator (C-h/j/k/l across nvim splits and
+--tmux panes; the plugin defines the mappings)
 
 -- Window Split
 vim.keymap.set("n", "<leader>wv", ":vsp<CR>", { desc = "vertical split" })
@@ -75,15 +81,22 @@ vim.keymap.set("n", "<leader>wh", ":sp<CR>", { desc = "horizontal split" })
 vim.keymap.set("n", "<leader>wq", "<C-w>q", { desc = "close window" })
 
 -- Navigate Buffers
-vim.keymap.set("n", "<A-l>", ":bnext<CR>", { desc = "next buffer" })
-vim.keymap.set("n", "<A-h>", ":bprevious<CR>", { desc = "previous buffer" })
+vim.keymap.set("n", "<leader>bn", ":bnext<CR>", { desc = "next buffer" })
+vim.keymap.set("n", "<leader>bp", ":bprevious<CR>", { desc = "previous buffer" })
 vim.keymap.set("n", "<leader>bk", ":bp<bar>sp<bar>bn<bar>bd<CR>", { desc = "kill buffer" })
 
 -- Open Terminal in Vsplit
 vim.keymap.set("n", "<leader>tv", ":vsp | terminal<CR>i", { desc = "Open terminal in vertical split" })
 vim.keymap.set("n", "<leader>th", ":sp | terminal<CR>i", { desc = "Open terminal in horizontal split" })
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true, silent = true })
-vim.keymap.set("t", "jk", "<C-\\><C-n>", { noremap = true, silent = true })
+vim.api.nvim_create_autocmd("TermOpen", {
+	callback = function(event)
+		if vim.bo[event.buf].filetype == "lazygit" then
+			return
+		end
+		vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { buffer = event.buf, noremap = true, silent = true })
+		vim.keymap.set("t", "jk", "<C-\\><C-n>", { buffer = event.buf, noremap = true, silent = true })
+	end,
+})
 
 -- Insert New Line without entering insert Mode
 vim.keymap.set("n", "<leader>o", "o<ESC>")

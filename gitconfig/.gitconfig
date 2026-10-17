@@ -3,19 +3,15 @@
 # Bitte passen Sie die folgenden Zeilen an und kommentieren Sie diese aus:
 	name = Janik K.
 	email = janik@kndlive.de
-	signingkey = key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF1uFVdeFc/PwI+CbTvYtT359AQgu5w6N2yVvLbJbkCO
+	signingkey = key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDY6tVgdY/Yy2Qf/BfeX9m/3+HWk/vJqnTlfDvSImt2W git ssh key
 
 [core]
-  editor = nvim 
+  editor = nvim
+	excludesFile = ~/.gitignore_global
 [gpg]
 	format = ssh
 [commit]
 	gpgsign = true
 [gpg "ssh"]
 	defaultKeyCommand = ssh-add -L
-	allowedSignersFile = /var/home/jk/.ssh/allowed_signers
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+	allowedSignersFile = ~/.ssh/allowed_signers

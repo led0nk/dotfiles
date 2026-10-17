@@ -1,7 +1,7 @@
 return {
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.8",
+		branch = "master",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-ui-select.nvim",
@@ -93,7 +93,7 @@ return {
 			)
 			vim.keymap.set("n", "<leader>ft", builtin.lsp_type_definitions, { desc = "LSP type definitions" })
 			vim.keymap.set("n", "<leader>fi", builtin.lsp_implementations, { desc = "LSP implementations" })
-			vim.keymap.set("n", "<leader>gb", function()
+			vim.keymap.set("n", "<leader>gB", function()
 				builtin.git_branches({ layout_config = { preview_width = 0.6 } })
 			end, { desc = "Git branches" })
 			vim.keymap.set("n", "<leader>gc", function()

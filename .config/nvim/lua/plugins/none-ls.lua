@@ -8,7 +8,11 @@ return {
 				null_ls.builtins.formatting.stylua,
 				-- null_ls.builtins.formatting.yamlfmt,
 				null_ls.builtins.formatting.prettier.with({
-					filetypes = { "html", "css", "yaml" },
+					filetypes = {
+						"html", "css", "scss", "yaml", "json", "jsonc",
+						"javascript", "javascriptreact",
+						"typescript", "typescriptreact",
+					},
 				}),
 				null_ls.builtins.formatting.goimports,
 				--null_ls.builtins.formatting.gofmt,
@@ -22,7 +26,7 @@ return {
 				null_ls.builtins.diagnostics.hadolint,
 			},
 			on_attach = function(client, bufnr)
-				if client.supports_method("textDocument/formatting") then
+				if client:supports_method("textDocument/formatting") then
 					vim.api.nvim_clear_autocmds({
 						group = augroup,
 						buffer = bufnr,
@@ -31,7 +35,15 @@ return {
 						group = augroup,
 						buffer = bufnr,
 						callback = function()
-							vim.lsp.buf.format({ bufnr = bufnr, async = false })
+							-- none-ls only: gopls and ts_ls would otherwise format the
+							-- same buffer in the same write.
+							vim.lsp.buf.format({
+								bufnr = bufnr,
+								async = false,
+								filter = function(c)
+									return c.name == "null-ls"
+								end,
+							})
 						end,
 					})
 				end

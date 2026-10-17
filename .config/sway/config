@@ -3,19 +3,19 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term gnome-terminal --hide-menubar --working-directory=$HOME/git/repo
+set $term ghostty --working-directory=$HOME/git/repo
 set $menu rofi -show drun 
 #set $menu ulauncher
 set $switcher rofi -show window -theme ~/.config/rofi/themes/rounded-blue-dark.rasi -show-icons -window-command "swaymsg [con_id={window}] focus"
 
 ##set $menu wofi --show drun --allow-images
 set $fileManager xdg-open .
-set $lock swaylock -f --config ~/.config/swaylock/config
+set $lock ~/.config/sway/scripts/lock.sh
 
 ### Output configuration
 #
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-#output * bg /usr/share/backgrounds/default.png fill
+# Fallback colour so a missing wallpaper file is not a config error.
+output * bg $HOME/Pictures/Wallpaper/background.png fill #1a1a1a
 
 #output "eDP-1" {
 #    mode  1920x1080@60.008Hz
@@ -29,33 +29,28 @@ set $lock swaylock -f --config ~/.config/swaylock/config
 #    scale 1
 #}
 
-output "DP-1" {
-    mode  3440x1440@143.975Hz
-    pos 0 0
-    transform normal
-    scale 1.0
-    scale_filter nearest
+#output "DP-1" {
+#    mode  3440x1440@143.975Hz
 #    adaptive_sync on
-    dpms on
-    bg $HOME/Pictures/Wallpaper/background.png fill
-    scale 1
-}
-output "DP-2" {
-    mode  2560x1440@60.0Hz
-    pos -1440 -480
-    transform 270
-    scale 1.0
-    scale_filter nearest
-    adaptive_sync off
-    dpms on
-    bg $HOME/Pictures/Wallpaper/background.png fill
-    scale 1
-}
+#}
+#output "DP-2" {
+#    mode  1920x1080@60.0Hz
+#    pos 0 0
+#    #pos 0 0
+#    transform 270
+#    scale 1.0
+#    scale_filter nearest
+#    adaptive_sync off
+#    dpms on
+#    bg $HOME/Pictures/Wallpaper/background.png fill
+#    scale 1
+#}
 
 
 
 
 ### Lock screen
+    bindsym $mod+l focus right
     bindsym $mod+Control+l exec $lock
 
 # SoundMixer
@@ -67,16 +62,26 @@ output "DP-2" {
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
-input * {
-    xkb_layout de,de
+# Split by device type so touchpad-only options are not broadcast to every
+# device, and so the touchpad keeps acceleration while the mouse does not.
+input type:keyboard {
+    xkb_layout de
     xkb_variant nodeadkeys
-    repeat_delay 250
-    #repeat_rate 1
-    tap enabled
-    dwt enabled
-    #natural_scroll enabled
+    repeat_delay 180
+    #repeat_rate 25 (default); held keys repeat faster now
+    repeat_rate 55
+}
+
+input type:pointer {
     accel_profile "flat" # disable mouse acceleration (enabled by default; to set it manually, use "adaptive" instead of "flat")
     pointer_accel 0.5 # set mouse sensitivity (between -1 and 1)
+}
+
+input type:touchpad {
+    tap enabled
+    dwt enabled # ignore the touchpad while typing
+    #natural_scroll enabled
+    accel_profile "adaptive" # flat feels wrong on a touchpad
 }
 
 ###
@@ -132,7 +137,6 @@ bindsym XF86AudioNext exec playerctl next
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
-    bindsym $mod+$right focus right
     # Or use $mod+[up|down|left|right]
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
@@ -145,10 +149,11 @@ bindsym XF86AudioNext exec playerctl next
     bindsym $mod+Shift+$up move up
     bindsym $mod+Shift+$right move right
     # Ditto, with arrow keys
-    bindsym $mod+Shift+Left move left
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
+    # Arrows move the workspace to the neighbor monitor (vim moves stay on hjl)
+    bindsym $mod+Shift+Right move workspace to output right
+    bindsym $mod+Shift+Left move workspace to output left
 #
 # Workspaces:
 #
@@ -188,11 +193,31 @@ bindsym XF86AudioNext exec playerctl next
     bindsym $mod+Shift+0 move container to workspace $workspace10
 
 ##
-## Screenshots via grim and slurp
+## Screenshots via grimshot (wraps grim, slurp, swaymsg)
 ##
 
-    bindsym $mod+Print exec grim -g "$(slurp)" - | swappy -f -
-    bindsym $mod+Shift+Print exec grim -o DP-1 | notify-send -a "grim" "Screenshot:" "entire screen"
+    bindsym $mod+Print exec grimshot save area - | swappy -f -
+    bindsym $mod+Shift+Print exec grimshot --notify save output
+    bindsym $mod+Control+Print exec grimshot --notify save window
+    bindsym $mod+Mod1+Print exec grimshot copy area
+
+##
+## Clipboard history (stored by the wl-paste watcher further down)
+##
+
+    bindsym $mod+c exec clipman pick -t rofi --notify
+
+##
+## Screen recording, same binding starts and stops it
+##
+
+    bindsym $mod+Shift+p exec ~/.config/sway/scripts/record.sh
+
+##
+## Rofi: recursive file search ($switcher on alt+tab handles windows)
+##
+
+    bindsym $mod+Shift+f exec rofi -show recursivebrowser
 #
 # Layout stuff:
 #
@@ -272,26 +297,33 @@ default_border pixel 2
 
 
 
-exec eval $(gnome-keyring-daemon --start --components=ssh)
-exec export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
-exec waybar
-# exec swaync
-exec dunst
-#exec swayidle -w \
-#	timeout 600 '$lock' \
-#	timeout 1200 'swaymsg "output * dpms off"' \
-#		resume 'swaymsg "output * dpms on"' \
-#	before-sleep '$lock' 
+# waybar started as a systemd user unit (Restart=on-failure survives
+# crashes); same unit serves Hyprland
+exec swaync
+# exec dunst
+# Without this, GUI privilege prompts never appear.
+exec lxpolkit
+exec swayidle -w \
+	timeout 900 '$lock' \
+	before-sleep '$lock' \
+	after-resume '~/.config/sway/scripts/fix-resume.sh'
 #exec mako
-exec sleep 1 && keepassxc
-exec swaymsg "workspace 1; exec $term ; layout splitv; exec $term" 
+#exec sleep 1 && keepassxc
+# Tray icons are lost if an app registers before waybar. Parens, not braces:
+# sway reads { as a config block.
+exec kanshi
+
+exec /usr/libexec/sway-systemd/wait-sni-ready && ( \
+    blueman-applet & \
+    nm-applet & \
+    nextcloud & \
+    flatpak run com.bitwarden.desktop & )
+
+exec swaymsg "workspace 1; exec $term"
 exec swaymsg "workspace 5; exec flatpak run org.signal.Signal" 
 exec swaymsg "workspace 2; exec flatpak run org.mozilla.firefox" 
-#exec swaymsg "workspace 5; exec flatpak run io.github.mimbrero.WhatsAppDesktop" 
-exec swaymsg "workspace 5; exec flatpak run com.google.Chrome --enable-features=UseOzonePlatform --ozone-platform=wayland --app=https://web.whatsapp.com"
-exec blueman-applet
-exec nm-applet
-exec nextcloud
+exec swaymsg "workspace 5; exec flatpak run io.github.mimbrero.WhatsAppDesktop"
+exec swaymsg "workspace 9; exec flatpak run ch.protonmail.protonmail-bridge"
 exec wl-paste -t text --watch clipman store
 
 # swaymsg -t get_tree
@@ -299,20 +331,35 @@ for_window [class="whatsapp-desktop-linux"] move to workspace 5
 for_window [app_id="web.whatsapp.com"] move to workspace 5
 for_window [class="Signal"] move to workspace 5
 for_window [app_id="org.keepassxc.KeePassXC"] move to workspace 8
+# Electron reports app_id on Wayland, class on XWayland.
+for_window [app_id="bitwarden"] move to workspace 8
+for_window [app_id="com.bitwarden.desktop"] move to workspace 8
+for_window [class="Bitwarden"] move to workspace 8
 for_window [app_id="org.kde.kalk"] floating enable
+# The Bridge keeps a small no-icon window (real app_id differs from the
+# flatpak id); the two variants cover app_id churn across versions.
+for_window [app_id="ch.proton.bridge-gui"] move to workspace 9
+for_window [app_id="ch.protonmail.protonmail-bridge"] move to workspace 9
+
+# Helpers float by default: tile layout does nothing for them
+for_window [app_id="org.gnome.Nautilus"] floating enable
+for_window [app_id="org.pulseaudio.pavucontrol"] floating enable
+for_window [app_id="wdisplays"] floating enable
+for_window [app_id="blueman-manager"] floating enable
 
 #for_window [] border none
 
-#worskspaces to displays
-workspace 1 output DP-1
-workspace 2 output DP-1
-workspace 3 output DP-1
-workspace 4 output DP-1
-workspace 5 output DP-2
-workspace 6 output DP-2
-workspace 7 output DP-1
-workspace 8 output DP-1
-workspace 9 output DP-1
-workspace 10 output DP-2
+# No fixed workspace->output assignments: mod+N switches to workspace N on
+# the focused monitor, or to the existing workspace N wherever it lives.
+# Unfixed also means undocking leaves everything on the laptop panel.
+
+### Outputs when docked
+# Layout (mode/position/transform) is kanshi's job now - see
+# ~/.config/kanshi/config. Sway config output lines would fight kanshi on
+# reload, and connector names (DP-x) shuffle between dock reconnects.
+
+# SwayFX extras (fx.conf is absent on plain sway - include ignores missing
+# files), then the image-wide includes.
+include ~/.config/sway/fx.*
 
 include /etc/sway/config.d/*

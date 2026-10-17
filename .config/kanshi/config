@@ -1,0 +1,13 @@
+# Match by description, not port name: a monitor keeps its description across
+# docks. Get both with: swaymsg -t get_outputs
+
+profile laptop {
+	output eDP-1 enable scale 1
+}
+
+# Fill in once the dock is attached:
+# profile docked {
+#	output eDP-1 disable
+#	output "Make Model Serial" enable mode 3440x1440 position 0,0
+#	exec swaymsg workspace 1, move workspace to output "Make Model Serial"
+# }
